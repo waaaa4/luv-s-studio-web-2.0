@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bring Club Vibes To Home - LUV'S STUDIO</title>
+    <style>
+        :root { --bg-dark: #09090e; --card-bg: #151520; --neon-pink: #ff007f; --neon-blue: #00f0ff; --text-main: #ffffff; --text-muted: #d0d0d0; --nav-height: 60px; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: var(--text-main); padding-top: var(--nav-height); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; box-sizing: border-box; }
+        
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .top-nav { position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); background-color: rgba(0, 0, 0, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-sizing: border-box; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .nav-brand { font-size: 1.1rem; font-weight: 900; letter-spacing: 2px; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; white-space: nowrap; }
+        .nav-links { display: flex; gap: 15px; overflow-x: auto; white-space: nowrap; }
+        .nav-links::-webkit-scrollbar { display: none; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; transition: 0.3s ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); }
+        
+        .order-btn-nav { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white !important; text-decoration: none; padding: 8px 16px; font-size: 0.85rem; font-weight: bold; border-radius: 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; white-space: nowrap; }
+        .order-btn-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 240, 255, 0.4); }
+        
+        header { padding: 30px 20px; background-color: #000; border-bottom: 1px solid rgba(255, 0, 127, 0.3); text-align: center; }
+        .brand-title { font-size: 2.5rem; font-weight: 800; letter-spacing: 2px; margin: 0; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue), var(--neon-pink)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientFlow 6s linear infinite; }
+        
+        .hero-intro { text-align: center; padding: 50px 15px 30px; animation: fadeSlideUp 0.8s ease-out forwards; }
+        .hero-intro h2 { letter-spacing: 2px; font-size: 2rem; margin-bottom: 15px; text-transform: uppercase; }
+        .hero-intro p { font-size: 1.05rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        /* FUSED COMPONENT SECTION */
+        .feature-container { padding: 20px 15px 60px; max-width: 1100px; margin: 0 auto; box-sizing: border-box; }
+
+        .fused-card { 
+            position: relative; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            margin-bottom: 50px; 
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            animation: fadeSlideUp 0.8s ease-out;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .fused-card:hover { 
+            border-color: var(--neon-pink); 
+            box-shadow: 0 15px 45px rgba(255, 0, 127, 0.25); 
+        }
+
+        /* The background image layer with a dark gradient overlay so text is crisp */
+        .fused-bg-image {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            /* Replace the gradient/placeholder with your actual image path like: url('images/controller.jpg') */
+            background: linear-gradient(135deg, rgba(9, 9, 14, 0.92), rgba(21, 21, 32, 0.85)), linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+            background-size: cover; background-position: center;
+            z-index: 1;
+        }
+
+        .fused-content {
+            position: relative; z-index: 2; padding: 35px;
+            box-sizing: border-box; backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .fused-content h3 { font-size: 2rem; color: var(--neon-blue); margin-top: 0; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .fused-content .highlight { color: var(--neon-pink); }
+        .fused-content p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; margin-bottom: 20px; max-width: 700px; }
+        
+        .feature-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        .feature-list li { font-size: 0.95rem; padding-left: 25px; position: relative; color: var(--text-main); line-height: 1.5; background: rgba(0, 0, 0, 0.3); padding: 12px 15px 12px 35px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); }
+        .feature-list li::before { content: '✓'; position: absolute; left: 12px; color: var(--neon-pink); font-weight: bold; }
+
+        /* REVIEWS SECTION */
+        .reviews-section { padding: 60px 15px; background-color: #050508; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); box-sizing: border-box; }
+        .reviews-section h2 { font-size: 2rem; color: var(--text-main); margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
+        .reviews-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; }
+        
+        .review-card { 
+            background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); 
+            border-radius: 12px; padding: 25px; width: 280px; text-align: left; box-sizing: border-box;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .review-card:hover { transform: translateY(-5px); border-color: var(--neon-blue); }
+
+        .stars { color: #ffcc00; font-size: 1.1rem; margin-bottom: 12px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255, 204, 0, 0.4); }
+        .review-text { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; font-style: italic; }
+        .reviewer-name { color: var(--text-main); font-weight: bold; font-size: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; }
+        .verified-badge { color: #25D366; font-size: 0.75rem; font-weight: normal; margin-left: 5px; }
+
+       /* MOBILE OPTIMIZATION */
+        @media (max-width: 768px) { 
+            /* Fix Checkout grid */
+            .checkout-container { grid-template-columns: 1fr; margin: 15px auto; padding: 0 10px; } 
+            
+            /* Two-Tier Mobile Navigation */
+            .top-nav { 
+                flex-wrap: wrap; 
+                height: auto; 
+                padding: 12px 15px; 
+                gap: 12px; 
+            }
+            .nav-brand { 
+                order: 1; 
+                font-size: 1rem;
+            }
+            .order-btn-nav { 
+                order: 2; 
+                margin-left: auto; /* Pushes button to the far right */
+                font-size: 0.75rem;
+                padding: 6px 12px;
+            }
+            .nav-links { 
+                order: 3; 
+                width: 100%; 
+                justify-content: flex-start; 
+                padding-bottom: 5px;
+                /* Adds a smooth fade effect to the edge so users know they can swipe */
+                mask-image: linear-gradient(to right, black 85%, transparent 100%);
+                -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+            }
+            
+            /* Pushes the rest of the page down so it doesn't hide behind the taller nav */
+            body { padding-top: 100px; }
+            
+            /* Fix product detail cards on index page */
+            .fused-content { padding: 20px; }
+            .fused-content h3 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">LUV'S STUDIO</div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Details</a>
+            <a href="why-us.html">Why Us</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <a href="pricing.html" class="order-btn-nav">ORDER NOW</a>
+    </nav>
+    
+    <header>
+        <h1 class="brand-title">LUV'S STUDIO</h1>
+    </header>
+    
+    <section class="hero-intro">
+        <h2>Bring Club Vibes To Home</h2>
+        <p>Smart, colorful, and limitless RGBIC controller kits designed to sync with your music and elevate your space.</p>
+    </section>
+
+    <!-- FUSED COMPONENT DETAILS SECTION -->
+    <main class="feature-container">
+        
+        <!-- Component 1: Controller Hub -->
+        <div class="fused-card">
+            <!-- To use a real background image, change style background below or add your image file path -->
+            <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(0, 240, 255, 0.15), transparent 50%);"></div>
+            <div class="fused-content">
+                <h3>The <span class="highlight">Brain</span> of the Kit</h3>
+                <p>Our self-engineered, high-performance controller hub is custom-built to turn any room into an immersive lighting experience with zero lag.</p>
+                <ul class="feature-list">
+                    <li><strong>Wi-Fi Enabled:</strong> No bulky apps required. Control instantly from any browser.</li>
+                    <li><strong>Advanced Music Sync:</strong> Highly sensitive onboard mic for real-time audio reactivity.</li>
+                    <li><strong>Built-In Mini Games:</strong> Play interactive games directly on your LED strip.</li>
+                    <li><strong>15+ Club Presets:</strong> Transform ambiance instantly with Northern Lights and custom modes.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Component 2: WS2812B Strips -->
+        <div class="fused-card">
+            <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(255, 0, 127, 0.15), transparent 50%);"></div>
+            <div class="fused-content">
+                <h3>Vibrant <span class="highlight">WS2812B</span> Tech</h3>
+                <p>Powered by premium addressable WS2812B chips delivering liquid-smooth color animations and high-intensity illumination.</p>
+                <ul class="feature-list">
+                    <li><strong>60 LEDs Per Meter:</strong> High density layout for continuous, gapless brilliance.</li>
+                    <li><strong>Individually Addressable:</strong> True RGBIC tech displaying multiple colors simultaneously.</li>
+                    <li><strong>16 Million+ Colors:</strong> Granular control over precise hue blending channels.</li>
+                    <li><strong>Optimized 5V Power:</strong> Maximum brightness output without excessive heat spots.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Component 3: Power Supply -->
+        <div class="fused-card">
+            <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(0, 240, 255, 0.15), transparent 50%);"></div>
+            <div class="fused-content">
+                <h3>Reliable <span class="highlight">Power</span> Delivery</h3>
+                <p>Engineered for safety and long-term durability during extended parties, movie nights, or continuous daily usage.</p>
+                <ul class="feature-list">
+                    <li><strong>Stable 5V DC Output:</strong> Prevents voltage drops across long running lengths.</li>
+                    <li><strong>Heavy-Duty Regulation:</strong> Built-in thermal and surge protection architecture.</li>
+                    <li><strong>Plug & Play Setup:</strong> Tool-free quick connectors requiring zero technical skills.</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- CUSTOMER REVIEWS SECTION -->
+    <section class="reviews-section">
+        <h2>What Our Customers Say</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">"Mind-blowing music sync response. Zero lag and setup took less than 5 minutes in my bedroom workspace."</div>
+                <div class="reviewer-name">Rahul S. <span class="verified-badge">✓ Verified</span></div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">"No app download needed—running straight from a phone web browser is a game changer. Absolutely worth it."</div>
+                <div class="reviewer-name">Vikram M. <span class="verified-badge">✓ Verified</span></div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">"The strip brightness and color depth are leagues ahead of cheap marketplace kits. Exceptional build."</div>
+                <div class="reviewer-name">Anjali P. <span class="verified-badge">✓ Verified</span></div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

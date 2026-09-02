@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - LUV'S STUDIO</title>
+    <style>
+        :root { --bg-dark: #09090e; --card-bg: #151520; --neon-pink: #ff007f; --neon-blue: #00f0ff; --text-main: #ffffff; --text-muted: #a0a0a0; --nav-height: 60px; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: var(--text-main); padding-top: var(--nav-height); display: flex; flex-direction: column; min-height: 100vh; box-sizing: border-box; }
+        
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .top-nav { position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); background-color: rgba(0, 0, 0, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-sizing: border-box; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .nav-brand { font-size: 1.1rem; font-weight: 900; letter-spacing: 2px; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; white-space: nowrap; }
+        .nav-links { display: flex; gap: 15px; overflow-x: auto; white-space: nowrap; }
+        .nav-links::-webkit-scrollbar { display: none; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; transition: 0.3s ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); }
+        
+        .order-btn-nav { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white !important; text-decoration: none; padding: 6px 14px; font-size: 0.8rem; font-weight: bold; border-radius: 20px; }
+
+        header { padding: 30px 20px; background-color: #000; border-bottom: 1px solid rgba(255, 0, 127, 0.3); text-align: center; }
+        .brand-title { font-size: 2.2rem; font-weight: 800; letter-spacing: 2px; margin: 0; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue), var(--neon-pink)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientFlow 6s linear infinite; }
+        
+        .contact-section { padding: 40px 15px; max-width: 700px; margin: 0 auto; flex-grow: 1; text-align: center; box-sizing: border-box; animation: fadeSlideUp 0.8s ease-out forwards; width: 100%; }
+        .contact-section h2 { font-size: 1.6rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
+        .contact-section p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 30px; line-height: 1.5; }
+        
+        .contact-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 30px 20px; box-sizing: border-box; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; align-items: center; }
+        
+        .contact-btn { 
+            display: inline-block; color: white; text-decoration: none; 
+            padding: 14px 24px; border-radius: 30px; font-weight: bold; font-size: 1rem; 
+            transition: transform 0.2s, box-shadow 0.2s; box-sizing: border-box; width: 100%; max-width: 350px; text-align: center;
+        }
+        
+        .whatsapp-btn { background-color: #25D366; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); margin-bottom: 15px; }
+        .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5); }
+
+        .email-btn { background-color: #1a1a24; border: 1px solid rgba(0, 240, 255, 0.3); box-shadow: 0 4px 15px rgba(0, 240, 255, 0.1); margin-bottom: 15px; color: var(--neon-blue); }
+        .email-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 240, 255, 0.25); border-color: var(--neon-blue); }
+
+        .support-info { margin-top: 20px; color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+        .support-info strong { color: var(--text-main); }
+
+        /* MOBILE OPTIMIZATION */
+        @media (max-width: 768px) { 
+            .top-nav { 
+                flex-wrap: wrap; 
+                height: auto; 
+                padding: 12px 15px; 
+                gap: 12px; 
+            }
+            .nav-brand { 
+                order: 1; 
+                font-size: 1rem;
+            }
+            .order-btn-nav { 
+                order: 2; 
+                margin-left: auto; 
+                font-size: 0.75rem;
+                padding: 6px 12px;
+            }
+            .nav-links { 
+                order: 3; 
+                width: 100%; 
+                justify-content: flex-start; 
+                padding-bottom: 5px;
+                mask-image: linear-gradient(to right, black 85%, transparent 100%);
+                -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+            }
+            body { padding-top: 100px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">LUV'S STUDIO</div>
+        <div class="nav-links">
+            <a href="index.html">Details</a>
+            <a href="why-us.html">Why Us</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="contact.html" class="active">Contact Us</a>
+        </div>
+        <a href="pricing.html" class="order-btn-nav">ORDER NOW</a>
+    </nav>
+    
+    <header>
+        <h1 class="brand-title">LUV'S STUDIO</h1>
+    </header>
+    
+    <main class="contact-section">
+        <h2>Get in Touch</h2>
+        <p>Have questions about custom setups, technical specs, or bulk orders? Reach out to us instantly through any of the channels below!</p>
+        
+        <div class="contact-card">
+            <a href="https://wa.me/916388315385?text=Hi%20Luv's%20Studio,%20I%20have%20a%20question." class="contact-btn whatsapp-btn" target="_blank">Chat with Us on WhatsApp</a>
+            <a href="mailto:luvsstudio0000@gmail.com?subject=Inquiry%20regarding%20Luv's%20Studio%20Kits" class="contact-btn email-btn">Email Us Directly</a>
+            
+            <div class="support-info">
+                Direct Support Line: <strong>63883 15385</strong><br>
+                Email Support: <strong style="color: var(--neon-blue);">luvsstudio0000@gmail.com</strong><br>
+                Available Mon–Sat (10:00 AM – 8:00 PM)
+            </div>
+        </div>
+    </main>
+</body>
+</html>
