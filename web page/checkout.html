@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Checkout and complete your LUV'S STUDIO order directly. Support for UPI and Cash on Delivery.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>Checkout - LUV'S STUDIO</title>
     <style>
         :root { --bg-dark: #09090e; --card-bg: #151520; --neon-pink: #ff007f; --neon-blue: #00f0ff; --text-main: #ffffff; --text-muted: #a0a0a0; --nav-height: 60px; }
@@ -41,7 +43,6 @@
         .pay-option .subtext { display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: normal; margin-top: 4px; }
         .pay-option.selected { border-color: var(--neon-blue); background: rgba(0, 240, 255, 0.05); }
 
-        /* DIRECT UPI SECTION STYLES */
         .upi-payment-box { display: none; background: rgba(0,0,0,0.4); border: 1px dashed var(--neon-blue); border-radius: 12px; padding: 20px; text-align: center; margin-top: 15px; }
         .upi-payment-box.active { display: block; animation: fadeSlideUp 0.4s ease-out forwards; }
         
@@ -62,6 +63,8 @@
         .complete-order-btn { display: block; width: 100%; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white; border: none; padding: 16px; font-weight: bold; font-size: 1.05rem; border-radius: 30px; text-align: center; cursor: pointer; margin-top: 20px; box-shadow: 0 4px 15px rgba(255, 0, 127, 0.3); box-sizing: border-box; transition: 0.2s; }
         .complete-order-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 240, 255, 0.4); }
         .complete-order-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+        
+        .site-footer { text-align: center; padding: 20px; background-color: #000; border-top: 1px solid rgba(255, 0, 127, 0.3); color: var(--text-muted); font-size: 0.85rem; margin-top: auto; }
 
         @media (max-width: 768px) { .checkout-container { grid-template-columns: 1fr; margin: 15px auto; padding: 0 10px; } }
     </style>
@@ -83,7 +86,6 @@
     </header>
     
     <div class="checkout-container">
-        
         <div class="checkout-form-box">
             <h2>1. Shipping Details</h2>
             <form id="checkoutForm" onsubmit="handleCheckout(event)">
@@ -106,7 +108,6 @@
 
                 <h2 style="margin-top: 35px;">2. Payment Method</h2>
                 <div class="payment-options">
-                    
                     <label class="pay-option selected" id="label-upi">
                         <input type="radio" name="paymentMethod" value="upi" checked onchange="updatePaymentUI()">
                         <div>
@@ -126,13 +127,9 @@
 
                 <div class="upi-payment-box active" id="upiDetailsBox">
                     <p style="margin-top: 0; font-size: 0.95rem; color: var(--text-muted);">Scan the QR or click below to pay <strong style="color: white;">₹<span id="displayUpiAmount">0</span></strong></p>
-                    
                     <img id="dynamicUpiQr" src="" alt="UPI QR Code" class="qr-code-img">
-                    
                     <p style="font-size: 0.85rem; margin-bottom: 15px;">UPI ID: <strong id="displayUpiId">8840019236@upi</strong></p>
-                    
                     <a href="#" id="upiDeepLinkBtn" class="upi-deep-link">Pay Now on Mobile App</a>
-                    
                     <div class="form-group" style="text-align: left; margin-top: 20px;">
                         <label>Enter 12-Digit UTR (Reference Number) *</label>
                         <input type="text" id="utrNumber" placeholder="e.g. 312345678901" required>
@@ -178,14 +175,15 @@
         </div>
     </div>
 
+    <footer class="site-footer">
+        <p>&copy; 2026 LUV'S STUDIO. All rights reserved.</p>
+    </footer>
+
     <script>
         let basePriceNumeric = 0;
         let finalPriceNumeric = 0;
         let appliedDiscountText = "None";
         
-        // ==========================================
-        // UPI CREDENTIALS UPDATED HERE
-        // ==========================================
         const merchantUPI = "8840019236@upi"; 
         const merchantName = "LUVS STUDIO";
 
@@ -249,9 +247,6 @@
             const discountRow = document.getElementById('discountRow');
             const discountAmountEl = document.getElementById('discountAmount');
 
-            // ==========================================
-            // 🎟️ MASTER COUPON LIST
-            // ==========================================
             const validCoupons = {
                 'CLUB10': { type: 'percent', value: 10 },
                 'LUV15': { type: 'percent', value: 15 },
@@ -318,7 +313,6 @@
                 utr = document.getElementById('utrNumber').value.trim();
             }
 
-            // Sends data silently to your email via FormSubmit
             fetch("https://formsubmit.co/ajax/luvsstudio0000@gmail.com", {
                 method: "POST",
                 headers: { 

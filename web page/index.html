@@ -28,7 +28,10 @@
         .hero-intro h2 { letter-spacing: 2px; font-size: 2rem; margin-bottom: 15px; text-transform: uppercase; }
         .hero-intro p { font-size: 1.05rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
-        /* FUSED COMPONENT SECTION */
+        .hero-key-points { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 30px; animation: fadeSlideUp 1s ease-out forwards; max-width: 900px; margin-left: auto; margin-right: auto; }
+        .hero-key-points .point { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(0, 240, 255, 0.3); padding: 10px 20px; border-radius: 30px; font-size: 0.9rem; font-weight: 600; color: var(--text-main); transition: 0.3s ease; cursor: default; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 8px; }
+        .hero-key-points .point:hover { border-color: var(--neon-pink); box-shadow: 0 0 15px rgba(255, 0, 127, 0.4); transform: translateY(-3px); color: var(--text-main); }
+
         .feature-container { padding: 20px 15px 60px; max-width: 1100px; margin: 0 auto; box-sizing: border-box; }
 
         .fused-card { 
@@ -46,10 +49,8 @@
             box-shadow: 0 15px 45px rgba(255, 0, 127, 0.25); 
         }
 
-        /* The background image layer with a dark gradient overlay so text is crisp */
         .fused-bg-image {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* Replace the gradient/placeholder with your actual image path like: url('images/controller.jpg') */
             background: linear-gradient(135deg, rgba(9, 9, 14, 0.92), rgba(21, 21, 32, 0.85)), linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
             background-size: cover; background-position: center;
             z-index: 1;
@@ -59,6 +60,23 @@
             position: relative; z-index: 2; padding: 35px;
             box-sizing: border-box; backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
+        }
+
+        .split-layout { display: flex; gap: 30px; align-items: center; margin-bottom: 25px; }
+        .split-text { flex: 1.2; }
+        .split-image { flex: 1; text-align: center; }
+        
+        /* BULLETPROOF IMAGE STYLING */
+        .chip-img {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+            background-color: #000; /* Fallback color */
         }
 
         .fused-content h3 { font-size: 2rem; color: var(--neon-blue); margin-top: 0; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
@@ -86,44 +104,32 @@
         .reviewer-name { color: var(--text-main); font-weight: bold; font-size: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; }
         .verified-badge { color: #25D366; font-size: 0.75rem; font-weight: normal; margin-left: 5px; }
 
+        /* FAQ SECTION */
+        .faq-section { padding: 60px 15px; background-color: var(--bg-dark); text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); box-sizing: border-box; }
+        .faq-section h2 { font-size: 2rem; color: var(--text-main); margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
+        .faq-container { max-width: 800px; margin: 0 auto; text-align: left; }
+        .faq-item { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: border-color 0.3s ease; }
+        .faq-item:hover { border-color: var(--neon-pink); }
+        .faq-item summary { padding: 20px; font-size: 1.1rem; font-weight: 600; color: var(--text-main); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: '+'; color: var(--neon-pink); font-size: 1.5rem; font-weight: 400; transition: transform 0.3s ease; }
+        .faq-item[open] summary::after { transform: rotate(45deg); color: var(--neon-blue); }
+        .faq-item[open] summary { border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .faq-item p { padding: 20px; margin: 0; color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+
        /* MOBILE OPTIMIZATION */
         @media (max-width: 768px) { 
-            /* Fix Checkout grid */
             .checkout-container { grid-template-columns: 1fr; margin: 15px auto; padding: 0 10px; } 
-            
-            /* Two-Tier Mobile Navigation */
-            .top-nav { 
-                flex-wrap: wrap; 
-                height: auto; 
-                padding: 12px 15px; 
-                gap: 12px; 
-            }
-            .nav-brand { 
-                order: 1; 
-                font-size: 1rem;
-            }
-            .order-btn-nav { 
-                order: 2; 
-                margin-left: auto; /* Pushes button to the far right */
-                font-size: 0.75rem;
-                padding: 6px 12px;
-            }
-            .nav-links { 
-                order: 3; 
-                width: 100%; 
-                justify-content: flex-start; 
-                padding-bottom: 5px;
-                /* Adds a smooth fade effect to the edge so users know they can swipe */
-                mask-image: linear-gradient(to right, black 85%, transparent 100%);
-                -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-            }
-            
-            /* Pushes the rest of the page down so it doesn't hide behind the taller nav */
+            .top-nav { flex-wrap: wrap; height: auto; padding: 12px 15px; gap: 12px; }
+            .nav-brand { order: 1; font-size: 1rem; }
+            .order-btn-nav { order: 2; margin-left: auto; font-size: 0.75rem; padding: 6px 12px; }
+            .nav-links { order: 3; width: 100%; justify-content: flex-start; padding-bottom: 5px; mask-image: linear-gradient(to right, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%); }
             body { padding-top: 100px; }
-            
-            /* Fix product detail cards on index page */
             .fused-content { padding: 20px; }
             .fused-content h3 { font-size: 1.5rem; }
+            .hero-key-points { gap: 10px; padding: 0 10px; margin-top: 20px; }
+            .hero-key-points .point { font-size: 0.8rem; padding: 8px 14px; }
+            .split-layout { flex-direction: column; }
         }
     </style>
 </head>
@@ -146,6 +152,13 @@
     <section class="hero-intro">
         <h2>Bring Club Vibes To Home</h2>
         <p>Smart, colorful, and limitless RGBIC controller kits designed to sync with your music and elevate your space.</p>
+        
+        <div class="hero-key-points">
+            <div class="point">🎵 AI Audio Reactivity</div>
+            <div class="point">⚙️ Onboard Processing</div>
+            <div class="point">🌐 App-Free Web Control</div>
+            <div class="point">✨ True RGBIC Technology</div>
+        </div>
     </section>
 
     <!-- FUSED COMPONENT DETAILS SECTION -->
@@ -153,16 +166,15 @@
         
         <!-- Component 1: Controller Hub -->
         <div class="fused-card">
-            <!-- To use a real background image, change style background below or add your image file path -->
             <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(0, 240, 255, 0.15), transparent 50%);"></div>
             <div class="fused-content">
                 <h3>The <span class="highlight">Brain</span> of the Kit</h3>
                 <p>Our self-engineered, high-performance controller hub is custom-built to turn any room into an immersive lighting experience with zero lag.</p>
                 <ul class="feature-list">
-                    <li><strong>Wi-Fi Enabled:</strong> No bulky apps required. Control instantly from any browser.</li>
-                    <li><strong>Advanced Music Sync:</strong> Highly sensitive onboard mic for real-time audio reactivity.</li>
-                    <li><strong>Built-In Mini Games:</strong> Play interactive games directly on your LED strip.</li>
-                    <li><strong>15+ Club Presets:</strong> Transform ambiance instantly with Northern Lights and custom modes.</li>
+                    <li><strong>AI-Powered Music Sync:</strong> Utilizes an onboard microprocessor and integrated high-sensitivity mic to analyze beats for real-time audio reactivity.</li>
+                    <li><strong>App-Free Interface:</strong> Fully Wi-Fi enabled architecture allows seamless lighting control instantly from any device browser.</li>
+                    <li><strong>Interactive Dynamic Modes:</strong> Features immersive custom animations and interactive light sequences processed directly on the hub.</li>
+                    <li><strong>15+ Professional Presets:</strong> Instantly transform your environment with meticulously engineered visual effects like Northern Lights.</li>
                 </ul>
             </div>
         </div>
@@ -171,8 +183,18 @@
         <div class="fused-card">
             <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(255, 0, 127, 0.15), transparent 50%);"></div>
             <div class="fused-content">
-                <h3>Vibrant <span class="highlight">WS2812B</span> Tech</h3>
-                <p>Powered by premium addressable WS2812B chips delivering liquid-smooth color animations and high-intensity illumination.</p>
+                
+                <div class="split-layout">
+                    <div class="split-text">
+                        <h3>Vibrant <span class="highlight">WS2812B</span> Tech</h3>
+                        <p>Powered by premium addressable WS2812B chips delivering liquid-smooth color animations and high-intensity illumination.</p>
+                    </div>
+                    <div class="split-image">
+                        <!-- STANDARD IMAGE RENDERING -->
+                        <img src="rgbchip.jpg" alt="WS2812B RGBIC LED Chip" class="chip-img">
+                    </div>
+                </div>
+
                 <ul class="feature-list">
                     <li><strong>60 LEDs Per Meter:</strong> High density layout for continuous, gapless brilliance.</li>
                     <li><strong>Individually Addressable:</strong> True RGBIC tech displaying multiple colors simultaneously.</li>
@@ -217,6 +239,29 @@
                 <div class="review-text">"The strip brightness and color depth are leagues ahead of cheap marketplace kits. Exceptional build."</div>
                 <div class="reviewer-name">Anjali P. <span class="verified-badge">✓ Verified</span></div>
             </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <details class="faq-item">
+                <summary>Do I need to download an app to control the lights?</summary>
+                <p>No! Our controller hub is fully Wi-Fi enabled. You can connect and control your lighting modes instantly from any web browser on your phone, tablet, or PC without taking up storage space.</p>
+            </details>
+            <details class="faq-item">
+                <summary>How difficult is the installation process?</summary>
+                <p>It's incredibly simple. The kit features a plug-and-play design with tool-free quick connectors. You can have your entire space lit up and synced in under 5 minutes.</p>
+            </details>
+            <details class="faq-item">
+                <summary>How does the music sync feature work?</summary>
+                <p>The controller handles AI music algorithms locally using its onboard processor and integrated microphone, meaning it reacts to your room's audio in real-time without needing to route sound through a secondary device.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Can I cut the LED strips to fit my specific setup?</summary>
+                <p>Yes. The premium WS2812B strips have designated cut lines. You can trim them to fit your exact measurements for a custom desk or monitor setup without damaging the rest of the strip.</p>
+            </details>
         </div>
     </section>
 </body>
