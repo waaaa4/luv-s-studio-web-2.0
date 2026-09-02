@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - LUV'S STUDIO</title>
+    <style>
+        /* GLOBAL STYLES */
+        :root { --bg-dark: #09090e; --card-bg: #151520; --neon-pink: #ff007f; --neon-blue: #00f0ff; --text-main: #ffffff; --text-muted: #a0a0a0; --nav-height: 70px; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: var(--text-main); padding-top: var(--nav-height); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* MINIMAL ANIMATIONS */
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* NAV BAR */
+        .top-nav { position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; box-sizing: border-box; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .nav-brand { font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; gap: 35px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; transition: 0.3s ease; }
+        .nav-links a:hover { color: var(--text-main); text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); }
+        
+        /* CLEAN ORDER BUTTON */
+        .order-btn-nav { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white !important; text-decoration: none; padding: 10px 25px; font-size: 0.95rem; font-weight: bold; border-radius: 30px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .order-btn-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 240, 255, 0.4); }
+        
+        /* HEADER */
+        header { padding: 40px 20px; background-color: #000; border-bottom: 1px solid rgba(255, 0, 127, 0.3); text-align: center; }
+        .brand-title { font-size: 3.5rem; font-weight: 800; letter-spacing: 3px; margin: 0; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue), var(--neon-pink)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientFlow 6s linear infinite; }
+        
+        /* PRICING SECTION */
+        .pricing-section { padding: 60px 20px; text-align: center; background-color: #050508; min-height: 70vh; flex-grow: 1; }
+        .pricing-section h2 { font-size: 2.5rem; color: var(--text-main); margin-bottom: 40px; animation: fadeSlideUp 0.8s ease-out forwards; }
+        
+        .pricing-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1400px; margin: 0 auto; padding-top: 20px; }
+        
+        /* CARDS */
+        .price-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 25px; width: 280px; opacity: 0; animation: fadeSlideUp 0.6s ease-out forwards; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; position: relative; }
+        .price-card:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.2); }
+        
+        .price-card:nth-child(1) { animation-delay: 0.1s; }
+        .price-card:nth-child(2) { animation-delay: 0.2s; }
+        .price-card:nth-child(3) { animation-delay: 0.3s; }
+        .price-card:nth-child(4) { animation-delay: 0.4s; }
+        .price-card:nth-child(5) { animation-delay: 0.5s; }
+
+        /* BEST VALUE CARD STYLES */
+        .highlight-card { border: 2px solid var(--neon-blue); box-shadow: 0 0 20px rgba(0, 240, 255, 0.15); transform: scale(1.02); }
+        .highlight-card:hover { border-color: var(--neon-pink); box-shadow: 0 10px 30px rgba(255, 0, 127, 0.3); transform: scale(1.02) translateY(-5px); }
+        
+        .best-value-badge {
+            position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white;
+            padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 800;
+            letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);
+            white-space: nowrap; z-index: 10;
+        }
+
+        /* SLEEK IMAGE PLACEHOLDER */
+        .image-placeholder { width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg, #09090e, #151520); border: 1px dashed rgba(0, 240, 255, 0.3); border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: rgba(255, 255, 255, 0.2); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; transition: border-color 0.3s ease, color 0.3s ease; }
+        .price-card:hover .image-placeholder { border-color: rgba(255, 0, 127, 0.5); color: rgba(255, 0, 127, 0.6); }
+
+        .price-card h3 { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-top: 0; font-size: 1.1rem; color: #fff; }
+        .price-card p { color: var(--text-muted); font-size: 0.9rem; min-height: 40px; }
+        .price-amount { font-size: 2.2rem; font-weight: bold; color: var(--text-main); margin: 15px 0 25px; }
+        
+        /* STANDARD BUY BUTTON */
+        .pay-btn { display: block; background: #ffffff; color: #000000; padding: 15px; font-weight: bold; border-radius: 30px; text-decoration: none; transition: 0.2s; text-align: center; }
+        .pay-btn:hover { background: #e0e0e0; transform: scale(1.02); }
+
+        /* HIGHLIGHT BUY BUTTON */
+        .pay-btn-highlight { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white; border: none; box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3); }
+        .pay-btn-highlight:hover { transform: scale(1.02); opacity: 0.9; background: #ffffff; color: #000000; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4); }
+        
+        @media (max-width: 900px) { .top-nav { flex-wrap: wrap; padding: 15px 20px; height: auto; } .nav-links { order: 3; width: 100%; justify-content: center; margin-top: 15px; gap: 20px; } body { padding-top: 120px; } .highlight-card { transform: scale(1); } .highlight-card:hover { transform: translateY(-5px); } }
+    </style>
+</head>
+<body>
+    <!-- NAV BAR -->
+    <nav class="top-nav">
+        <div class="nav-brand">LUV'S STUDIO</div>
+        <div class="nav-links">
+            <a href="index.html">Details</a>
+            <a href="why-us.html">Why Us</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <a href="pricing.html" class="order-btn-nav">ORDER NOW</a>
+    </nav>
+    
+    <!-- HEADER -->
+    <header>
+        <h1 class="brand-title">LUV'S STUDIO</h1>
+    </header>
+    
+    <!-- PRICING SECTION -->
+    <main class="pricing-section">
+        <h2>PRICING OPTIONS</h2>
+
+        <!-- INDIVIDUAL BUY CARDS -->
+        <div class="pricing-grid">
+            
+            <!-- Tier 1 -->
+            <div class="price-card">
+                <div class="image-placeholder">RGBIC Controller</div>
+                <h3>ONLY CONTROLLER</h3>
+                <p>WiFi Enabled High Performance</p>
+                <div class="price-amount">₹1,700</div>
+                <a href="checkout.html?item=ONLY%20CONTROLLER&price=₹1,700" class="pay-btn">Buy Now</a>
+            </div>
+
+            <!-- Tier 2 -->
+            <div class="price-card">
+                <div class="image-placeholder">5M Strip Kit</div>
+                <h3>5M STRIP + CONTROLLER</h3>
+                <p>(WITHOUT POWER SUPPLY)</p>
+                <div class="price-amount">₹3,099</div>
+                <a href="checkout.html?item=5M%20STRIP%20+%20CONTROLLER&price=₹3,099" class="pay-btn">Buy Now</a>
+            </div>
+
+            <!-- Tier 3 -->
+            <div class="price-card">
+                <div class="image-placeholder">5M Full Kit</div>
+                <h3>5M KIT + POWER</h3>
+                <p>Plug & Play Ready</p>
+                <div class="price-amount">₹3,599</div>
+                <a href="checkout.html?item=5M%20KIT%20+%20POWER&price=₹3,599" class="pay-btn">Buy Now</a>
+            </div>
+
+            <!-- Tier 4 -->
+            <div class="price-card">
+                <div class="image-placeholder">10M Full Kit</div>
+                <h3>10M KIT + POWER</h3>
+                <p>Extended Length</p>
+                <div class="price-amount">₹4,599</div>
+                <a href="checkout.html?item=10M%20KIT%20+%20POWER&price=₹4,599" class="pay-btn">Buy Now</a>
+            </div>
+
+            <!-- Tier 5 (HIGHLIGHTED BEST VALUE) -->
+            <div class="price-card highlight-card">
+                <div class="best-value-badge">BEST VALUE</div>
+                <div class="image-placeholder">15M Full Kit</div>
+                <h3>15M KIT + POWER</h3>
+                <p>Maximum Coverage</p>
+                <div class="price-amount">₹5,299</div>
+                <a href="checkout.html?item=15M%20KIT%20+%20POWER&price=₹5,299" class="pay-btn pay-btn-highlight">Buy Now</a>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>

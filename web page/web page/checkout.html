@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - LUV'S STUDIO</title>
+    <style>
+        :root { --bg-dark: #09090e; --card-bg: #151520; --neon-pink: #ff007f; --neon-blue: #00f0ff; --text-main: #ffffff; --text-muted: #a0a0a0; --nav-height: 60px; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: var(--text-main); padding-top: var(--nav-height); display: flex; flex-direction: column; min-height: 100vh; box-sizing: border-box; }
+        
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .top-nav { position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); background-color: rgba(0, 0, 0, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-sizing: border-box; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .nav-brand { font-size: 1.1rem; font-weight: 900; letter-spacing: 2px; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; white-space: nowrap; }
+        .nav-links { display: flex; gap: 15px; overflow-x: auto; white-space: nowrap; }
+        .nav-links::-webkit-scrollbar { display: none; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; transition: 0.3s ease; }
+        .nav-links a:hover { color: var(--text-main); }
+        
+        .order-btn-nav { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white !important; text-decoration: none; padding: 6px 14px; font-size: 0.8rem; font-weight: bold; border-radius: 20px; }
+        
+        header { padding: 30px 20px; background-color: #000; border-bottom: 1px solid rgba(255, 0, 127, 0.3); text-align: center; }
+        .brand-title { font-size: 2.2rem; font-weight: 800; letter-spacing: 2px; margin: 0; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue), var(--neon-pink)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .checkout-container { max-width: 900px; margin: 30px auto; padding: 0 15px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; animation: fadeSlideUp 0.8s ease-out forwards; flex-grow: 1; box-sizing: border-box; width: 100%; }
+
+        .checkout-form-box, .checkout-summary-box { background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); box-sizing: border-box; }
+
+        h2 { font-size: 1.2rem; margin-top: 0; margin-bottom: 20px; color: var(--text-main); letter-spacing: 1px; text-transform: uppercase; }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .form-group input[type="text"], .form-group input[type="tel"] { width: 100%; padding: 12px; background: rgba(9, 9, 14, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: white; font-size: 0.95rem; box-sizing: border-box; transition: 0.3s; }
+        .form-group input:focus { outline: none; border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0, 240, 255, 0.2); }
+
+        .payment-options { display: flex; flex-direction: column; gap: 10px; margin-top: 25px; margin-bottom: 15px; }
+        .pay-option { display: flex; align-items: center; padding: 15px; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; cursor: pointer; transition: 0.3s; background: rgba(0,0,0,0.2); }
+        .pay-option:hover { border-color: var(--neon-blue); }
+        .pay-option input { margin-right: 15px; accent-color: var(--neon-blue); transform: scale(1.2); }
+        .pay-option span { font-weight: bold; font-size: 0.95rem; }
+        .pay-option .subtext { display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: normal; margin-top: 4px; }
+        .pay-option.selected { border-color: var(--neon-blue); background: rgba(0, 240, 255, 0.05); }
+
+        /* DIRECT UPI SECTION STYLES */
+        .upi-payment-box { display: none; background: rgba(0,0,0,0.4); border: 1px dashed var(--neon-blue); border-radius: 12px; padding: 20px; text-align: center; margin-top: 15px; }
+        .upi-payment-box.active { display: block; animation: fadeSlideUp 0.4s ease-out forwards; }
+        
+        .qr-code-img { width: 180px; height: 180px; border-radius: 10px; margin: 10px auto; border: 8px solid white; background-color: white; object-fit: contain; display: block; }
+        
+        .upi-deep-link { display: inline-block; background: #25D366; color: white; padding: 10px 20px; border-radius: 20px; font-weight: bold; text-decoration: none; margin: 10px 0; transition: transform 0.2s; }
+        .upi-deep-link:hover { transform: scale(1.05); }
+
+        .coupon-row { display: flex; gap: 8px; margin-bottom: 12px; }
+        .coupon-row input { flex-grow: 1; text-transform: uppercase; }
+        .coupon-btn { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .coupon-btn:hover { background: var(--neon-blue); color: #000; border-color: var(--neon-blue); }
+        .coupon-message { font-size: 0.8rem; margin-bottom: 10px; display: none; }
+
+        .summary-line { display: flex; justify-content: space-between; margin-bottom: 10px; color: var(--text-muted); font-size: 0.9rem; }
+        .summary-total { display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 1.25rem; color: var(--text-main); font-weight: bold; }
+
+        .complete-order-btn { display: block; width: 100%; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white; border: none; padding: 16px; font-weight: bold; font-size: 1.05rem; border-radius: 30px; text-align: center; cursor: pointer; margin-top: 20px; box-shadow: 0 4px 15px rgba(255, 0, 127, 0.3); box-sizing: border-box; transition: 0.2s; }
+        .complete-order-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 240, 255, 0.4); }
+        .complete-order-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        @media (max-width: 768px) { .checkout-container { grid-template-columns: 1fr; margin: 15px auto; padding: 0 10px; } }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">LUV'S STUDIO</div>
+        <div class="nav-links">
+            <a href="index.html">Details</a>
+            <a href="why-us.html">Why Us</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <a href="pricing.html" class="order-btn-nav">BACK TO STORE</a>
+    </nav>
+    
+    <header>
+        <h1 class="brand-title">LUV'S STUDIO</h1>
+    </header>
+    
+    <div class="checkout-container">
+        
+        <div class="checkout-form-box">
+            <h2>1. Shipping Details</h2>
+            <form id="checkoutForm" onsubmit="handleCheckout(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="fullName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" required placeholder="63883 15385">
+                </div>
+                <div class="form-group">
+                    <label>Delivery Address</label>
+                    <input type="text" id="address" required placeholder="House No, Street, Landmark">
+                </div>
+                <div class="form-group">
+                    <label>City & Pincode</label>
+                    <input type="text" id="city" required placeholder="City, State - Pincode">
+                </div>
+
+                <h2 style="margin-top: 35px;">2. Payment Method</h2>
+                <div class="payment-options">
+                    
+                    <label class="pay-option selected" id="label-upi">
+                        <input type="radio" name="paymentMethod" value="upi" checked onchange="updatePaymentUI()">
+                        <div>
+                            <span>Direct UPI (0% Fee)</span>
+                            <span class="subtext">GPay, PhonePe, Paytm, BHIM</span>
+                        </div>
+                    </label>
+
+                    <label class="pay-option" id="label-cod">
+                        <input type="radio" name="paymentMethod" value="cod" onchange="updatePaymentUI()">
+                        <div>
+                            <span>Cash on Delivery / Request Details</span>
+                            <span class="subtext">Pay when the package arrives</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="upi-payment-box active" id="upiDetailsBox">
+                    <p style="margin-top: 0; font-size: 0.95rem; color: var(--text-muted);">Scan the QR or click below to pay <strong style="color: white;">₹<span id="displayUpiAmount">0</span></strong></p>
+                    
+                    <img id="dynamicUpiQr" src="" alt="UPI QR Code" class="qr-code-img">
+                    
+                    <p style="font-size: 0.85rem; margin-bottom: 15px;">UPI ID: <strong id="displayUpiId">8840019236@upi</strong></p>
+                    
+                    <a href="#" id="upiDeepLinkBtn" class="upi-deep-link">Pay Now on Mobile App</a>
+                    
+                    <div class="form-group" style="text-align: left; margin-top: 20px;">
+                        <label>Enter 12-Digit UTR (Reference Number) *</label>
+                        <input type="text" id="utrNumber" placeholder="e.g. 312345678901" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="complete-order-btn" id="submitBtn">Submit Order Details</button>
+            </form>
+        </div>
+
+        <div class="checkout-summary-box">
+            <h2>Order Summary</h2>
+            <div class="summary-line">
+                <span id="checkoutItemName">Selected Kit</span>
+                <strong id="checkoutItemPrice" style="color: white;">₹0</strong>
+            </div>
+
+            <div class="form-group" style="margin-top: 15px; margin-bottom: 8px;">
+                <label for="couponCode">Discount Code</label>
+                <div class="coupon-row">
+                    <input type="text" id="couponCode" placeholder="Enter coupon code">
+                    <button type="button" class="coupon-btn" onclick="applyCoupon()">Apply</button>
+                </div>
+            </div>
+            <div id="couponMessage" class="coupon-message"></div>
+
+            <div class="summary-line" id="discountRow" style="display: none; color: #25D366;">
+                <span>Discount Applied</span>
+                <strong id="discountAmount">-₹0</strong>
+            </div>
+
+            <div class="summary-line">
+                <span>Shipping</span>
+                <strong style="color: #25D366;">FREE</strong>
+            </div>
+            <div class="summary-total">
+                <span>Total</span>
+                <strong id="checkoutTotal" style="color: var(--neon-pink);">₹0</strong>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 25px; line-height: 1.5; text-align: center;">
+                ⚡ Zero Commission Direct Payment.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let basePriceNumeric = 0;
+        let finalPriceNumeric = 0;
+        let appliedDiscountText = "None";
+        
+        // ==========================================
+        // UPI CREDENTIALS UPDATED HERE
+        // ==========================================
+        const merchantUPI = "8840019236@upi"; 
+        const merchantName = "LUVS STUDIO";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('displayUpiId').innerText = merchantUPI;
+
+            const params = new URLSearchParams(window.location.search);
+            const item = params.get('item');
+            const priceStr = params.get('price');
+
+            if (item && priceStr) {
+                document.getElementById('checkoutItemName').innerText = item;
+                document.getElementById('checkoutItemPrice').innerText = priceStr;
+                basePriceNumeric = parseInt(priceStr.replace(/[^0-9]/g, ''));
+            } else {
+                document.getElementById('checkoutItemName').innerText = "15M KIT + POWER";
+                document.getElementById('checkoutItemPrice').innerText = "₹5,299";
+                basePriceNumeric = 5299;
+            }
+            finalPriceNumeric = basePriceNumeric;
+            
+            updateTotalDisplay();
+            updatePaymentUI();
+        });
+
+        function updateTotalDisplay() {
+            const formattedTotal = finalPriceNumeric.toLocaleString('en-IN');
+            document.getElementById('checkoutTotal').innerText = '₹' + formattedTotal;
+            document.getElementById('displayUpiAmount').innerText = formattedTotal;
+            
+            const upiUrl = `upi://pay?pa=${merchantUPI}&pn=${encodeURIComponent(merchantName)}&am=${finalPriceNumeric}&cu=INR`;
+            document.getElementById('upiDeepLinkBtn').href = upiUrl;
+
+            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUrl)}`;
+            document.getElementById('dynamicUpiQr').src = qrApiUrl;
+        }
+
+        function updatePaymentUI() {
+            const method = document.querySelector('input[name="paymentMethod"]:checked').value;
+            const labelUpi = document.getElementById('label-upi');
+            const labelCod = document.getElementById('label-cod');
+            const upiDetailsBox = document.getElementById('upiDetailsBox');
+            const utrInput = document.getElementById('utrNumber');
+
+            if (method === 'upi') {
+                labelUpi.classList.add('selected');
+                labelCod.classList.remove('selected');
+                upiDetailsBox.classList.add('active');
+                utrInput.setAttribute('required', 'true');
+            } else {
+                labelCod.classList.add('selected');
+                labelUpi.classList.remove('selected');
+                upiDetailsBox.classList.remove('active');
+                utrInput.removeAttribute('required');
+            }
+        }
+
+        function applyCoupon() {
+            const code = document.getElementById('couponCode').value.trim().toUpperCase();
+            const msgBox = document.getElementById('couponMessage');
+            const discountRow = document.getElementById('discountRow');
+            const discountAmountEl = document.getElementById('discountAmount');
+
+            // ==========================================
+            // 🎟️ MASTER COUPON LIST
+            // ==========================================
+            const validCoupons = {
+                'CLUB10': { type: 'percent', value: 10 },
+                'LUV15': { type: 'percent', value: 15 },
+                'FLAT500': { type: 'flat', value: 500 },
+                'KRIDAY99': { type: 'percent', value: 99.9 },
+                'PROMO150': { type: 'flat', value: 150 } 
+            };
+
+            msgBox.style.display = 'block';
+
+            if (validCoupons.hasOwnProperty(code)) {
+                const coupon = validCoupons[code];
+                let discountVal = 0;
+
+                if (coupon.type === 'percent') {
+                    discountVal = Math.round(basePriceNumeric * (coupon.value / 100));
+                } else if (coupon.type === 'flat') {
+                    discountVal = coupon.value;
+                    if (basePriceNumeric <= discountVal) {
+                        msgBox.style.color = '#ff3333';
+                        msgBox.innerText = 'Order value too low for this code.';
+                        return;
+                    }
+                }
+
+                finalPriceNumeric = basePriceNumeric - discountVal;
+                
+                msgBox.style.color = '#25D366';
+                msgBox.innerText = `✓ Success! ${coupon.type === 'percent' ? coupon.value + '%' : '₹' + coupon.value} discount applied.`;
+                
+                discountRow.style.display = 'flex';
+                discountAmountEl.innerText = '-₹' + discountVal.toLocaleString('en-IN');
+                appliedDiscountText = `${code} (-₹${discountVal})`;
+                
+            } else {
+                msgBox.style.color = '#ff3333';
+                msgBox.innerText = '✕ Invalid or expired code.';
+                finalPriceNumeric = basePriceNumeric;
+                discountRow.style.display = 'none';
+                appliedDiscountText = 'None';
+            }
+            
+            updateTotalDisplay();
+        }
+
+        function handleCheckout(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = "Processing Order...";
+            submitBtn.disabled = true;
+
+            const name = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const item = document.getElementById('checkoutItemName').innerText;
+            const total = document.getElementById('checkoutTotal').innerText;
+            const method = document.querySelector('input[name="paymentMethod"]:checked').value;
+            
+            let utr = "N/A (Cash on Delivery)";
+            if (method === 'upi') {
+                utr = document.getElementById('utrNumber').value.trim();
+            }
+
+            // Sends data silently to your email via FormSubmit
+            fetch("https://formsubmit.co/ajax/luvsstudio0000@gmail.com", {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    _subject: `New Order from ${name} - LUV'S STUDIO`,
+                    "Customer Name": name,
+                    "Phone Number": phone,
+                    "Delivery Address": `${address}, ${city}`,
+                    "Kit Selected": item,
+                    "Coupon Applied": appliedDiscountText,
+                    "Order Total": total,
+                    "Payment Method": method === 'upi' ? 'Direct UPI' : 'Cash on Delivery',
+                    "UTR Reference No": utr
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("✅ Order Placed Successfully! We have received your details.");
+                    document.getElementById("checkoutForm").reset();
+                    window.location.href = "index.html"; 
+                } else {
+                    alert("Something went wrong. Please try again.");
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                alert("Something went wrong. Please check your internet connection.");
+            })
+            .finally(() => {
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
