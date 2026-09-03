@@ -28,7 +28,10 @@
         .hero-intro h2 { letter-spacing: 2px; font-size: 2rem; margin-bottom: 15px; text-transform: uppercase; }
         .hero-intro p { font-size: 1.05rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
-        /* FUSED COMPONENT SECTION */
+        .hero-key-points { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 30px; animation: fadeSlideUp 1s ease-out forwards; max-width: 900px; margin-left: auto; margin-right: auto; }
+        .hero-key-points .point { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(0, 240, 255, 0.3); padding: 10px 20px; border-radius: 30px; font-size: 0.9rem; font-weight: 600; color: var(--text-main); transition: 0.3s ease; cursor: default; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 8px; }
+        .hero-key-points .point:hover { border-color: var(--neon-pink); box-shadow: 0 0 15px rgba(255, 0, 127, 0.4); transform: translateY(-3px); color: var(--text-main); }
+
         .feature-container { padding: 20px 15px 60px; max-width: 1100px; margin: 0 auto; box-sizing: border-box; }
 
         .fused-card { 
@@ -46,10 +49,8 @@
             box-shadow: 0 15px 45px rgba(255, 0, 127, 0.25); 
         }
 
-        /* The background image layer with a dark gradient overlay so text is crisp */
         .fused-bg-image {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* Replace the gradient/placeholder with your actual image path like: url('images/controller.jpg') */
             background: linear-gradient(135deg, rgba(9, 9, 14, 0.92), rgba(21, 21, 32, 0.85)), linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
             background-size: cover; background-position: center;
             z-index: 1;
@@ -61,6 +62,20 @@
             -webkit-backdrop-filter: blur(4px);
         }
 
+        .split-layout { display: flex; gap: 30px; align-items: center; margin-bottom: 25px; }
+        .split-text { flex: 1.2; }
+        .split-image { flex: 1; text-align: center; }
+        
+        .blend-img {
+            width: 100%;
+            max-width: 360px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            mix-blend-mode: lighten;
+            filter: contrast(1.15) brightness(1.1);
+        }
+
         .fused-content h3 { font-size: 2rem; color: var(--neon-blue); margin-top: 0; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
         .fused-content .highlight { color: var(--neon-pink); }
         .fused-content p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; margin-bottom: 20px; max-width: 700px; }
@@ -69,61 +84,57 @@
         .feature-list li { font-size: 0.95rem; padding-left: 25px; position: relative; color: var(--text-main); line-height: 1.5; background: rgba(0, 0, 0, 0.3); padding: 12px 15px 12px 35px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); }
         .feature-list li::before { content: '✓'; position: absolute; left: 12px; color: var(--neon-pink); font-weight: bold; }
 
-        /* REVIEWS SECTION */
         .reviews-section { padding: 60px 15px; background-color: #050508; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); box-sizing: border-box; }
         .reviews-section h2 { font-size: 2rem; color: var(--text-main); margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
         .reviews-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; }
         
-        .review-card { 
-            background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); 
-            border-radius: 12px; padding: 25px; width: 280px; text-align: left; box-sizing: border-box;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
+        .review-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 25px; width: 280px; text-align: left; box-sizing: border-box; transition: transform 0.3s ease, border-color 0.3s ease; }
         .review-card:hover { transform: translateY(-5px); border-color: var(--neon-blue); }
-
         .stars { color: #ffcc00; font-size: 1.1rem; margin-bottom: 12px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255, 204, 0, 0.4); }
         .review-text { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; font-style: italic; }
         .reviewer-name { color: var(--text-main); font-weight: bold; font-size: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; }
         .verified-badge { color: #25D366; font-size: 0.75rem; font-weight: normal; margin-left: 5px; }
 
+        .faq-section { padding: 60px 15px; background-color: var(--bg-dark); text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); box-sizing: border-box; }
+        .faq-section h2 { font-size: 2rem; color: var(--text-main); margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
+        .faq-container { max-width: 800px; margin: 0 auto; text-align: left; }
+        .faq-item { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: border-color 0.3s ease; }
+        .faq-item:hover { border-color: var(--neon-pink); }
+        .faq-item summary { padding: 20px; font-size: 1.1rem; font-weight: 600; color: var(--text-main); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: '+'; color: var(--neon-pink); font-size: 1.5rem; font-weight: 400; transition: transform 0.3s ease; }
+        .faq-item[open] summary::after { transform: rotate(45deg); color: var(--neon-blue); }
+        .faq-item[open] summary { border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .faq-item p { padding: 20px; margin: 0; color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+
+        /* FLOATING IFRAME CHATBOT STYLES */
+        .chat-toggle { position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; border-radius: 50%; background: #000; border: 2px solid var(--neon-blue); cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; padding: 14px; color: var(--neon-blue); }
+        .chat-toggle:hover { transform: scale(1.08); box-shadow: 0 0 30px rgba(255, 0, 127, 0.6); border-color: var(--neon-pink); color: var(--neon-pink); }
+        .chat-toggle svg { width: 100%; height: 100%; display: block; }
+        
+        .chat-iframe-wrapper { position: fixed; bottom: 105px; right: 25px; width: 380px; height: 600px; max-height: 80vh; background-color: var(--card-bg); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 15px; box-shadow: 0 15px 45px rgba(0,0,0,0.9); z-index: 9998; opacity: 0; pointer-events: none; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; overflow: hidden; }
+        .chat-iframe-wrapper.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .chat-iframe-wrapper iframe { width: 100%; height: 100%; border: none; background: transparent; }
+
+        .close-iframe-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: 0.2s ease; backdrop-filter: blur(4px); }
+        .close-iframe-btn:hover { background: var(--neon-pink); border-color: var(--neon-pink); transform: scale(1.1); }
+
        /* MOBILE OPTIMIZATION */
         @media (max-width: 768px) { 
-            /* Fix Checkout grid */
             .checkout-container { grid-template-columns: 1fr; margin: 15px auto; padding: 0 10px; } 
-            
-            /* Two-Tier Mobile Navigation */
-            .top-nav { 
-                flex-wrap: wrap; 
-                height: auto; 
-                padding: 12px 15px; 
-                gap: 12px; 
-            }
-            .nav-brand { 
-                order: 1; 
-                font-size: 1rem;
-            }
-            .order-btn-nav { 
-                order: 2; 
-                margin-left: auto; /* Pushes button to the far right */
-                font-size: 0.75rem;
-                padding: 6px 12px;
-            }
-            .nav-links { 
-                order: 3; 
-                width: 100%; 
-                justify-content: flex-start; 
-                padding-bottom: 5px;
-                /* Adds a smooth fade effect to the edge so users know they can swipe */
-                mask-image: linear-gradient(to right, black 85%, transparent 100%);
-                -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-            }
-            
-            /* Pushes the rest of the page down so it doesn't hide behind the taller nav */
+            .top-nav { flex-wrap: wrap; height: auto; padding: 12px 15px; gap: 12px; }
+            .nav-brand { order: 1; font-size: 1rem; }
+            .order-btn-nav { order: 2; margin-left: auto; font-size: 0.75rem; padding: 6px 12px; }
+            .nav-links { order: 3; width: 100%; justify-content: flex-start; padding-bottom: 5px; mask-image: linear-gradient(to right, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%); }
             body { padding-top: 100px; }
-            
-            /* Fix product detail cards on index page */
             .fused-content { padding: 20px; }
             .fused-content h3 { font-size: 1.5rem; }
+            .hero-key-points { gap: 10px; padding: 0 10px; margin-top: 20px; }
+            .hero-key-points .point { font-size: 0.8rem; padding: 8px 14px; }
+            .split-layout { flex-direction: column; }
+            
+            .chat-iframe-wrapper { width: calc(100% - 40px); right: 20px; bottom: 95px; height: 70vh; }
+            .chat-toggle { width: 55px; height: 55px; right: 20px; bottom: 20px; padding: 12px; }
         }
     </style>
 </head>
@@ -146,33 +157,52 @@
     <section class="hero-intro">
         <h2>Bring Club Vibes To Home</h2>
         <p>Smart, colorful, and limitless RGBIC controller kits designed to sync with your music and elevate your space.</p>
+        
+        <div class="hero-key-points">
+            <div class="point">🎵 AI Audio Reactivity</div>
+            <div class="point">⚙️ Onboard Processing</div>
+            <div class="point">🌐 App-Free Web Control</div>
+            <div class="point">✨ True RGBIC Technology</div>
+        </div>
     </section>
 
-    <!-- FUSED COMPONENT DETAILS SECTION -->
     <main class="feature-container">
         
-        <!-- Component 1: Controller Hub -->
         <div class="fused-card">
-            <!-- To use a real background image, change style background below or add your image file path -->
             <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(0, 240, 255, 0.15), transparent 50%);"></div>
             <div class="fused-content">
-                <h3>The <span class="highlight">Brain</span> of the Kit</h3>
-                <p>Our self-engineered, high-performance controller hub is custom-built to turn any room into an immersive lighting experience with zero lag.</p>
+                <div class="split-layout">
+                    <div class="split-text">
+                        <h3>The <span class="highlight">Brain</span> of the Kit</h3>
+                        <p>Our self-engineered, high-performance controller hub is custom-built to turn any room into an immersive lighting experience with zero lag.</p>
+                    </div>
+                    <div class="split-image">
+                        <img src="brain.png" alt="Luv's Studio Controller Hub" class="blend-img">
+                    </div>
+                </div>
+
                 <ul class="feature-list">
-                    <li><strong>Wi-Fi Enabled:</strong> No bulky apps required. Control instantly from any browser.</li>
-                    <li><strong>Advanced Music Sync:</strong> Highly sensitive onboard mic for real-time audio reactivity.</li>
-                    <li><strong>Built-In Mini Games:</strong> Play interactive games directly on your LED strip.</li>
-                    <li><strong>15+ Club Presets:</strong> Transform ambiance instantly with Northern Lights and custom modes.</li>
+                    <li><strong>AI-Powered Music Sync:</strong> Utilizes an onboard microprocessor and integrated high-sensitivity mic to analyze beats for real-time audio reactivity.</li>
+                    <li><strong>App-Free Interface:</strong> Fully Wi-Fi enabled architecture allows seamless lighting control instantly from any device browser.</li>
+                    <li><strong>Interactive Dynamic Modes:</strong> Features immersive custom animations and interactive light sequences processed directly on the hub.</li>
+                    <li><strong>15+ Professional Presets:</strong> Instantly transform your environment with meticulously engineered visual effects like Northern Lights.</li>
                 </ul>
             </div>
         </div>
 
-        <!-- Component 2: WS2812B Strips -->
         <div class="fused-card">
             <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(255, 0, 127, 0.15), transparent 50%);"></div>
             <div class="fused-content">
-                <h3>Vibrant <span class="highlight">WS2812B</span> Tech</h3>
-                <p>Powered by premium addressable WS2812B chips delivering liquid-smooth color animations and high-intensity illumination.</p>
+                <div class="split-layout">
+                    <div class="split-text">
+                        <h3>Vibrant <span class="highlight">WS2812B</span> Tech</h3>
+                        <p>Powered by premium addressable WS2812B chips delivering liquid-smooth color animations and high-intensity illumination.</p>
+                    </div>
+                    <div class="split-image">
+                        <img src="rgbchip.jpg" alt="WS2812B RGBIC LED Chip" class="blend-img">
+                    </div>
+                </div>
+
                 <ul class="feature-list">
                     <li><strong>60 LEDs Per Meter:</strong> High density layout for continuous, gapless brilliance.</li>
                     <li><strong>Individually Addressable:</strong> True RGBIC tech displaying multiple colors simultaneously.</li>
@@ -182,12 +212,20 @@
             </div>
         </div>
 
-        <!-- Component 3: Power Supply -->
         <div class="fused-card">
             <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(0, 240, 255, 0.15), transparent 50%);"></div>
             <div class="fused-content">
-                <h3>Reliable <span class="highlight">Power</span> Delivery</h3>
-                <p>Engineered for safety and long-term durability during extended parties, movie nights, or continuous daily usage.</p>
+                
+                <div class="split-layout">
+                    <div class="split-text">
+                        <h3>Reliable <span class="highlight">Power</span> Delivery</h3>
+                        <p>Engineered for safety and long-term durability during extended parties, movie nights, or continuous daily usage.</p>
+                    </div>
+                    <div class="split-image">
+                        <img src="power supply.png" alt="Heavy Duty Power Supply" class="blend-img">
+                    </div>
+                </div>
+
                 <ul class="feature-list">
                     <li><strong>Stable 5V DC Output:</strong> Prevents voltage drops across long running lengths.</li>
                     <li><strong>Heavy-Duty Regulation:</strong> Built-in thermal and surge protection architecture.</li>
@@ -198,7 +236,6 @@
 
     </main>
 
-    <!-- CUSTOMER REVIEWS SECTION -->
     <section class="reviews-section">
         <h2>What Our Customers Say</h2>
         <div class="reviews-grid">
@@ -219,5 +256,57 @@
             </div>
         </div>
     </section>
+
+    <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <details class="faq-item">
+                <summary>Do I need to download an app to control the lights?</summary>
+                <p>No! Our controller hub is fully Wi-Fi enabled. You can connect and control your lighting modes instantly from any web browser on your phone, tablet, or PC without taking up storage space.</p>
+            </details>
+            <details class="faq-item">
+                <summary>How difficult is the installation process?</summary>
+                <p>It's incredibly simple. The kit features a plug-and-play design with tool-free quick connectors. You can have your entire space lit up and synced in under 5 minutes.</p>
+            </details>
+            <details class="faq-item">
+                <summary>How does the music sync feature work?</summary>
+                <p>The controller handles AI music algorithms locally using its onboard processor and integrated microphone, meaning it reacts to your room's audio in real-time without needing to route sound through a secondary device.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Can I cut the LED strips to fit my specific setup?</summary>
+                <p>Yes. The premium WS2812B strips have designated cut lines. You can trim them to fit your exact measurements for a custom desk or monitor setup without damaging the rest of the strip.</p>
+            </details>
+        </div>
+    </section>
+
+    <button class="chat-toggle" id="chatToggleBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <path d="M7.5 9A4.5 4.5 0 0 1 16.5 9" />
+            <path d="M6 9h3v3H6z" />
+            <path d="M15 9h3v3h-3z" />
+            <path d="M18 11v2a2 2 0 0 1-2 2h-1" />
+        </svg>
+    </button>
+    
+    <div class="chat-iframe-wrapper" id="chatWrapper">
+        <button class="close-iframe-btn" id="closeIframeBtn">×</button>
+        <iframe src="https://cdn.botpress.cloud/webchat/v3.7/shareable.html?configUrl=https://files.bpcontent.cloud/2026/09/03/22/20260903221139-V04MM46I.json" frameborder="0"></iframe>
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById('chatToggleBtn');
+        const chatWrapper = document.getElementById('chatWrapper');
+        const closeBtn = document.getElementById('closeIframeBtn');
+
+        toggleBtn.addEventListener('click', () => {
+            chatWrapper.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            chatWrapper.classList.remove('active');
+        });
+    </script>
 </body>
 </html>
