@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Contact LUV'S STUDIO for inquiries, custom setups, and technical specifications. Instant chat support on WhatsApp.">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <title>Contact Us - LUV'S STUDIO</title>
+    <title>Customer Care - LUV'S STUDIO</title>
     <style>
+        /* EXISTING CSS (PRESERVED) */
         :root { --bg-dark: #09090e; --card-bg: #151520; --neon-pink: #ff007f; --neon-blue: #00f0ff; --text-main: #ffffff; --text-muted: #a0a0a0; --nav-height: 60px; }
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: var(--text-main); padding-top: var(--nav-height); display: flex; flex-direction: column; min-height: 100vh; box-sizing: border-box; }
         
@@ -27,9 +28,9 @@
         
         .contact-section { padding: 40px 15px; max-width: 700px; margin: 0 auto; flex-grow: 1; text-align: center; box-sizing: border-box; animation: fadeSlideUp 0.8s ease-out forwards; width: 100%; }
         .contact-section h2 { font-size: 1.6rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
-        .contact-section p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 30px; line-height: 1.5; }
+        .contact-section p.sub-heading { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 30px; line-height: 1.5; }
         
-        .contact-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 30px 20px; box-sizing: border-box; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; align-items: center; }
+        .contact-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 30px 20px; box-sizing: border-box; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; width: 100%; }
         
         .contact-btn { display: inline-block; color: white; text-decoration: none; padding: 14px 24px; border-radius: 30px; font-weight: bold; font-size: 1rem; transition: transform 0.2s, box-shadow 0.2s; box-sizing: border-box; width: 100%; max-width: 350px; text-align: center; }
         
@@ -51,6 +52,29 @@
             .nav-links { order: 3; width: 100%; justify-content: flex-start; padding-bottom: 5px; mask-image: linear-gradient(to right, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%); }
             body { padding-top: 100px; }
         }
+
+        /* NEW CSS: TRACKING & FAQ STYLES */
+        .section-title { font-size: 1.4rem; margin-top: 0; margin-bottom: 20px; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px; }
+        .tracking-card { text-align: left; align-items: stretch; }
+        .track-sub { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.4; text-align: center; }
+        .tracking-form { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+        .tracking-input { width: 100%; padding: 15px 20px; border-radius: 8px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: var(--text-main); font-size: 0.95rem; box-sizing: border-box; transition: border-color 0.3s, box-shadow 0.3s; font-family: 'Segoe UI', sans-serif; }
+        .tracking-input:focus { outline: none; border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0,240,255,0.2); }
+        .track-btn { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); border: none; cursor: pointer; color: white; margin-top: 5px; max-width: 100%; font-size: 1.05rem; }
+        .track-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,240,255,0.4); }
+        .tracking-message { width: 100%; margin-top: 20px; padding: 18px; border-radius: 8px; font-size: 0.95rem; line-height: 1.6; box-sizing: border-box; display: none; text-align: left; }
+        .tracking-error { background: rgba(255,0,0,0.1); border: 1px solid rgba(255,0,0,0.3); color: #ff6b6b; display: block; }
+        .tracking-success { background: rgba(0,240,255,0.08); border: 1px solid rgba(0,240,255,0.3); color: var(--text-main); display: block; }
+        
+        .faq-card { text-align: left; align-items: stretch; }
+        details { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 18px 0; }
+        details:last-child { border-bottom: none; }
+        summary { font-weight: 600; cursor: pointer; outline: none; transition: color 0.3s; font-size: 1.05rem; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; color: var(--neon-blue); font-size: 1.5rem; line-height: 1; transition: transform 0.3s; }
+        details[open] summary::after { content: '−'; transform: rotate(180deg); }
+        details[open] summary { color: var(--neon-pink); }
+        details p { color: var(--text-muted); font-size: 0.95rem; margin-top: 15px; margin-bottom: 0; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -60,7 +84,7 @@
             <a href="index.html">Details</a>
             <a href="why-us.html">Why Us</a>
             <a href="pricing.html">Pricing</a>
-            <a href="contact.html" class="active">Contact Us</a>
+            <a href="contact.html" class="active">Customer Care</a>
         </div>
         <a href="pricing.html" class="order-btn-nav">ORDER NOW</a>
     </nav>
@@ -70,10 +94,24 @@
     </header>
     
     <main class="contact-section">
-        <h2>Get in Touch</h2>
-        <p>Have questions about custom setups, technical specs, or bulk orders? Reach out to us instantly through any of the channels below!</p>
+        <h2>Customer Care</h2>
+        <p class="sub-heading">We're here to help with your orders, questions, and support needs.</p>
         
+        <!-- TRACK YOUR ORDER SECTION -->
+        <div class="contact-card tracking-card">
+            <h3 class="section-title" style="text-align: center;">Track Your Order</h3>
+            <p class="track-sub">Enter your order details to check your order status.</p>
+            <div class="tracking-form">
+                <input type="text" id="orderId" placeholder="e.g. LUV12345" class="tracking-input">
+                <input type="text" id="contactDetails" placeholder="Enter the phone number or email used for your order" class="tracking-input">
+                <button onclick="trackOrder()" class="contact-btn track-btn">TRACK ORDER</button>
+            </div>
+            <div id="trackingMessage" class="tracking-message"></div>
+        </div>
+
+        <!-- CONTACT US SECTION (PRESERVED FUNCTIONALITY) -->
         <div class="contact-card">
+            <h3 class="section-title">Contact Us</h3>
             <a href="https://wa.me/916388315385?text=Hi%20Luv's%20Studio,%20I%20have%20a%20question." class="contact-btn whatsapp-btn" target="_blank">Chat with Us on WhatsApp</a>
             <a href="mailto:luvsstudio0000@gmail.com?subject=Inquiry%20regarding%20Luv's%20Studio%20Kits" class="contact-btn email-btn">Email Us Directly</a>
             
@@ -83,10 +121,60 @@
                 Available Mon–Sat (10:00 AM – 8:00 PM)
             </div>
         </div>
+
+        <!-- FREQUENTLY ASKED QUESTIONS SECTION -->
+        <div class="contact-card faq-card">
+            <h3 class="section-title" style="text-align: center;">Frequently Asked Questions</h3>
+            
+            <details>
+                <summary>How can I track my order?</summary>
+                <p>Enter your Order ID and the phone number/email used for your order in the Track Your Order section above.</p>
+            </details>
+            
+            <details>
+                <summary>Where can I contact LUV'S STUDIO?</summary>
+                <p>You can contact us through WhatsApp or email using the Contact Us section above.</p>
+            </details>
+            
+            <details>
+                <summary>What should I do if I cannot find my order details?</summary>
+                <p>Check that you entered the correct Order ID and the phone number/email used when placing the order. If you still need help, contact Customer Care.</p>
+            </details>
+            
+            <details>
+                <summary>How can I get help with my product?</summary>
+                <p>Contact LUV'S STUDIO through WhatsApp or email and our support team can assist you.</p>
+            </details>
+            
+            <details>
+                <summary>When is Customer Care available?</summary>
+                <p>Available Mon–Sat (10:00 AM – 8:00 PM).</p>
+            </details>
+        </div>
     </main>
 
     <footer class="site-footer">
         <p>&copy; 2026 LUV'S STUDIO. All rights reserved.</p>
     </footer>
+
+    <!-- JAVASCRIPT FOR TRACKING FORM -->
+    <script>
+        function trackOrder() {
+            const orderId = document.getElementById('orderId').value.trim();
+            const contactDetails = document.getElementById('contactDetails').value.trim();
+            const messageDiv = document.getElementById('trackingMessage');
+            
+            // Reset message styles
+            messageDiv.className = 'tracking-message';
+            
+            if (!orderId || !contactDetails) {
+                messageDiv.classList.add('tracking-error');
+                messageDiv.innerHTML = 'Please enter your Order ID and registered phone number or email.';
+            } else {
+                messageDiv.classList.add('tracking-success');
+                messageDiv.innerHTML = `<strong>Order Lookup</strong><br><br>Order ID: ${orderId}<br>Status: We are checking your order details.<br><br>Need help? Contact LUV'S STUDIO Customer Care using WhatsApp or Email below.`;
+            }
+        }
+    </script>
 </body>
 </html>
