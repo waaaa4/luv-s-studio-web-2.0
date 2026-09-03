@@ -17,95 +17,98 @@
         }
         body { margin: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg-dark); color: var(--text-main); padding-top: var(--nav-height); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         
-        /* MINIMAL ANIMATIONS */
-        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        @keyframes pulseGlow { 0% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.1); } 50% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.25); } 100% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.1); } }
+        /* PREMIUM ANIMATIONS */
+        @keyframes subtleShimmer { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        @keyframes softBreathe { 
+            0% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.1); } 
+            50% { box-shadow: 0 0 30px rgba(0, 240, 255, 0.2); } 
+            100% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.1); } 
+        }
 
         /* NAV BAR */
-        .top-nav { position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); background-color: rgba(9, 9, 14, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; box-sizing: border-box; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .top-nav { position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); background-color: rgba(9, 9, 14, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; box-sizing: border-box; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: background-color 0.4s ease; }
         .nav-brand { font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-links { display: flex; gap: 35px; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; transition: color 0.3s ease, text-shadow 0.3s ease; }
-        .nav-links a:hover { color: var(--text-main); text-shadow: 0 0 10px rgba(0, 240, 255, 0.6); }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; transition: color 0.4s ease; }
+        .nav-links a:hover { color: var(--text-main); }
         
-        /* CLEAN ORDER BUTTON */
-        .order-btn-nav { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white !important; text-decoration: none; padding: 10px 25px; font-size: 0.95rem; font-weight: bold; border-radius: 30px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .order-btn-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 240, 255, 0.4); }
+        .order-btn-nav { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white !important; text-decoration: none; padding: 10px 25px; font-size: 0.95rem; font-weight: bold; border-radius: 30px; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .order-btn-nav:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 240, 255, 0.3); filter: brightness(1.1); }
         
         /* HEADER */
-        header { padding: 40px 20px; background-color: #050508; border-bottom: 1px solid rgba(255, 0, 127, 0.15); text-align: center; position: relative; z-index: 2; }
-        .brand-title { font-size: 3.5rem; font-weight: 800; letter-spacing: 3px; margin: 0; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue), var(--neon-pink)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientFlow 6s linear infinite; }
+        header { padding: 40px 20px; background-color: transparent; border-bottom: 1px solid rgba(255, 0, 127, 0.15); text-align: center; position: relative; z-index: 2; }
+        .brand-title { font-size: 3.5rem; font-weight: 800; letter-spacing: 3px; margin: 0; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue), var(--neon-pink)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: subtleShimmer 8s linear infinite; }
         
         /* PRICING SECTION & LIGHTING */
-        .pricing-section { padding: 50px 20px; text-align: center; background-color: var(--bg-dark); min-height: 70vh; flex-grow: 1; position: relative; z-index: 1; }
-        .pricing-section::before { content: ''; position: absolute; top: 10%; left: 15%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(255,0,127,0.08) 0%, transparent 60%); z-index: -1; filter: blur(60px); pointer-events: none; }
-        .pricing-section::after { content: ''; position: absolute; bottom: 10%; right: 15%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(0,240,255,0.08) 0%, transparent 60%); z-index: -1; filter: blur(60px); pointer-events: none; }
+        .pricing-section { padding: 50px 20px; text-align: center; min-height: 70vh; flex-grow: 1; position: relative; z-index: 1; }
+        .pricing-section::before { content: ''; position: absolute; top: 10%; left: 15%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(255,0,127,0.05) 0%, transparent 60%); z-index: -1; filter: blur(70px); pointer-events: none; }
+        .pricing-section::after { content: ''; position: absolute; bottom: 10%; right: 15%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(0,240,255,0.05) 0%, transparent 60%); z-index: -1; filter: blur(70px); pointer-events: none; }
         
-        .pricing-section h2 { font-size: 2.5rem; color: var(--text-main); margin: 0 0 10px 0; letter-spacing: 1px; animation: fadeSlideUp 0.8s ease-out forwards; }
-        .pricing-subtitle { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; animation: fadeSlideUp 0.9s ease-out forwards; }
+        .pricing-section h2 { font-size: 2.5rem; color: var(--text-main); margin: 0 0 10px 0; letter-spacing: 1px; }
+        .pricing-subtitle { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; }
         
+        /* SCROLL REVEAL UTILITY */
+        .reveal-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .reveal-up.in-view { opacity: 1; transform: translateY(0); }
+
         /* SALE BANNER & TIMER */
-        .sale-banner { display: inline-flex; flex-direction: column; align-items: center; background: linear-gradient(90deg, rgba(255,0,127,0.05), rgba(0,240,255,0.05)); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px 40px; margin-bottom: 50px; animation: fadeSlideUp 1s ease-out forwards; backdrop-filter: blur(5px); }
-        .sale-name { font-size: 1.3rem; font-weight: 800; letter-spacing: 2px; color: var(--neon-blue); text-transform: uppercase; margin-bottom: 15px; text-shadow: 0 0 10px rgba(0,240,255,0.3); }
+        .sale-banner { display: inline-flex; flex-direction: column; align-items: center; background: linear-gradient(90deg, rgba(255,0,127,0.05), rgba(0,240,255,0.05)); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px 40px; margin-bottom: 50px; backdrop-filter: blur(10px); }
+        .sale-name { font-size: 1.3rem; font-weight: 800; letter-spacing: 2px; color: var(--neon-blue); text-transform: uppercase; margin-bottom: 15px; text-shadow: 0 0 15px rgba(0,240,255,0.2); }
         .countdown-timer { display: flex; gap: 15px; }
-        .time-box { background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 15px; min-width: 60px; display: flex; flex-direction: column; align-items: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
-        .time-box span { font-size: 1.6rem; font-weight: bold; color: var(--text-main); line-height: 1; margin-bottom: 5px; }
+        .time-box { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 10px 15px; min-width: 60px; display: flex; flex-direction: column; align-items: center; backdrop-filter: blur(4px); }
+        .time-box span { font-size: 1.6rem; font-weight: bold; color: var(--text-main); line-height: 1; margin-bottom: 5px; font-variant-numeric: tabular-nums; }
         .time-box small { font-size: 0.7rem; color: var(--neon-pink); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
 
         /* CARDS */
         .pricing-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 30px; max-width: 1400px; margin: 0 auto; padding-top: 10px; }
         
-        .price-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 25px; width: 280px; display: flex; flex-direction: column; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); opacity: 0; animation: fadeSlideUp 0.6s ease-out forwards; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease; position: relative; z-index: 2; }
-        .price-card:hover { transform: translateY(-8px); border-color: rgba(255, 255, 255, 0.25); box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 15px rgba(0, 240, 255, 0.05); z-index: 3; }
+        .price-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; width: 280px; display: flex; flex-direction: column; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; z-index: 2; transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .price-card:hover { transform: translateY(-8px); border-color: rgba(255, 255, 255, 0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0, 240, 255, 0.05); z-index: 3; }
         
-        .price-card:nth-child(1) { animation-delay: 0.1s; }
-        .price-card:nth-child(2) { animation-delay: 0.2s; }
-        .price-card:nth-child(3) { animation-delay: 0.3s; }
-        .price-card:nth-child(4) { animation-delay: 0.4s; }
-        .price-card:nth-child(5) { animation-delay: 0.5s; }
-        .price-card:nth-child(6) { animation-delay: 0.6s; }
-
         /* DISCOUNT BADGE */
-        .discount-badge { position: absolute; top: 15px; right: -10px; background: linear-gradient(45deg, var(--neon-pink), #ff4d4d); color: white; padding: 5px 12px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; border-radius: 4px; box-shadow: 0 4px 10px rgba(255,0,127,0.4); z-index: 10; transform: rotate(5deg); }
+        .discount-badge { position: absolute; top: 15px; right: -10px; background: linear-gradient(45deg, var(--neon-pink), #ff4d4d); color: white; padding: 5px 12px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; border-radius: 4px; box-shadow: 0 4px 10px rgba(255,0,127,0.3); z-index: 10; }
 
         /* BEST VALUE CARD STYLES */
-        .highlight-card { border: 1px solid var(--neon-blue); box-shadow: 0 0 20px rgba(0, 240, 255, 0.15); transform: scale(1.03); background: linear-gradient(180deg, rgba(21, 21, 32, 0.8) 0%, rgba(15, 15, 25, 0.95) 100%); animation: fadeSlideUp 0.6s ease-out forwards, pulseGlow 4s infinite alternate; }
-        .highlight-card:hover { border-color: var(--neon-pink); box-shadow: 0 15px 40px rgba(255, 0, 127, 0.25); transform: scale(1.03) translateY(-8px); animation: none; }
+        .highlight-card { border: 1px solid rgba(0, 240, 255, 0.5); background: linear-gradient(180deg, rgba(21, 21, 32, 0.85) 0%, rgba(15, 15, 25, 0.95) 100%); animation: softBreathe 6s infinite alternate; }
+        .highlight-card:hover { border-color: rgba(255, 0, 127, 0.5); box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255, 0, 127, 0.15); }
         
         .best-value-badge {
             position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
             background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white;
             padding: 6px 18px; border-radius: 20px; font-size: 0.75rem; font-weight: 800;
-            letter-spacing: 1.5px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);
+            letter-spacing: 1.5px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(255, 0, 127, 0.3);
             white-space: nowrap; z-index: 10;
         }
 
         /* SLEEK IMAGE PLACEHOLDER */
-        .image-placeholder { width: 100%; aspect-ratio: 4/3; background: radial-gradient(circle at center, #1e1e2d 0%, #0d0d14 100%); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 10px; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; color: rgba(255, 255, 255, 0.3); font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; transition: border-color 0.4s ease, color 0.4s ease, background 0.4s ease; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
-        .price-card:hover .image-placeholder { border-color: rgba(0, 240, 255, 0.4); color: rgba(0, 240, 255, 0.8); background: radial-gradient(circle at center, #232336 0%, #0d0d14 100%); }
-        .highlight-card:hover .image-placeholder { border-color: rgba(255, 0, 127, 0.5); color: rgba(255, 0, 127, 0.9); }
+        .image-placeholder { width: 100%; aspect-ratio: 4/3; background: radial-gradient(circle at center, rgba(30,30,45,0.5) 0%, rgba(13,13,20,0.8) 100%); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; color: rgba(255, 255, 255, 0.4); font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; transition: all 0.5s ease; }
+        .price-card:hover .image-placeholder { border-color: rgba(0, 240, 255, 0.2); color: rgba(0, 240, 255, 0.9); }
+        .highlight-card:hover .image-placeholder { border-color: rgba(255, 0, 127, 0.3); color: rgba(255, 0, 127, 0.9); }
 
-        .price-card h3 { border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 15px; margin: 0 0 12px 0; font-size: 1.05rem; font-weight: 700; color: #fff; letter-spacing: 0.5px; line-height: 1.3; }
+        .price-card h3 { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; margin: 0 0 12px 0; font-size: 1.05rem; font-weight: 700; color: #fff; letter-spacing: 0.5px; line-height: 1.3; }
         .price-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.4; margin: 0; flex-grow: 1; }
         
         /* PRICING DISPLAY */
         .price-container { margin: 20px 0 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .original-price { color: rgba(255,255,255,0.4); text-decoration: line-through; font-size: 1rem; margin-bottom: 5px; font-weight: 500; }
-        .price-amount { font-size: 2.4rem; font-weight: 800; color: var(--text-main); display: flex; justify-content: center; align-items: center; text-shadow: 0 2px 10px rgba(0,0,0,0.5); line-height: 1; }
+        .original-price { color: rgba(255,255,255,0.3); text-decoration: line-through; font-size: 1rem; margin-bottom: 5px; font-weight: 500; }
+        .price-amount { font-size: 2.4rem; font-weight: 800; color: var(--text-main); display: flex; justify-content: center; align-items: center; line-height: 1; }
         
-        /* STANDARD BUY BUTTON */
-        .pay-btn { display: block; background: #ffffff; color: #09090e; padding: 14px; font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 30px; text-decoration: none; transition: all 0.3s ease; text-align: center; border: 1px solid transparent; width: 100%; box-sizing: border-box; mt-auto; margin-top: auto; }
-        .pay-btn:hover { background: #e0e0e0; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(255,255,255,0.15); }
+        /* BUTTONS */
+        .pay-btn { display: block; background: rgba(255,255,255,0.95); color: #000; padding: 14px; font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 30px; text-decoration: none; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); text-align: center; border: 1px solid transparent; width: 100%; box-sizing: border-box; margin-top: auto; }
+        .pay-btn:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,255,255,0.15); }
 
-        /* HIGHLIGHT BUY BUTTON */
-        .pay-btn-highlight { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white; box-shadow: 0 6px 20px rgba(0, 240, 255, 0.3); }
-        .pay-btn-highlight:hover { background: linear-gradient(90deg, #ff1a8c, #1af4ff); transform: translateY(-3px); color: white; box-shadow: 0 8px 25px rgba(255, 0, 127, 0.4); border-color: transparent; }
-        
+        .pay-btn-highlight { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white; box-shadow: 0 6px 20px rgba(0, 240, 255, 0.2); border: none; }
+        .pay-btn-highlight:hover { filter: brightness(1.15); color: white; box-shadow: 0 10px 25px rgba(255, 0, 127, 0.3); }
+
         /* TRUST HIGHLIGHTS */
-        .trust-highlights { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 70px; padding: 0 20px; animation: fadeSlideUp 1s ease-out forwards; }
-        .trust-item { display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 0.95rem; font-weight: 600; letter-spacing: 0.5px; }
-        .trust-icon { font-size: 1.3rem; color: var(--neon-blue); text-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
+        .trust-highlights { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 70px; padding: 0 20px; }
+        .trust-item { display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 0.95rem; font-weight: 600; letter-spacing: 0.5px; transition: color 0.4s ease; }
+        .trust-item:hover { color: var(--text-main); }
+        .trust-icon { font-size: 1.3rem; color: var(--neon-blue); }
 
         @media (max-width: 900px) { 
             .top-nav { flex-wrap: wrap; padding: 15px 20px; height: auto; } 
@@ -113,8 +116,7 @@
             body { padding-top: 130px; } 
             .sale-banner { padding: 15px 20px; width: 90%; }
             .countdown-timer { gap: 10px; }
-            .highlight-card { transform: scale(1); } 
-            .highlight-card:hover { transform: translateY(-5px); } 
+            .price-card:hover { transform: translateY(-4px); }
             .trust-highlights { gap: 20px; flex-direction: column; align-items: center; margin-top: 50px; }
         }
     </style>
@@ -139,11 +141,11 @@
     
     <!-- PRICING SECTION -->
     <main class="pricing-section">
-        <h2>PRICING OPTIONS</h2>
-        <p class="pricing-subtitle">Choose the perfect RGB lighting setup for your space.</p>
+        <h2 class="reveal-up">PRICING OPTIONS</h2>
+        <p class="pricing-subtitle reveal-up" style="transition-delay: 0.1s;">Choose the perfect RGB lighting setup for your space.</p>
 
         <!-- CUSTOMIZABLE SALE BANNER -->
-        <div class="sale-banner">
+        <div class="sale-banner reveal-up" style="transition-delay: 0.2s;">
             <div class="sale-name" id="saleNameText">NEON FLASH SALE</div>
             <div class="countdown-timer" id="countdownTimer">
                 <div class="time-box"><span id="days">00</span><small>Days</small></div>
@@ -157,7 +159,7 @@
         <div class="pricing-grid">
             
             <!-- Tier 1 -->
-            <div class="price-card">
+            <div class="price-card reveal-up" style="transition-delay: 0.1s;">
                 <div class="discount-badge">SALE</div>
                 <div class="image-placeholder">RGBIC Controller</div>
                 <h3>ONLY CONTROLLER</h3>
@@ -170,7 +172,7 @@
             </div>
 
             <!-- Tier 2 -->
-            <div class="price-card">
+            <div class="price-card reveal-up" style="transition-delay: 0.2s;">
                 <div class="discount-badge">SALE</div>
                 <div class="image-placeholder">5M Strip Kit</div>
                 <h3>5M STRIP + CONTROLLER</h3>
@@ -183,7 +185,7 @@
             </div>
 
             <!-- Tier 3 -->
-            <div class="price-card">
+            <div class="price-card reveal-up" style="transition-delay: 0.3s;">
                 <div class="discount-badge">SALE</div>
                 <div class="image-placeholder">5M Full Kit</div>
                 <h3>5M STRIP + CONTROLLER + POWER SUPPLY</h3>
@@ -196,7 +198,7 @@
             </div>
 
             <!-- Tier 4 -->
-            <div class="price-card">
+            <div class="price-card reveal-up" style="transition-delay: 0.4s;">
                 <div class="discount-badge">SALE</div>
                 <div class="image-placeholder">10M Full Kit</div>
                 <h3>10M STRIP + CONTROLLER + POWER SUPPLY</h3>
@@ -208,8 +210,8 @@
                 <a href="checkout.html?item=10M%20KIT%20+%20POWER&price=₹4,200" class="pay-btn">Buy Now</a>
             </div>
 
-            <!-- Tier 5 (Former Best Value, now standard) -->
-            <div class="price-card">
+            <!-- Tier 5 -->
+            <div class="price-card reveal-up" style="transition-delay: 0.5s;">
                 <div class="discount-badge">SALE</div>
                 <div class="image-placeholder">15M Full Kit</div>
                 <h3>15M STRIP + CONTROLLER + POWER SUPPLY</h3>
@@ -221,8 +223,8 @@
                 <a href="checkout.html?item=15M%20KIT%20+%20POWER&price=₹5,100" class="pay-btn">Buy Now</a>
             </div>
 
-            <!-- Tier 6 (NEW HIGHLIGHTED BEST VALUE) -->
-            <div class="price-card highlight-card">
+            <!-- Tier 6 (HIGHLIGHTED BEST VALUE) -->
+            <div class="price-card highlight-card reveal-up" style="transition-delay: 0.6s;">
                 <div class="best-value-badge">BEST VALUE</div>
                 <div class="discount-badge">SAVE BIG</div>
                 <div class="image-placeholder">20M Full Kit</div>
@@ -238,7 +240,7 @@
         </div>
 
         <!-- TRUST HIGHLIGHTS -->
-        <div class="trust-highlights">
+        <div class="trust-highlights reveal-up" style="transition-delay: 0.7s;">
             <div class="trust-item">
                 <span class="trust-icon">⚡</span> Fast Delivery
             </div>
@@ -254,21 +256,13 @@
         </div>
     </main>
 
-    <!-- CUSTOMIZABLE TIMER SCRIPT -->
+    <!-- SCRIPTS -->
     <script>
         // ==========================================
-        // CUSTOMIZATION SETTINGS
+        // 1. COUNTDOWN TIMER
         // ==========================================
-        
-        // 1. Change the Sale Name here
-        const saleName = "BIRTHDAY SALE - UP TO 17% OFF!";
-        
-        // 2. Change the End Date here (Format: "Month DD, YYYY HH:MM:SS")
-        const endDateString = "September 16, 2026 00:00:01";
-
-        // ==========================================
-        // DO NOT EDIT BELOW UNLESS MODIFYING LOGIC
-        // ==========================================
+        const saleName = "NEON CYBER SALE - UP TO 25% OFF!";
+        const endDateString = "October 30, 2026 23:59:59";
         
         document.getElementById("saleNameText").innerText = saleName;
         const saleEndDate = new Date(endDateString).getTime();
@@ -293,6 +287,25 @@
             document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
             document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
         }, 1000);
+
+        // ==========================================
+        // 2. ELEGANT SCROLL REVEAL
+        // ==========================================
+        const observerOptions = { 
+            threshold: 0.1, 
+            rootMargin: "0px 0px -30px 0px" 
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
