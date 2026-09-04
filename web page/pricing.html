@@ -110,6 +110,18 @@
         .trust-item:hover { color: var(--text-main); }
         .trust-icon { font-size: 1.3rem; color: var(--neon-blue); }
 
+        /* FLOATING IFRAME CHATBOT STYLES */
+        .chat-toggle { position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; border-radius: 50%; background: #000; border: 2px solid var(--neon-blue); cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; padding: 14px; color: var(--neon-blue); }
+        .chat-toggle:hover { transform: scale(1.08); box-shadow: 0 0 30px rgba(255, 0, 127, 0.6); border-color: var(--neon-pink); color: var(--neon-pink); }
+        .chat-toggle svg { width: 100%; height: 100%; display: block; }
+        
+        .chat-iframe-wrapper { position: fixed; bottom: 105px; right: 25px; width: 380px; height: 600px; max-height: 80vh; background-color: rgba(21, 21, 32, 0.95); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 15px; box-shadow: 0 15px 45px rgba(0,0,0,0.9); z-index: 9998; opacity: 0; pointer-events: none; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; overflow: hidden; backdrop-filter: blur(10px); }
+        .chat-iframe-wrapper.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .chat-iframe-wrapper iframe { width: 100%; height: 100%; border: none; background: transparent; }
+
+        .close-iframe-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: 0.2s ease; backdrop-filter: blur(4px); }
+        .close-iframe-btn:hover { background: var(--neon-pink); border-color: var(--neon-pink); transform: scale(1.1); }
+
         @media (max-width: 900px) { 
             .top-nav { flex-wrap: wrap; padding: 15px 20px; height: auto; } 
             .nav-links { order: 3; width: 100%; justify-content: center; margin-top: 15px; gap: 20px; } 
@@ -118,6 +130,8 @@
             .countdown-timer { gap: 10px; }
             .price-card:hover { transform: translateY(-4px); }
             .trust-highlights { gap: 20px; flex-direction: column; align-items: center; margin-top: 50px; }
+            .chat-iframe-wrapper { width: calc(100% - 40px); right: 20px; bottom: 95px; height: 70vh; }
+            .chat-toggle { width: 55px; height: 55px; right: 20px; bottom: 20px; padding: 12px; }
         }
     </style>
 </head>
@@ -158,7 +172,6 @@
         <!-- INDIVIDUAL BUY CARDS -->
         <div class="pricing-grid">
             
-            <!-- Tier 1 -->
             <div class="price-card reveal-up" style="transition-delay: 0.1s;">
                 <div class="discount-badge">SALE</div>
                 <div class="image-placeholder">RGBIC Controller</div>
@@ -171,7 +184,6 @@
                 <a href="checkout.html?item=ONLY%20CONTROLLER&price=₹1,900" class="pay-btn">Buy Now</a>
             </div>
 
-            <!-- Tier 2 -->
             <div class="price-card reveal-up" style="transition-delay: 0.2s;">
                 <div class="discount-badge">SALE</div>
                 <div class="image-placeholder">5M Strip Kit</div>
@@ -184,7 +196,6 @@
                 <a href="checkout.html?item=5M%20STRIP%20+%20CONTROLLER&price=₹3,000" class="pay-btn">Buy Now</a>
             </div>
 
-            <!-- Tier 3 -->
             <div class="price-card reveal-up" style="transition-delay: 0.3s;">
                 <div class="discount-badge">SALE</div>
                 <div class="image-placeholder">5M Full Kit</div>
@@ -197,7 +208,6 @@
                 <a href="checkout.html?item=5M%20KIT%20+%20POWER&price=₹3,500" class="pay-btn">Buy Now</a>
             </div>
 
-            <!-- Tier 4 -->
             <div class="price-card reveal-up" style="transition-delay: 0.4s;">
                 <div class="discount-badge">SALE</div>
                 <div class="image-placeholder">10M Full Kit</div>
@@ -210,7 +220,6 @@
                 <a href="checkout.html?item=10M%20KIT%20+%20POWER&price=₹4,200" class="pay-btn">Buy Now</a>
             </div>
 
-            <!-- Tier 5 -->
             <div class="price-card reveal-up" style="transition-delay: 0.5s;">
                 <div class="discount-badge">SALE</div>
                 <div class="image-placeholder">15M Full Kit</div>
@@ -255,6 +264,23 @@
             </div>
         </div>
     </main>
+
+    <!-- FLOATING CHATBOT -->
+    <button class="chat-toggle" id="chatToggleBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <path d="M7.5 9A4.5 4.5 0 0 1 16.5 9" />
+            <path d="M6 9h3v3H6z" />
+            <path d="M15 9h3v3h-3z" />
+            <path d="M18 11v2a2 2 0 0 1-2 2h-1" />
+        </svg>
+    </button>
+    
+    <div class="chat-iframe-wrapper" id="chatWrapper">
+        <button class="close-iframe-btn" id="closeIframeBtn">×</button>
+        <iframe src="https://cdn.botpress.cloud/webchat/v3.7/shareable.html?configUrl=https://files.bpcontent.cloud/2026/09/03/22/20260903221139-V04MM46I.json" frameborder="0"></iframe>
+    </div>
 
     <!-- SCRIPTS -->
     <script>
@@ -306,6 +332,21 @@
         }, observerOptions);
 
         document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+
+        // ==========================================
+        // 3. CHATBOT TOGGLE LOGIC
+        // ==========================================
+        const toggleBtn = document.getElementById('chatToggleBtn');
+        const chatWrapper = document.getElementById('chatWrapper');
+        const closeBtn = document.getElementById('closeIframeBtn');
+
+        toggleBtn.addEventListener('click', () => {
+            chatWrapper.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            chatWrapper.classList.remove('active');
+        });
     </script>
 </body>
 </html>

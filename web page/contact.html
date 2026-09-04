@@ -45,14 +45,6 @@
         
         .site-footer { text-align: center; padding: 20px; background-color: #000; border-top: 1px solid rgba(255, 0, 127, 0.3); color: var(--text-muted); font-size: 0.85rem; margin-top: auto; }
 
-        @media (max-width: 768px) { 
-            .top-nav { flex-wrap: wrap; height: auto; padding: 12px 15px; gap: 12px; }
-            .nav-brand { order: 1; font-size: 1rem; }
-            .order-btn-nav { order: 2; margin-left: auto; font-size: 0.75rem; padding: 6px 12px; }
-            .nav-links { order: 3; width: 100%; justify-content: flex-start; padding-bottom: 5px; mask-image: linear-gradient(to right, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%); }
-            body { padding-top: 100px; }
-        }
-
         /* NEW CSS: TRACKING & FAQ STYLES */
         .section-title { font-size: 1.4rem; margin-top: 0; margin-bottom: 20px; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px; }
         .tracking-card { text-align: left; align-items: stretch; }
@@ -75,6 +67,28 @@
         details[open] summary::after { content: '−'; transform: rotate(180deg); }
         details[open] summary { color: var(--neon-pink); }
         details p { color: var(--text-muted); font-size: 0.95rem; margin-top: 15px; margin-bottom: 0; line-height: 1.6; }
+
+        /* FLOATING IFRAME CHATBOT STYLES */
+        .chat-toggle { position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; border-radius: 50%; background: #000; border: 2px solid var(--neon-blue); cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; padding: 14px; color: var(--neon-blue); }
+        .chat-toggle:hover { transform: scale(1.08); box-shadow: 0 0 30px rgba(255, 0, 127, 0.6); border-color: var(--neon-pink); color: var(--neon-pink); }
+        .chat-toggle svg { width: 100%; height: 100%; display: block; }
+        
+        .chat-iframe-wrapper { position: fixed; bottom: 105px; right: 25px; width: 380px; height: 600px; max-height: 80vh; background-color: var(--card-bg); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 15px; box-shadow: 0 15px 45px rgba(0,0,0,0.9); z-index: 9998; opacity: 0; pointer-events: none; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; overflow: hidden; }
+        .chat-iframe-wrapper.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .chat-iframe-wrapper iframe { width: 100%; height: 100%; border: none; background: transparent; }
+
+        .close-iframe-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: 0.2s ease; backdrop-filter: blur(4px); }
+        .close-iframe-btn:hover { background: var(--neon-pink); border-color: var(--neon-pink); transform: scale(1.1); }
+
+        @media (max-width: 768px) { 
+            .top-nav { flex-wrap: wrap; height: auto; padding: 12px 15px; gap: 12px; }
+            .nav-brand { order: 1; font-size: 1rem; }
+            .order-btn-nav { order: 2; margin-left: auto; font-size: 0.75rem; padding: 6px 12px; }
+            .nav-links { order: 3; width: 100%; justify-content: flex-start; padding-bottom: 5px; mask-image: linear-gradient(to right, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%); }
+            body { padding-top: 100px; }
+            .chat-iframe-wrapper { width: calc(100% - 40px); right: 20px; bottom: 95px; height: 70vh; }
+            .chat-toggle { width: 55px; height: 55px; right: 20px; bottom: 20px; padding: 12px; }
+        }
     </style>
 </head>
 <body>
@@ -109,7 +123,7 @@
             <div id="trackingMessage" class="tracking-message"></div>
         </div>
 
-        <!-- CONTACT US SECTION (PRESERVED FUNCTIONALITY) -->
+        <!-- CONTACT US SECTION -->
         <div class="contact-card">
             <h3 class="section-title">Contact Us</h3>
             <a href="https://wa.me/916388315385?text=Hi%20Luv's%20Studio,%20I%20have%20a%20question." class="contact-btn whatsapp-btn" target="_blank">Chat with Us on WhatsApp</a>
@@ -153,11 +167,28 @@
         </div>
     </main>
 
+    <!-- FLOATING CHATBOT -->
+    <button class="chat-toggle" id="chatToggleBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <path d="M7.5 9A4.5 4.5 0 0 1 16.5 9" />
+            <path d="M6 9h3v3H6z" />
+            <path d="M15 9h3v3h-3z" />
+            <path d="M18 11v2a2 2 0 0 1-2 2h-1" />
+        </svg>
+    </button>
+    
+    <div class="chat-iframe-wrapper" id="chatWrapper">
+        <button class="close-iframe-btn" id="closeIframeBtn">×</button>
+        <iframe src="https://cdn.botpress.cloud/webchat/v3.7/shareable.html?configUrl=https://files.bpcontent.cloud/2026/09/03/22/20260903221139-V04MM46I.json" frameborder="0"></iframe>
+    </div>
+
     <footer class="site-footer">
         <p>&copy; 2026 LUV'S STUDIO. All rights reserved.</p>
     </footer>
 
-    <!-- JAVASCRIPT FOR TRACKING FORM -->
+    <!-- JAVASCRIPT FOR TRACKING FORM AND CHATBOT -->
     <script>
         function trackOrder() {
             const orderId = document.getElementById('orderId').value.trim();
@@ -175,6 +206,19 @@
                 messageDiv.innerHTML = `<strong>Order Lookup</strong><br><br>Order ID: ${orderId}<br>Status: We are checking your order details.<br><br>Need help? Contact LUV'S STUDIO Customer Care using WhatsApp or Email below.`;
             }
         }
+
+        // Chatbot Toggle Logic
+        const toggleBtn = document.getElementById('chatToggleBtn');
+        const chatWrapper = document.getElementById('chatWrapper');
+        const closeBtn = document.getElementById('closeIframeBtn');
+
+        toggleBtn.addEventListener('click', () => {
+            chatWrapper.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            chatWrapper.classList.remove('active');
+        });
     </script>
 </body>
 </html>

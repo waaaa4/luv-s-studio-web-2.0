@@ -30,24 +30,60 @@
         .hero h2 { letter-spacing: 4px; font-size: 2.5rem; margin-bottom: 20px; text-transform: uppercase; }
         .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
         
-        .comparison-section, .pricing-section, .contact-section { padding: 80px 20px; background-color: #050508; min-height: 70vh; animation: fadeSlideUp 0.8s ease-out forwards; flex-grow: 1; }
-        .comparison-section h2, .pricing-section h2 { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: var(--text-main); }
-        .comp-grid, .pricing-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .comparison-section { padding: 80px 20px 40px; background-color: #050508; animation: fadeSlideUp 0.8s ease-out forwards; }
+        .comparison-section h2 { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: var(--text-main); }
+        .comp-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; }
         
-        .comp-card, .price-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 25px; width: 300px; opacity: 0; animation: fadeSlideUp 0.6s ease-out forwards; transition: transform 0.3s ease, border-color 0.3s ease; }
-        .comp-card:hover, .price-card:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.2); }
-        .comp-card:nth-child(1), .price-card:nth-child(1) { animation-delay: 0.1s; }
-        .comp-card:nth-child(2), .price-card:nth-child(2) { animation-delay: 0.2s; }
-        .comp-card:nth-child(3), .price-card:nth-child(3) { animation-delay: 0.3s; }
-        .price-card:nth-child(4) { animation-delay: 0.4s; }
+        .comp-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 25px; width: 300px; opacity: 0; animation: fadeSlideUp 0.6s ease-out forwards; transition: transform 0.3s ease, border-color 0.3s ease; }
+        .comp-card:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.2); }
+        .comp-card:nth-child(1) { animation-delay: 0.1s; }
+        .comp-card:nth-child(2) { animation-delay: 0.2s; }
+        .comp-card:nth-child(3) { animation-delay: 0.3s; }
 
         .comp-card h3 { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-top: 0; }
         .pro-box { background: rgba(37,211,102,0.05); border-left: 3px solid #25D366; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
         .con-box { background: rgba(255,51,51,0.05); border-left: 3px solid #ff3333; padding: 15px; border-radius: 4px; color: var(--text-muted); }
         
+        /* --- MEDIA SECTION --- */
+        .media-section { padding: 40px 20px 80px; background-color: #050508; flex-grow: 1; display: flex; justify-content: center; }
+        .media-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; width: 100%; max-width: 1200px; }
+        
+        .media-box { background: #111; border: 2px solid rgba(255,255,255,0.05); border-radius: 15px; width: 320px; height: 550px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--text-muted); position: relative; overflow: hidden; transition: all 0.4s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.8); cursor: pointer; }
+        .media-box:hover { transform: translateY(-5px); border-color: var(--neon-pink); box-shadow: 0 0 40px rgba(255, 0, 127, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.2); }
+        
+        .media-box::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent); transform: skewX(-20deg); transition: 0.6s; z-index: 3; pointer-events: none; }
+        .media-box:hover::before { left: 150%; }
+        
+        .media-box video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; border-radius: 13px; transition: opacity 0.3s ease; opacity: 0.8; }
+        .media-box:hover video { opacity: 1; }
+        
+        .video-title { position: absolute; bottom: 20px; margin: 0; font-size: 1.4rem; color: var(--text-main); z-index: 2; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 2px 15px rgba(0,0,0,0.9), 0 0 10px rgba(0, 240, 255, 0.8); pointer-events: none; transition: opacity 0.3s ease; }
+        .media-box:hover .video-title { opacity: 0; }
+
+        .play-indicator { position: absolute; z-index: 2; font-size: 3rem; color: rgba(255,255,255,0.7); pointer-events: none; transition: opacity 0.3s ease; text-shadow: 0 0 15px rgba(0,0,0,0.8); }
+        .media-box:hover .play-indicator { opacity: 0; }
+
         .site-footer { text-align: center; padding: 20px; background-color: #000; border-top: 1px solid rgba(255, 0, 127, 0.3); color: var(--text-muted); font-size: 0.85rem; margin-top: auto; }
 
-        @media (max-width: 900px) { .top-nav { flex-wrap: wrap; padding: 15px 20px; height: auto; } .nav-links { order: 3; width: 100%; justify-content: center; margin-top: 15px; gap: 20px; } body { padding-top: 120px; } }
+        /* FLOATING IFRAME CHATBOT STYLES */
+        .chat-toggle { position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; border-radius: 50%; background: #000; border: 2px solid var(--neon-blue); cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; padding: 14px; color: var(--neon-blue); }
+        .chat-toggle:hover { transform: scale(1.08); box-shadow: 0 0 30px rgba(255, 0, 127, 0.6); border-color: var(--neon-pink); color: var(--neon-pink); }
+        .chat-toggle svg { width: 100%; height: 100%; display: block; }
+        
+        .chat-iframe-wrapper { position: fixed; bottom: 105px; right: 25px; width: 380px; height: 600px; max-height: 80vh; background-color: var(--card-bg); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 15px; box-shadow: 0 15px 45px rgba(0,0,0,0.9); z-index: 9998; opacity: 0; pointer-events: none; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; overflow: hidden; }
+        .chat-iframe-wrapper.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .chat-iframe-wrapper iframe { width: 100%; height: 100%; border: none; background: transparent; }
+
+        .close-iframe-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: 0.2s ease; backdrop-filter: blur(4px); }
+        .close-iframe-btn:hover { background: var(--neon-pink); border-color: var(--neon-pink); transform: scale(1.1); }
+
+        @media (max-width: 900px) { 
+            .top-nav { flex-wrap: wrap; padding: 15px 20px; height: auto; } 
+            .nav-links { order: 3; width: 100%; justify-content: center; margin-top: 15px; gap: 20px; } 
+            body { padding-top: 120px; } 
+            .chat-iframe-wrapper { width: calc(100% - 40px); right: 20px; bottom: 95px; height: 70vh; }
+            .chat-toggle { width: 55px; height: 55px; right: 20px; bottom: 20px; padding: 12px; }
+        }
     </style>
 </head>
 <body>
@@ -84,8 +120,77 @@
         </div>
     </main>
 
+    <!-- MEDIA SECTION WITH HOVER-TO-PLAY VIDEOS -->
+    <section class="media-section">
+        <div class="media-grid">
+            <div class="media-box">
+                <video src="game-demo.mp4.mp4" loop playsinline></video>
+                <div class="play-indicator">▶</div>
+                <h4 class="video-title">Interactive Games</h4>
+            </div>
+            <div class="media-box">
+                <video src="party-mode.mp4.mp4" loop playsinline></video>
+                <div class="play-indicator">▶</div>
+                <h4 class="video-title">Instant Party Vibe</h4>
+            </div>
+            <div class="media-box">
+                <video src="unboxing.mp4.mp4" loop playsinline></video>
+                <div class="play-indicator">▶</div>
+                <h4 class="video-title">Premium Kit</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING CHATBOT -->
+    <button class="chat-toggle" id="chatToggleBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <path d="M7.5 9A4.5 4.5 0 0 1 16.5 9" />
+            <path d="M6 9h3v3H6z" />
+            <path d="M15 9h3v3h-3z" />
+            <path d="M18 11v2a2 2 0 0 1-2 2h-1" />
+        </svg>
+    </button>
+    
+    <div class="chat-iframe-wrapper" id="chatWrapper">
+        <button class="close-iframe-btn" id="closeIframeBtn">×</button>
+        <iframe src="https://cdn.botpress.cloud/webchat/v3.7/shareable.html?configUrl=https://files.bpcontent.cloud/2026/09/03/22/20260903221139-V04MM46I.json" frameborder="0"></iframe>
+    </div>
+
     <footer class="site-footer">
         <p>&copy; 2026 LUV'S STUDIO. All rights reserved.</p>
     </footer>
+
+    <!-- JAVASCRIPT FOR HOVER-TO-PLAY AND CHATBOT -->
+    <script>
+        // Media Hover Logic
+        document.querySelectorAll('.media-box').forEach(box => {
+            const video = box.querySelector('video');
+            if (video) {
+                box.addEventListener('mouseenter', () => {
+                    video.play().catch(error => {
+                        console.log("Browser blocked audio playback. User must click on the page first.");
+                    });
+                });
+                box.addEventListener('mouseleave', () => {
+                    video.pause();
+                });
+            }
+        });
+
+        // Chatbot Toggle Logic
+        const toggleBtn = document.getElementById('chatToggleBtn');
+        const chatWrapper = document.getElementById('chatWrapper');
+        const closeBtn = document.getElementById('closeIframeBtn');
+
+        toggleBtn.addEventListener('click', () => {
+            chatWrapper.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            chatWrapper.classList.remove('active');
+        });
+    </script>
 </body>
 </html>
