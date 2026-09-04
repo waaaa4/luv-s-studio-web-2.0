@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Why choose LUV'S STUDIO? Discover the difference in our 16M+ colors, built-in mini games, and advanced music sync capabilities.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Why Us - LUV'S STUDIO</title>
+    <style>
+        :root { --bg-dark: #09090e; --card-bg: #151520; --neon-pink: #ff007f; --neon-blue: #00f0ff; --text-main: #ffffff; --text-muted: #a0a0a0; --nav-height: 70px; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: var(--text-main); padding-top: var(--nav-height); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .top-nav { position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; box-sizing: border-box; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .nav-brand { font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; gap: 35px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; transition: 0.3s ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); }
+        
+        .order-btn-nav { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white !important; text-decoration: none; padding: 10px 25px; font-size: 0.95rem; font-weight: bold; border-radius: 30px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .order-btn-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 240, 255, 0.4); }
+        
+        header { padding: 40px 20px; background-color: #000; border-bottom: 1px solid rgba(255, 0, 127, 0.3); text-align: center; }
+        
+        .brand-title { font-size: 3.5rem; font-weight: 800; letter-spacing: 3px; margin: 0; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue), var(--neon-pink)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientFlow 6s linear infinite; }
+        
+        .hero { text-align: center; padding: 100px 20px; flex-grow: 1; animation: fadeSlideUp 0.8s ease-out forwards; }
+        .hero h2 { letter-spacing: 4px; font-size: 2.5rem; margin-bottom: 20px; text-transform: uppercase; }
+        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+        
+        .comparison-section { padding: 80px 20px 40px; background-color: #050508; animation: fadeSlideUp 0.8s ease-out forwards; }
+        .comparison-section h2 { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: var(--text-main); }
+        .comp-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; }
+        
+        .comp-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 25px; width: 300px; opacity: 0; animation: fadeSlideUp 0.6s ease-out forwards; transition: transform 0.3s ease, border-color 0.3s ease; }
+        .comp-card:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.2); }
+        .comp-card:nth-child(1) { animation-delay: 0.1s; }
+        .comp-card:nth-child(2) { animation-delay: 0.2s; }
+        .comp-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .comp-card h3 { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-top: 0; }
+        .pro-box { background: rgba(37,211,102,0.05); border-left: 3px solid #25D366; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .con-box { background: rgba(255,51,51,0.05); border-left: 3px solid #ff3333; padding: 15px; border-radius: 4px; color: var(--text-muted); }
+        
+        /* --- MEDIA SECTION --- */
+        .media-section { padding: 40px 20px 80px; background-color: #050508; flex-grow: 1; display: flex; justify-content: center; }
+        .media-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; width: 100%; max-width: 1200px; }
+        
+        .media-box { background: #111; border: 2px solid rgba(255,255,255,0.05); border-radius: 15px; width: 320px; height: 550px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--text-muted); position: relative; overflow: hidden; transition: all 0.4s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.8); cursor: pointer; }
+        .media-box:hover { transform: translateY(-5px); border-color: var(--neon-pink); box-shadow: 0 0 40px rgba(255, 0, 127, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.2); }
+        
+        .media-box::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent); transform: skewX(-20deg); transition: 0.6s; z-index: 3; pointer-events: none; }
+        .media-box:hover::before { left: 150%; }
+        
+        .media-box video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; border-radius: 13px; transition: opacity 0.3s ease; opacity: 0.8; }
+        .media-box:hover video { opacity: 1; }
+        
+        .video-title { position: absolute; bottom: 20px; margin: 0; font-size: 1.4rem; color: var(--text-main); z-index: 2; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 2px 15px rgba(0,0,0,0.9), 0 0 10px rgba(0, 240, 255, 0.8); pointer-events: none; transition: opacity 0.3s ease; }
+        .media-box:hover .video-title { opacity: 0; }
+
+        .play-indicator { position: absolute; z-index: 2; font-size: 3rem; color: rgba(255,255,255,0.7); pointer-events: none; transition: opacity 0.3s ease; text-shadow: 0 0 15px rgba(0,0,0,0.8); }
+        .media-box:hover .play-indicator { opacity: 0; }
+
+        .site-footer { text-align: center; padding: 20px; background-color: #000; border-top: 1px solid rgba(255, 0, 127, 0.3); color: var(--text-muted); font-size: 0.85rem; margin-top: auto; }
+
+        @media (max-width: 900px) { 
+            .top-nav { flex-wrap: wrap; padding: 15px 20px; height: auto; } 
+            .nav-links { order: 3; width: 100%; justify-content: center; margin-top: 15px; gap: 20px; } 
+            body { padding-top: 120px; } 
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">LUV'S STUDIO</div>
+        <div class="nav-links">
+            <a href="index.html">Details</a>
+            <a href="why-us.html" class="active">Why Us</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <a href="pricing.html" class="order-btn-nav">ORDER NOW</a>
+    </nav>
+    <header><h1 class="brand-title">LUV'S STUDIO</h1></header>
+    
+    <main class="comparison-section">
+        <h2>Why We Are Different</h2>
+        <div class="comp-grid">
+            <div class="comp-card">
+                <h3>16M+ Colours & Control</h3>
+                <div class="pro-box"><strong style="color: #25D366;">✓ OUR LIGHTS</strong><br>16M+ colours with individual RGB control.</div>
+                <div class="con-box"><strong style="color: #ff3333;">✗ OTHER LIGHTS</strong><br>No dedicated control. Limited customization.</div>
+            </div>
+            <div class="comp-card">
+                <h3>Inbuilt Mini Game</h3>
+                <div class="pro-box"><strong style="color: #25D366;">✓ OUR LIGHTS</strong><br>Inbuilt mini game with 3 levels and increasing speed.</div>
+                <div class="con-box"><strong style="color: #ff3333;">✗ OTHER LIGHTS</strong><br>No mini game or interactive mode.</div>
+            </div>
+            <div class="comp-card">
+                <h3>Advanced Music Sync</h3>
+                <div class="pro-box"><strong style="color: #25D366;">✓ OUR LIGHTS</strong><br>Dedicated mic engine for perfect music sync & 15+ club modes.</div>
+                <div class="con-box"><strong style="color: #ff3333;">✗ OTHER LIGHTS</strong><br>Basic mic/sync with lag and less accurate response.</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MEDIA SECTION WITH HOVER-TO-PLAY VIDEOS -->
+    <section class="media-section">
+        <div class="media-grid">
+            <!-- Game Mode App Play Video -->
+            <div class="media-box">
+                <video src="game-demo.mp4.mp4" loop playsinline></video>
+                <div class="play-indicator">▶</div>
+                <h4 class="video-title">Interactive Games</h4>
+            </div>
+
+            <!-- House Party Sync Video -->
+            <div class="media-box">
+                <video src="party-mode.mp4.mp4" loop playsinline></video>
+                <div class="play-indicator">▶</div>
+                <h4 class="video-title">Instant Party Vibe</h4>
+            </div>
+
+            <!-- Unboxing & Lights Video -->
+            <div class="media-box">
+                <video src="unboxing.mp4.mp4" loop playsinline></video>
+                <div class="play-indicator">▶</div>
+                <h4 class="video-title">Premium Kit</h4>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 LUV'S STUDIO. All rights reserved.</p>
+    </footer>
+
+    <!-- JAVASCRIPT FOR HOVER-TO-PLAY -->
+    <script>
+        document.querySelectorAll('.media-box').forEach(box => {
+            const video = box.querySelector('video');
+            if (video) {
+                // Play video on mouse hover
+                box.addEventListener('mouseenter', () => {
+                    video.play().catch(error => {
+                        console.log("Browser blocked audio playback. User must click on the page first.");
+                    });
+                });
+                // Pause video when mouse leaves
+                box.addEventListener('mouseleave', () => {
+                    video.pause();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
