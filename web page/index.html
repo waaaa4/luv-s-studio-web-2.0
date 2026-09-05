@@ -32,52 +32,37 @@
         .hero-key-points .point { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(0, 240, 255, 0.3); padding: 10px 20px; border-radius: 30px; font-size: 0.9rem; font-weight: 600; color: var(--text-main); transition: 0.3s ease; cursor: default; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 8px; }
         .hero-key-points .point:hover { border-color: var(--neon-pink); box-shadow: 0 0 15px rgba(255, 0, 127, 0.4); transform: translateY(-3px); color: var(--text-main); }
 
-        .feature-container { padding: 20px 15px 60px; max-width: 1100px; margin: 0 auto; box-sizing: border-box; }
+        /* --- STICKY SCROLL REVEAL SECTION CSS --- */
+        .scroll-reveal-section { height: 250vh; position: relative; z-index: 10; background-color: var(--bg-dark); }
+        .sticky-container { position: sticky; top: var(--nav-height); height: calc(100vh - var(--nav-height)); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; overflow: hidden; }
+        .sticky-container h2 { font-size: 2.2rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; }
+        
+        .comparison-slider { position: relative; width: 100%; max-width: 1000px; aspect-ratio: 21/9; min-height: 250px; border-radius: 15px; overflow: hidden; border: 2px solid rgba(255, 255, 255, 0.1); box-shadow: 0 15px 40px rgba(0,0,0,0.8); --pos: 0%; }
+        
+        /* The images */
+        .comp-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .comp-before { z-index: 1; }
+        
+        /* Clip path sweeps left to right driven by scrolling */
+        .comp-after { z-index: 2; clip-path: polygon(0 0, var(--pos) 0, var(--pos) 100%, 0 100%); transition: clip-path 0.1s ease-out; }
+        
+        /* Glowing leading edge following the scroll reveal */
+        .scroll-glow-line { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 4px; background: #fff; z-index: 3; transform: translateX(-50%); box-shadow: 0 0 20px var(--neon-blue), 0 0 20px var(--neon-pink); pointer-events: none; transition: left 0.1s ease-out; }
 
-        .fused-card { 
-            position: relative; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            margin-bottom: 50px; 
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            animation: fadeSlideUp 0.8s ease-out;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .fused-card:hover { 
-            border-color: var(--neon-pink); 
-            box-shadow: 0 15px 45px rgba(255, 0, 127, 0.25); 
-        }
+        .feature-container { padding: 40px 15px 60px; max-width: 1100px; margin: 0 auto; box-sizing: border-box; position: relative; z-index: 11; background-color: var(--bg-dark); }
 
-        .fused-bg-image {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(9, 9, 14, 0.92), rgba(21, 21, 32, 0.85)), linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
-            background-size: cover; background-position: center;
-            z-index: 1;
-        }
+        .fused-card { position: relative; border-radius: 20px; overflow: hidden; margin-bottom: 50px; border: 1px solid rgba(0, 240, 255, 0.2); box-shadow: 0 15px 35px rgba(0,0,0,0.6); animation: fadeSlideUp 0.8s ease-out; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+        .fused-card:hover { border-color: var(--neon-pink); box-shadow: 0 15px 45px rgba(255, 0, 127, 0.25); }
 
-        .fused-content {
-            position: relative; z-index: 2; padding: 35px;
-            box-sizing: border-box; backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-        }
+        .fused-bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(9, 9, 14, 0.92), rgba(21, 21, 32, 0.85)), linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4)); background-size: cover; background-position: center; z-index: 1; }
+
+        .fused-content { position: relative; z-index: 2; padding: 35px; box-sizing: border-box; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 
         .split-layout { display: flex; gap: 30px; align-items: center; margin-bottom: 25px; }
         .split-text { flex: 1.2; }
         .split-image { flex: 1; text-align: center; }
         
-        /* BULLETPROOF IMAGE STYLING */
-        .chip-img {
-            width: 100%;
-            max-width: 320px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.8);
-            background-color: #000; /* Fallback color */
-        }
+        .blend-img { width: 100%; max-width: 360px; height: auto; display: block; margin: 0 auto; mix-blend-mode: lighten; filter: contrast(1.15) brightness(1.1); }
 
         .fused-content h3 { font-size: 2rem; color: var(--neon-blue); margin-top: 0; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
         .fused-content .highlight { color: var(--neon-pink); }
@@ -87,25 +72,18 @@
         .feature-list li { font-size: 0.95rem; padding-left: 25px; position: relative; color: var(--text-main); line-height: 1.5; background: rgba(0, 0, 0, 0.3); padding: 12px 15px 12px 35px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); }
         .feature-list li::before { content: '✓'; position: absolute; left: 12px; color: var(--neon-pink); font-weight: bold; }
 
-        /* REVIEWS SECTION */
-        .reviews-section { padding: 60px 15px; background-color: #050508; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); box-sizing: border-box; }
+        .reviews-section { padding: 60px 15px; background-color: #050508; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); box-sizing: border-box; position: relative; z-index: 11; }
         .reviews-section h2 { font-size: 2rem; color: var(--text-main); margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
         .reviews-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; }
         
-        .review-card { 
-            background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); 
-            border-radius: 12px; padding: 25px; width: 280px; text-align: left; box-sizing: border-box;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
+        .review-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 25px; width: 280px; text-align: left; box-sizing: border-box; transition: transform 0.3s ease, border-color 0.3s ease; }
         .review-card:hover { transform: translateY(-5px); border-color: var(--neon-blue); }
-
         .stars { color: #ffcc00; font-size: 1.1rem; margin-bottom: 12px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255, 204, 0, 0.4); }
         .review-text { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; font-style: italic; }
         .reviewer-name { color: var(--text-main); font-weight: bold; font-size: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; }
         .verified-badge { color: #25D366; font-size: 0.75rem; font-weight: normal; margin-left: 5px; }
 
-        /* FAQ SECTION */
-        .faq-section { padding: 60px 15px; background-color: var(--bg-dark); text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); box-sizing: border-box; }
+        .faq-section { padding: 60px 15px; background-color: var(--bg-dark); text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); box-sizing: border-box; position: relative; z-index: 11; }
         .faq-section h2 { font-size: 2rem; color: var(--text-main); margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
         .faq-container { max-width: 800px; margin: 0 auto; text-align: left; }
         .faq-item { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: border-color 0.3s ease; }
@@ -117,9 +95,20 @@
         .faq-item[open] summary { border-bottom: 1px solid rgba(255,255,255,0.05); }
         .faq-item p { padding: 20px; margin: 0; color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
 
+        /* FLOATING IFRAME CHATBOT STYLES */
+        .chat-toggle { position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; border-radius: 50%; background: #000; border: 2px solid var(--neon-blue); cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; padding: 14px; color: var(--neon-blue); }
+        .chat-toggle:hover { transform: scale(1.08); box-shadow: 0 0 30px rgba(255, 0, 127, 0.6); border-color: var(--neon-pink); color: var(--neon-pink); }
+        .chat-toggle svg { width: 100%; height: 100%; display: block; }
+        
+        .chat-iframe-wrapper { position: fixed; bottom: 105px; right: 25px; width: 380px; height: 600px; max-height: 80vh; background-color: var(--card-bg); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 15px; box-shadow: 0 15px 45px rgba(0,0,0,0.9); z-index: 9998; opacity: 0; pointer-events: none; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; overflow: hidden; }
+        .chat-iframe-wrapper.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .chat-iframe-wrapper iframe { width: 100%; height: 100%; border: none; background: transparent; }
+
+        .close-iframe-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: 0.2s ease; backdrop-filter: blur(4px); }
+        .close-iframe-btn:hover { background: var(--neon-pink); border-color: var(--neon-pink); transform: scale(1.1); }
+
        /* MOBILE OPTIMIZATION */
         @media (max-width: 768px) { 
-            .checkout-container { grid-template-columns: 1fr; margin: 15px auto; padding: 0 10px; } 
             .top-nav { flex-wrap: wrap; height: auto; padding: 12px 15px; gap: 12px; }
             .nav-brand { order: 1; font-size: 1rem; }
             .order-btn-nav { order: 2; margin-left: auto; font-size: 0.75rem; padding: 6px 12px; }
@@ -127,9 +116,9 @@
             body { padding-top: 100px; }
             .fused-content { padding: 20px; }
             .fused-content h3 { font-size: 1.5rem; }
-            .hero-key-points { gap: 10px; padding: 0 10px; margin-top: 20px; }
-            .hero-key-points .point { font-size: 0.8rem; padding: 8px 14px; }
             .split-layout { flex-direction: column; }
+            .chat-iframe-wrapper { width: calc(100% - 40px); right: 20px; bottom: 95px; height: 70vh; }
+            .chat-toggle { width: 55px; height: 55px; right: 20px; bottom: 20px; padding: 12px; }
         }
     </style>
 </head>
@@ -161,15 +150,40 @@
         </div>
     </section>
 
-    <!-- FUSED COMPONENT DETAILS SECTION -->
+    <!-- NEW SCROLL REVEAL SECTION USING .PNG IMAGES -->
+    <section class="scroll-reveal-section" id="scrollRevealSection">
+        <div class="sticky-container">
+            <h2>Scroll to Feel the Vibe</h2>
+            <div class="comparison-slider" id="compContainer">
+                
+                <!-- Background Image (Dead Room) -->
+                <img src="light-off.png" alt="Room Without Lights" class="comp-img comp-before">
+                
+                <!-- Foreground Image (Club Vibes) - Smoothly reveals left to right -->
+                <img src="light-on.png" alt="Room With Lights" class="comp-img comp-after">
+
+                <!-- The glowing vertical sweeping line -->
+                <div class="scroll-glow-line"></div>
+            </div>
+        </div>
+    </section>
+
     <main class="feature-container">
         
         <!-- Component 1: Controller Hub -->
         <div class="fused-card">
             <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(0, 240, 255, 0.15), transparent 50%);"></div>
             <div class="fused-content">
-                <h3>The <span class="highlight">Brain</span> of the Kit</h3>
-                <p>Our self-engineered, high-performance controller hub is custom-built to turn any room into an immersive lighting experience with zero lag.</p>
+                <div class="split-layout">
+                    <div class="split-text">
+                        <h3>The <span class="highlight">Brain</span> of the Kit</h3>
+                        <p>Our self-engineered, high-performance controller hub is custom-built to turn any room into an immersive lighting experience with zero lag.</p>
+                    </div>
+                    <div class="split-image">
+                        <img src="brain.png" alt="Luv's Studio Controller Hub" class="blend-img">
+                    </div>
+                </div>
+
                 <ul class="feature-list">
                     <li><strong>AI-Powered Music Sync:</strong> Utilizes an onboard microprocessor and integrated high-sensitivity mic to analyze beats for real-time audio reactivity.</li>
                     <li><strong>App-Free Interface:</strong> Fully Wi-Fi enabled architecture allows seamless lighting control instantly from any device browser.</li>
@@ -183,15 +197,13 @@
         <div class="fused-card">
             <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(255, 0, 127, 0.15), transparent 50%);"></div>
             <div class="fused-content">
-                
                 <div class="split-layout">
                     <div class="split-text">
                         <h3>Vibrant <span class="highlight">WS2812B</span> Tech</h3>
                         <p>Powered by premium addressable WS2812B chips delivering liquid-smooth color animations and high-intensity illumination.</p>
                     </div>
                     <div class="split-image">
-                        <!-- STANDARD IMAGE RENDERING -->
-                        <img src="rgbchip.jpg" alt="WS2812B RGBIC LED Chip" class="chip-img">
+                        <img src="rgbchip.jpg" alt="WS2812B RGBIC LED Chip" class="blend-img">
                     </div>
                 </div>
 
@@ -208,8 +220,16 @@
         <div class="fused-card">
             <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(0, 240, 255, 0.15), transparent 50%);"></div>
             <div class="fused-content">
-                <h3>Reliable <span class="highlight">Power</span> Delivery</h3>
-                <p>Engineered for safety and long-term durability during extended parties, movie nights, or continuous daily usage.</p>
+                <div class="split-layout">
+                    <div class="split-text">
+                        <h3>Reliable <span class="highlight">Power</span> Delivery</h3>
+                        <p>Engineered for safety and long-term durability during extended parties, movie nights, or continuous daily usage.</p>
+                    </div>
+                    <div class="split-image">
+                        <img src="power supply.png" alt="Heavy Duty Power Supply" class="blend-img">
+                    </div>
+                </div>
+
                 <ul class="feature-list">
                     <li><strong>Stable 5V DC Output:</strong> Prevents voltage drops across long running lengths.</li>
                     <li><strong>Heavy-Duty Regulation:</strong> Built-in thermal and surge protection architecture.</li>
@@ -264,5 +284,67 @@
             </details>
         </div>
     </section>
+
+    <!-- Custom Bot Toggle Button with Human Agent Icon -->
+    <button class="chat-toggle" id="chatToggleBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <path d="M7.5 9A4.5 4.5 0 0 1 16.5 9" />
+            <path d="M6 9h3v3H6z" />
+            <path d="M15 9h3v3h-3z" />
+            <path d="M18 11v2a2 2 0 0 1-2 2h-1" />
+        </svg>
+    </button>
+    
+    <!-- Isolated Botpress iFrame Container -->
+    <div class="chat-iframe-wrapper" id="chatWrapper">
+        <button class="close-iframe-btn" id="closeIframeBtn">×</button>
+        <iframe src="https://cdn.botpress.cloud/webchat/v3.7/shareable.html?configUrl=https://files.bpcontent.cloud/2026/09/03/22/20260903221139-V04MM46I.json" frameborder="0"></iframe>
+    </div>
+
+    <!-- Scripts for Scroll Reveal & Chatbot -->
+    <script>
+        // Scroll Reveal Logic
+        const scrollSection = document.getElementById('scrollRevealSection');
+        const compContainer = document.getElementById('compContainer');
+
+        if(scrollSection && compContainer) {
+            window.addEventListener('scroll', () => {
+                // Determine how far down the document the section starts
+                const startScroll = scrollSection.offsetTop;
+                
+                // Determine the total scrollable distance for this sticky section
+                const scrollDistance = scrollSection.offsetHeight - window.innerHeight;
+                
+                // Calculate how much the user has scrolled past the start of the section
+                const currentScroll = window.scrollY - startScroll;
+                
+                // Convert that distance to a percentage (0% to 100%)
+                let percentage = (currentScroll / scrollDistance) * 100;
+                
+                // Clamp the percentage strictly between 0 and 100
+                percentage = Math.max(0, Math.min(100, percentage));
+                
+                // Apply the percentage to our CSS variable controlling the clip-path
+                compContainer.style.setProperty('--pos', `${percentage}%`);
+            });
+        }
+
+        // Chatbot Toggle Logic
+        const toggleBtn = document.getElementById('chatToggleBtn');
+        const chatWrapper = document.getElementById('chatWrapper');
+        const closeBtn = document.getElementById('closeIframeBtn');
+
+        if(toggleBtn && chatWrapper && closeBtn) {
+            toggleBtn.addEventListener('click', () => {
+                chatWrapper.classList.add('active');
+            });
+
+            closeBtn.addEventListener('click', () => {
+                chatWrapper.classList.remove('active');
+            });
+        }
+    </script>
 </body>
 </html>
