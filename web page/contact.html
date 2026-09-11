@@ -6,8 +6,8 @@
     <meta name="description" content="Contact LUV'S STUDIO for inquiries, custom setups, and technical specifications. Instant chat support on WhatsApp.">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>Customer Care - LUV'S STUDIO</title>
+    
     <style>
-        /* EXISTING CSS (PRESERVED) */
         :root { --bg-dark: #09090e; --card-bg: #151520; --neon-pink: #ff007f; --neon-blue: #00f0ff; --text-main: #ffffff; --text-muted: #a0a0a0; --nav-height: 60px; }
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: var(--text-main); padding-top: var(--nav-height); display: flex; flex-direction: column; min-height: 100vh; box-sizing: border-box; }
         
@@ -34,14 +34,16 @@
         
         .contact-btn { display: inline-block; color: white; text-decoration: none; padding: 14px 24px; border-radius: 30px; font-weight: bold; font-size: 1rem; transition: transform 0.2s, box-shadow 0.2s; box-sizing: border-box; text-align: center; cursor: pointer; }
         
-        .whatsapp-btn { background-color: #25D366; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); color: white !important; }
+        .whatsapp-btn { background-color: #25D366; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); color: white !important; margin-bottom: 15px; }
         .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5); }
+
+        .email-btn { background-color: #1a1a24; border: 1px solid rgba(0, 240, 255, 0.3); box-shadow: 0 4px 15px rgba(0, 240, 255, 0.1); color: var(--neon-blue); }
+        .email-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 240, 255, 0.25); border-color: var(--neon-blue); }
 
         .site-footer { text-align: center; padding: 20px; background-color: #000; border-top: 1px solid rgba(255, 0, 127, 0.3); color: var(--text-muted); font-size: 0.85rem; margin-top: auto; }
 
         .section-title { font-size: 1.4rem; margin-top: 0; margin-bottom: 20px; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px; }
         
-        /* TRACKING CLASSES */
         .tracking-card, .faq-card { align-items: stretch; }
         .track-sub { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.4; text-align: center; }
         .tracking-form { display: flex; flex-direction: column; gap: 15px; width: 100%; }
@@ -53,7 +55,6 @@
         .tracking-error { background: rgba(255,0,0,0.1); border: 1px solid rgba(255,0,0,0.3); color: #ff6b6b; display: block; }
         .tracking-success { background: rgba(0,240,255,0.08); border: 1px solid rgba(0,240,255,0.3); color: var(--text-main); display: block; }
         
-        /* FAQ STYLES */
         details { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 18px 0; }
         details:last-child { border-bottom: none; }
         summary { font-weight: 600; cursor: pointer; outline: none; transition: color 0.3s; font-size: 1.05rem; list-style: none; display: flex; justify-content: space-between; align-items: center; }
@@ -63,7 +64,6 @@
         details[open] summary { color: var(--neon-pink); }
         details p { color: var(--text-muted); font-size: 0.95rem; margin-top: 15px; margin-bottom: 0; line-height: 1.6; }
 
-        /* FLOATING IFRAME CHATBOT STYLES */
         .chat-toggle { position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; border-radius: 50%; background: #000; border: 2px solid var(--neon-blue); cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; padding: 14px; color: var(--neon-blue); }
         .chat-toggle:hover { transform: scale(1.08); box-shadow: 0 0 30px rgba(255, 0, 127, 0.6); border-color: var(--neon-pink); color: var(--neon-pink); }
         .chat-toggle svg { width: 100%; height: 100%; display: block; }
@@ -75,11 +75,10 @@
         .close-iframe-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: 0.2s ease; backdrop-filter: blur(4px); }
         .close-iframe-btn:hover { background: var(--neon-pink); border-color: var(--neon-pink); transform: scale(1.1); }
 
-        /* --- NEW ENHANCED STYLES --- */
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%; margin-top: 15px; }
         
-        .feature-card { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); padding: 25px 20px; border-radius: 12px; transition: transform 0.3s, border-color 0.3s; height: 100%; box-sizing: border-box; text-align: left; }
+        .feature-card { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); padding: 25px 20px; border-radius: 12px; transition: transform 0.3s, border-color 0.3s; height: 100%; box-sizing: border-box; text-align: left; position: relative;}
         .feature-card:hover { transform: translateY(-3px); border-color: var(--neon-blue); }
         .feature-icon { font-size: 2.2rem; margin-bottom: 15px; line-height: 1; }
         
@@ -139,29 +138,43 @@
         <div class="contact-card">
             <h3 class="section-title" style="text-align: center;">Need Assistance?</h3>
             <div class="grid-2">
-                <!-- Card A: Quick WhatsApp Chat -->
+                <!-- Card A: Direct Support -->
                 <div class="feature-card" style="display: flex; flex-direction: column; justify-content: center;">
-                    <h4 style="margin: 0 0 10px 0; color: var(--text-main); font-size: 1.2rem;">Quick WhatsApp Chat</h4>
+                    <h4 style="margin: 0 0 10px 0; color: var(--text-main); font-size: 1.2rem;">Direct Support</h4>
                     <p style="color: var(--text-main); font-size: 0.95rem; font-weight: 600; margin: 5px 0;"><span class="status-dot"></span>Support Online</p>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 25px;">Support Hours: Mon-Sat, 10:00 AM - 8:00 PM</p>
+                    
                     <a href="https://wa.me/916388315385?text=Hi%20Luv's%20Studio,%20I%20have%20an%20inquiry." class="contact-btn whatsapp-btn" target="_blank" style="width: 100%; padding: 12px 0;">Chat on WhatsApp</a>
+                    
+                    <a href="mailto:luvsstudio0000@gmail.com?subject=Support%20Inquiry%20-%20Luv's%20Studio" class="contact-btn email-btn" style="width: 100%; padding: 12px 0; font-size: 0.85rem;">luvsstudio0000@gmail.com</a>
                 </div>
                 
-                <!-- Card B: Ticket / Replacement Form -->
+                <!-- Card B: ZERO-SETUP TICKET FORM API -->
                 <div class="feature-card">
                     <h4 style="margin: 0 0 15px 0; color: var(--text-main); font-size: 1.2rem;">Raise a Support Ticket</h4>
-                    <form class="tracking-form" onsubmit="event.preventDefault(); alert('Ticket Submitted Successfully! We will contact you shortly.');">
-                        <input type="text" placeholder="Full Name" required class="tracking-input" style="padding: 12px;">
-                        <input type="text" placeholder="Phone or Email" required class="tracking-input" style="padding: 12px;">
-                        <input type="text" placeholder="Order ID (Optional)" class="tracking-input" style="padding: 12px;">
-                        <select class="tracking-input custom-select" required style="padding: 12px;">
+                    
+                    <!-- FormSubmit Endpoint Integration -->
+                    <form action="https://formsubmit.co/luvsstudio0000@gmail.com" method="POST" class="tracking-form">
+                        
+                        <!-- Configuration variables for the API -->
+                        <input type="hidden" name="_subject" value="New Support Ticket - LUV'S STUDIO">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+                        
+                        <input type="text" name="name" placeholder="Full Name" required class="tracking-input" style="padding: 12px;">
+                        <input type="text" name="contact_info" placeholder="Phone or Email" required class="tracking-input" style="padding: 12px;">
+                        <input type="text" name="order_id" placeholder="Order ID (Optional)" class="tracking-input" style="padding: 12px;">
+                        
+                        <select name="issue_type" class="tracking-input custom-select" required style="padding: 12px;">
                             <option value="" disabled selected>Select an Issue...</option>
-                            <option value="setup">Wi-Fi & App Setup</option>
-                            <option value="replacement">Replacement / Defect</option>
-                            <option value="missing">Missing Components</option>
-                            <option value="other">Other Inquiry</option>
+                            <option value="Wi-Fi & App Setup">Wi-Fi & App Setup</option>
+                            <option value="Replacement / Defect">Replacement / Defect</option>
+                            <option value="Missing Components">Missing Components</option>
+                            <option value="Other Inquiry">Other Inquiry</option>
                         </select>
-                        <textarea placeholder="Describe your issue..." required class="tracking-input" style="padding: 12px; min-height: 80px; resize: vertical;"></textarea>
+                        
+                        <textarea name="message" placeholder="Describe your issue..." required class="tracking-input" style="padding: 12px; min-height: 80px; resize: vertical;"></textarea>
+                        
                         <button type="submit" class="contact-btn track-btn" style="padding: 12px;">SUBMIT TICKET</button>
                     </form>
                 </div>
@@ -256,11 +269,11 @@
 
     <!-- JAVASCRIPT FOR TRACKING FORM AND CHATBOT -->
     <script>
+        // --- TRACK ORDER LOGIC ---
         function trackOrder() {
             const orderId = document.getElementById('orderId').value.trim();
             const messageDiv = document.getElementById('trackingMessage');
             
-            // Reset message styles
             messageDiv.className = 'tracking-message';
             
             if (!orderId) {
@@ -272,7 +285,7 @@
             }
         }
 
-        // Chatbot Toggle Logic
+        // --- CHATBOT TOGGLE LOGIC ---
         const toggleBtn = document.getElementById('chatToggleBtn');
         const chatWrapper = document.getElementById('chatWrapper');
         const closeBtn = document.getElementById('closeIframeBtn');
