@@ -8,7 +8,6 @@
     <title>Customer Care - LUV'S STUDIO</title>
     
     <style>
-        /* EXISTING CSS (PRESERVED) */
         :root { --bg-dark: #09090e; --card-bg: #151520; --neon-pink: #ff007f; --neon-blue: #00f0ff; --text-main: #ffffff; --text-muted: #a0a0a0; --nav-height: 60px; }
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: var(--text-main); padding-top: var(--nav-height); display: flex; flex-direction: column; min-height: 100vh; box-sizing: border-box; }
         
@@ -50,6 +49,10 @@
         .tracking-form { display: flex; flex-direction: column; gap: 15px; width: 100%; }
         .tracking-input { width: 100%; padding: 15px 20px; border-radius: 8px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: var(--text-main); font-size: 0.95rem; box-sizing: border-box; transition: border-color 0.3s, box-shadow 0.3s; font-family: 'Segoe UI', sans-serif; }
         .tracking-input:focus { outline: none; border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0,240,255,0.2); }
+        
+        /* Error message style for invalid input */
+        .tracking-input:invalid:not(:placeholder-shown) { border-color: #ff4d4d; box-shadow: 0 0 10px rgba(255, 77, 77, 0.2); }
+        
         .track-btn { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); border: none; margin-top: 5px; width: 100%; }
         .track-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,240,255,0.4); }
         .tracking-message { width: 100%; margin-top: 20px; padding: 18px; border-radius: 8px; font-size: 0.95rem; line-height: 1.6; box-sizing: border-box; display: none; text-align: left; }
@@ -89,12 +92,6 @@
         .custom-select { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a0a0a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
         .custom-select option { background-color: var(--card-bg); color: var(--text-main); }
         
-        /* TICKET SUBMISSION FEEDBACK */
-        #ticketStatusMsg { margin-top: 15px; padding: 12px; border-radius: 8px; display: none; text-align: center; font-weight: bold; font-size: 0.9rem;}
-        .status-loading { background: rgba(0, 240, 255, 0.1); border: 1px solid var(--neon-blue); color: var(--neon-blue); }
-        .status-success { background: rgba(37, 211, 102, 0.1); border: 1px solid #25D366; color: #25D366; }
-        .status-error { background: rgba(255, 51, 51, 0.1); border: 1px solid #ff3333; color: #ff3333; }
-
         .trust-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); }
         .trust-badge { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); background: rgba(255,255,255,0.03); padding: 10px 18px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.08); font-weight: 600; letter-spacing: 0.5px; }
 
@@ -151,23 +148,29 @@
                     <p style="color: var(--text-main); font-size: 0.95rem; font-weight: 600; margin: 5px 0;"><span class="status-dot"></span>Support Online</p>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 25px;">Support Hours: Mon-Sat, 10:00 AM - 8:00 PM</p>
                     
-                    <a href="https://wa.me/916388315385?text=Hi%20Luv's%20Studio,%20I%20have%20an%20inquiry." class="contact-btn whatsapp-btn" target="_blank" style="width: 100%; padding: 12px 0; margin-bottom: 15px;">Chat on WhatsApp</a>
+                    <a href="https://wa.me/916388315385?text=Hi%20Luv's%20Studio,%20I%20have%20an%20inquiry." class="contact-btn whatsapp-btn" target="_blank" style="width: 100%; padding: 12px 0;">Chat on WhatsApp</a>
                     
                     <a href="mailto:luvsstudio0000@gmail.com?subject=Support%20Inquiry%20-%20Luv's%20Studio" class="contact-btn email-btn" style="width: 100%; padding: 12px 0; font-size: 0.85rem;">luvsstudio0000@gmail.com</a>
                 </div>
                 
-                <!-- Card B: API TICKET FORM WITH WEB3FORMS (AJAX / NO REDIRECT) -->
+                <!-- Card B: ZERO-SETUP TICKET FORM API WITH VALIDATION -->
                 <div class="feature-card">
                     <h4 style="margin: 0 0 15px 0; color: var(--text-main); font-size: 1.2rem;">Raise a Support Ticket</h4>
                     
-                    <form id="supportForm" class="tracking-form">
+                    <!-- FormSubmit Endpoint Integration -->
+                    <form action="https://formsubmit.co/luvsstudio0000@gmail.com" method="POST" class="tracking-form">
                         
-                        <!-- Your Access Key / UUID -->
-                        <input type="hidden" name="access_key" value="c31fe2ea-14c1-442d-9dd9-48be57f8a096">
-                        <input type="hidden" name="subject" value="New Support Ticket from LUV'S STUDIO">
+                        <!-- Configuration variables for the API -->
+                        <input type="hidden" name="_subject" value="New Support Ticket - LUV'S STUDIO">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
                         
-                        <input type="text" name="name" placeholder="Full Name" required class="tracking-input" style="padding: 12px;">
-                        <input type="text" name="email_or_phone" placeholder="Phone or Email" required class="tracking-input" style="padding: 12px;">
+                        <!-- NAME FIELD: Validation Added (Only Letters and Spaces Allowed) -->
+                        <input type="text" name="name" placeholder="Full Name" required class="tracking-input" style="padding: 12px;" pattern="^[A-Za-z\s]+$" title="Please enter letters only. Numbers are not allowed.">
+                        
+                        <!-- CONTACT FIELD: Validation Added (Only 10 digits OR valid email allowed) -->
+                        <input type="text" name="contact_info" placeholder="10-Digit Phone or Email" required class="tracking-input" style="padding: 12px;" pattern="^(\d{10}|[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})$" title="Please enter exactly a 10-digit phone number or a valid email address.">
+                        
                         <input type="text" name="order_id" placeholder="Order ID (Optional)" class="tracking-input" style="padding: 12px;">
                         
                         <select name="issue_type" class="tracking-input custom-select" required style="padding: 12px;">
@@ -180,8 +183,7 @@
                         
                         <textarea name="message" placeholder="Describe your issue..." required class="tracking-input" style="padding: 12px; min-height: 80px; resize: vertical;"></textarea>
                         
-                        <button type="submit" id="submitTicketBtn" class="contact-btn track-btn" style="padding: 12px;">SUBMIT TICKET</button>
-                        <div id="ticketStatusMsg"></div>
+                        <button type="submit" class="contact-btn track-btn" style="padding: 12px;">SUBMIT TICKET</button>
                     </form>
                 </div>
             </div>
@@ -273,9 +275,9 @@
         <p>&copy; 2026 LUV'S STUDIO. All rights reserved.</p>
     </footer>
 
-    <!-- JAVASCRIPT -->
+    <!-- JAVASCRIPT FOR TRACKING FORM AND CHATBOT -->
     <script>
-        // --- 1. TRACK ORDER LOGIC ---
+        // --- TRACK ORDER LOGIC ---
         function trackOrder() {
             const orderId = document.getElementById('orderId').value.trim();
             const messageDiv = document.getElementById('trackingMessage');
@@ -291,61 +293,7 @@
             }
         }
 
-        // --- 2. WEB3FORMS AJAX SUBMISSION LOGIC ---
-        const supportForm = document.getElementById('supportForm');
-        const submitBtn = document.getElementById('submitTicketBtn');
-        const statusMsg = document.getElementById('ticketStatusMsg');
-
-        supportForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Stop page redirect
-            
-            // Show loading state
-            submitBtn.textContent = 'SENDING...';
-            submitBtn.disabled = true;
-            statusMsg.style.display = 'block';
-            statusMsg.className = 'status-loading';
-            statusMsg.textContent = 'Please wait while we submit your ticket...';
-
-            const formData = new FormData(supportForm);
-
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formData
-            })
-            .then(async (response) => {
-                let json = await response.json();
-                if (response.status == 200) {
-                    // Success handling
-                    submitBtn.textContent = 'SUBMIT TICKET';
-                    submitBtn.disabled = false;
-                    statusMsg.className = 'status-success';
-                    statusMsg.innerHTML = '✓ Ticket Submitted Successfully!<br><span style="font-size:0.8rem; font-weight:normal;">We have received your request and will contact you shortly.</span>';
-                    supportForm.reset();
-                    
-                    // Hide success message after 8 seconds
-                    setTimeout(() => {
-                        statusMsg.style.display = 'none';
-                    }, 8000);
-                } else {
-                    // Error from API
-                    console.log(response);
-                    submitBtn.textContent = 'SUBMIT TICKET';
-                    submitBtn.disabled = false;
-                    statusMsg.className = 'status-error';
-                    statusMsg.textContent = json.message || 'Failed to send ticket. Please try again.';
-                }
-            })
-            .catch(error => {
-                // Network error
-                console.log(error);
-                submitBtn.textContent = 'SUBMIT TICKET';
-                submitBtn.disabled = false;
-                statusMsg.className = 'status-error';
-                statusMsg.textContent = 'Something went wrong! Please try again or use WhatsApp.';
-            });
-        });
-
-        // --- 3. CHATBOT TOGGLE LOGIC ---
+        // --- CHATBOT TOGGLE LOGIC ---
         const toggleBtn = document.getElementById('chatToggleBtn');
         const chatWrapper = document.getElementById('chatWrapper');
         const closeBtn = document.getElementById('closeIframeBtn');
