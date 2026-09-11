@@ -6,12 +6,27 @@
     <meta name="description" content="Why choose LUV'S STUDIO? Discover the difference in our 16M+ colors, built-in mini games, and advanced music sync capabilities.">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>Why Us - LUV'S STUDIO</title>
+    
+    <!-- ADDED PREMIUM GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         :root { --bg-dark: #09090e; --card-bg: #151520; --neon-pink: #ff007f; --neon-blue: #00f0ff; --text-main: #ffffff; --text-muted: #a0a0a0; --nav-height: 70px; }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: var(--text-main); padding-top: var(--nav-height); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* UPDATED FONT FAMILY */
+        body { margin: 0; font-family: 'Outfit', 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: var(--text-main); padding-top: var(--nav-height); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         
         @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        /* ADDED PLAY BUTTON PULSE ANIMATION */
+        @keyframes pulsePlay { 0% { transform: scale(1); text-shadow: 0 0 15px rgba(0,0,0,0.8), 0 0 10px var(--neon-blue); } 50% { transform: scale(1.15); text-shadow: 0 0 20px rgba(0,0,0,0.9), 0 0 25px var(--neon-pink); } 100% { transform: scale(1); text-shadow: 0 0 15px rgba(0,0,0,0.8), 0 0 10px var(--neon-blue); } }
+
+        /* ADDED SCROLL REVEAL UTILITY */
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .reveal-up.in-view { opacity: 1; transform: translateY(0); }
 
         .top-nav { position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; box-sizing: border-box; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
         .nav-brand { font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -21,28 +36,29 @@
         
         .order-btn-nav { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white !important; text-decoration: none; padding: 10px 25px; font-size: 0.95rem; font-weight: bold; border-radius: 30px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .order-btn-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 240, 255, 0.4); }
+        .order-btn-nav:active { transform: scale(0.95) translateY(0); box-shadow: none; }
         
         header { padding: 40px 20px; background-color: #000; border-bottom: 1px solid rgba(255, 0, 127, 0.3); text-align: center; }
         
         .brand-title { font-size: 3.5rem; font-weight: 800; letter-spacing: 3px; margin: 0; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue), var(--neon-pink)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientFlow 6s linear infinite; }
         
-        .hero { text-align: center; padding: 100px 20px; flex-grow: 1; animation: fadeSlideUp 0.8s ease-out forwards; }
-        .hero h2 { letter-spacing: 4px; font-size: 2.5rem; margin-bottom: 20px; text-transform: uppercase; }
+        .hero { text-align: center; padding: 100px 20px; flex-grow: 1; }
+        .hero h2 { letter-spacing: 4px; font-size: 2.5rem; margin-bottom: 20px; text-transform: uppercase; color: var(--text-main); }
         .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
         
-        .comparison-section { padding: 80px 20px 40px; background-color: #050508; animation: fadeSlideUp 0.8s ease-out forwards; }
-        .comparison-section h2 { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: var(--text-main); }
+        .comparison-section { padding: 80px 20px 40px; background-color: #050508; }
+        .comparison-section h2 { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: var(--text-main); letter-spacing: 1px; }
         .comp-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; }
         
-        .comp-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 25px; width: 300px; opacity: 0; animation: fadeSlideUp 0.6s ease-out forwards; transition: transform 0.3s ease, border-color 0.3s ease; }
-        .comp-card:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.2); }
-        .comp-card:nth-child(1) { animation-delay: 0.1s; }
-        .comp-card:nth-child(2) { animation-delay: 0.2s; }
-        .comp-card:nth-child(3) { animation-delay: 0.3s; }
+        /* ADDED GLOW ON HOVER */
+        .comp-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 25px; width: 300px; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); box-sizing: border-box; }
+        .comp-card:hover { transform: translateY(-8px); border-color: rgba(0, 240, 255, 0.4); box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(0, 240, 255, 0.1); }
 
-        .comp-card h3 { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-top: 0; }
-        .pro-box { background: rgba(37,211,102,0.05); border-left: 3px solid #25D366; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
-        .con-box { background: rgba(255,51,51,0.05); border-left: 3px solid #ff3333; padding: 15px; border-radius: 4px; color: var(--text-muted); }
+        .comp-card h3 { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-top: 0; display: flex; align-items: center; gap: 10px; font-size: 1.2rem; }
+        .comp-card svg { width: 24px; height: 24px; stroke: var(--neon-pink); stroke-width: 2; fill: none; }
+        
+        .pro-box { background: rgba(37,211,102,0.05); border-left: 3px solid #25D366; padding: 15px; border-radius: 4px; margin-bottom: 15px; font-size: 0.95rem; line-height: 1.5; }
+        .con-box { background: rgba(255,51,51,0.05); border-left: 3px solid #ff3333; padding: 15px; border-radius: 4px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
         
         /* --- MEDIA SECTION --- */
         .media-section { padding: 40px 20px 80px; background-color: #050508; flex-grow: 1; display: flex; justify-content: center; }
@@ -54,14 +70,31 @@
         .media-box::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent); transform: skewX(-20deg); transition: 0.6s; z-index: 3; pointer-events: none; }
         .media-box:hover::before { left: 150%; }
         
-        .media-box video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; border-radius: 13px; transition: opacity 0.3s ease; opacity: 0.8; }
+        .media-box video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; border-radius: 13px; transition: opacity 0.3s ease; opacity: 0.7; }
         .media-box:hover video { opacity: 1; }
         
-        .video-title { position: absolute; bottom: 20px; margin: 0; font-size: 1.4rem; color: var(--text-main); z-index: 2; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 2px 15px rgba(0,0,0,0.9), 0 0 10px rgba(0, 240, 255, 0.8); pointer-events: none; transition: opacity 0.3s ease; }
-        .media-box:hover .video-title { opacity: 0; }
+        .video-title { position: absolute; bottom: 20px; margin: 0; font-size: 1.4rem; font-weight: 800; color: var(--text-main); z-index: 2; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 2px 15px rgba(0,0,0,0.9), 0 0 10px rgba(0, 240, 255, 0.8); pointer-events: none; transition: opacity 0.3s ease; text-align: center; width: 100%; }
+        .media-box:hover .video-title { opacity: 0; transform: translateY(10px); }
 
-        .play-indicator { position: absolute; z-index: 2; font-size: 3rem; color: rgba(255,255,255,0.7); pointer-events: none; transition: opacity 0.3s ease; text-shadow: 0 0 15px rgba(0,0,0,0.8); }
-        .media-box:hover .play-indicator { opacity: 0; }
+        /* ADDED ANIMATION TO PLAY INDICATOR */
+        .play-indicator { position: absolute; z-index: 2; font-size: 3.5rem; color: rgba(255,255,255,0.85); pointer-events: none; transition: all 0.3s ease; animation: pulsePlay 2s infinite; }
+        .media-box:hover .play-indicator { opacity: 0; transform: scale(1.5); }
+
+        /* --- SMART FEATURES SECTION --- */
+        .tech-specs-section { padding: 60px 20px; background-color: var(--bg-dark); text-align: center; }
+        .tech-specs-section h2 { font-size: 2.2rem; margin-bottom: 40px; color: var(--text-main); letter-spacing: 1px; }
+        .tech-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1000px; margin: 0 auto; }
+        .tech-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 20px 30px; border-radius: 50px; display: flex; align-items: center; gap: 12px; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; transition: all 0.3s ease; cursor: default; }
+        .tech-item:hover { background: rgba(0,240,255,0.05); border-color: rgba(0,240,255,0.3); color: var(--text-main); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,240,255,0.1); }
+        .tech-icon { font-size: 1.5rem; }
+
+        /* --- FINAL CTA SECTION --- */
+        .final-cta { padding: 80px 20px; text-align: center; background: linear-gradient(0deg, #050508 0%, var(--bg-dark) 100%); position: relative; overflow: hidden; }
+        .final-cta::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; background: var(--neon-pink); filter: blur(150px); opacity: 0.15; z-index: 1; pointer-events: none; }
+        .final-cta h2 { font-size: 2.8rem; margin-bottom: 30px; color: var(--text-main); position: relative; z-index: 2; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+        .cta-big-btn { display: inline-block; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white; padding: 18px 45px; font-size: 1.2rem; font-weight: 800; text-decoration: none; border-radius: 40px; text-transform: uppercase; letter-spacing: 2px; position: relative; z-index: 2; transition: all 0.4s ease; box-shadow: 0 10px 30px rgba(0, 240, 255, 0.3); }
+        .cta-big-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 40px rgba(255, 0, 127, 0.4); filter: brightness(1.1); }
+        .cta-big-btn:active { transform: translateY(0) scale(0.98); box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3); }
 
         .site-footer { text-align: center; padding: 20px; background-color: #000; border-top: 1px solid rgba(255, 0, 127, 0.3); color: var(--text-muted); font-size: 0.85rem; margin-top: auto; }
 
@@ -97,24 +130,39 @@
         </div>
         <a href="pricing.html" class="order-btn-nav">ORDER NOW</a>
     </nav>
+    
     <header><h1 class="brand-title">LUV'S STUDIO</h1></header>
     
+    <div class="hero reveal-up">
+        <h2>Unmatched Lighting Experience</h2>
+        <p>Discover the difference between ordinary LEDs and LUV'S STUDIO premium smart lighting engineered for creators and gamers.</p>
+    </div>
+
     <main class="comparison-section">
-        <h2>Why We Are Different</h2>
+        <h2 class="reveal-up">Why We Are Different</h2>
         <div class="comp-grid">
-            <div class="comp-card">
-                <h3>16M+ Colours & Control</h3>
+            <div class="comp-card reveal-up" style="transition-delay: 0.1s;">
+                <h3>
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg>
+                    16M+ Colours
+                </h3>
                 <div class="pro-box"><strong style="color: #25D366;">✓ OUR LIGHTS</strong><br>16M+ colours with individual RGB control.</div>
                 <div class="con-box"><strong style="color: #ff3333;">✗ OTHER LIGHTS</strong><br>No dedicated control. Limited customization.</div>
             </div>
-            <div class="comp-card">
-                <h3>Inbuilt Mini Game</h3>
+            <div class="comp-card reveal-up" style="transition-delay: 0.2s;">
+                <h3>
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" ry="2"></rect><path d="M6 12h4m-2-2v4m10-4v.01M16 14v.01"></path></svg>
+                    Inbuilt Mini Game
+                </h3>
                 <div class="pro-box"><strong style="color: #25D366;">✓ OUR LIGHTS</strong><br>Inbuilt mini game with 3 levels and increasing speed.</div>
                 <div class="con-box"><strong style="color: #ff3333;">✗ OTHER LIGHTS</strong><br>No mini game or interactive mode.</div>
             </div>
-            <div class="comp-card">
-                <h3>Advanced Music Sync</h3>
-                <div class="pro-box"><strong style="color: #25D366;">✓ OUR LIGHTS</strong><br>Dedicated mic engine for perfect music sync & 15+ club modes.</div>
+            <div class="comp-card reveal-up" style="transition-delay: 0.3s;">
+                <h3>
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                    Advanced Music Sync
+                </h3>
+                <div class="pro-box"><strong style="color: #25D366;">✓ OUR LIGHTS</strong><br>Dedicated mic engine for perfect sync & 15+ club modes.</div>
                 <div class="con-box"><strong style="color: #ff3333;">✗ OTHER LIGHTS</strong><br>Basic mic/sync with lag and less accurate response.</div>
             </div>
         </div>
@@ -123,22 +171,51 @@
     <!-- MEDIA SECTION WITH HOVER-TO-PLAY VIDEOS -->
     <section class="media-section">
         <div class="media-grid">
-            <div class="media-box">
-                <video src="game-demo.mp4.mp4" loop playsinline></video>
+            <div class="media-box reveal-up" style="transition-delay: 0.1s;">
+                <video src="game-demo.mp4.mp4" loop playsinline muted></video>
                 <div class="play-indicator">▶</div>
                 <h4 class="video-title">Interactive Games</h4>
             </div>
-            <div class="media-box">
-                <video src="party-mode.mp4.mp4" loop playsinline></video>
+            <div class="media-box reveal-up" style="transition-delay: 0.2s;">
+                <video src="party-mode.mp4.mp4" loop playsinline muted></video>
                 <div class="play-indicator">▶</div>
                 <h4 class="video-title">Instant Party Vibe</h4>
             </div>
-            <div class="media-box">
-                <video src="unboxing.mp4.mp4" loop playsinline></video>
+            <div class="media-box reveal-up" style="transition-delay: 0.3s;">
+                <video src="unboxing.mp4.mp4" loop playsinline muted></video>
                 <div class="play-indicator">▶</div>
                 <h4 class="video-title">Premium Kit</h4>
             </div>
         </div>
+    </section>
+
+    <!-- SMART FEATURES SECTION -->
+    <section class="tech-specs-section">
+        <h2 class="reveal-up">Smart By Design</h2>
+        <div class="tech-grid">
+            <div class="tech-item reveal-up" style="transition-delay: 0.1s;">
+                <!-- Updated: App Control to WiFi Control and icon changed -->
+                <span class="tech-icon">📶</span> Smart WiFi Control
+            </div>
+            <div class="tech-item reveal-up" style="transition-delay: 0.2s;">
+                <span class="tech-icon">🌈</span> True RGBIC Chip
+            </div>
+            <div class="tech-item reveal-up" style="transition-delay: 0.3s;">
+                <span class="tech-icon">✂️</span> Cuttable & Flexible
+            </div>
+            <div class="tech-item reveal-up" style="transition-delay: 0.4s;">
+                <span class="tech-icon">🛡️</span> Safe 12V Output
+            </div>
+            <div class="tech-item reveal-up" style="transition-delay: 0.5s;">
+                <span class="tech-icon">🔌</span> 100% Plug & Play
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA SECTION -->
+    <section class="final-cta reveal-up">
+        <h2>Ready to transform your space?</h2>
+        <a href="pricing.html" class="cta-big-btn">Explore Kits & Pricing</a>
     </section>
 
     <!-- FLOATING CHATBOT -->
@@ -162,16 +239,14 @@
         <p>&copy; 2026 LUV'S STUDIO. All rights reserved.</p>
     </footer>
 
-    <!-- JAVASCRIPT FOR HOVER-TO-PLAY AND CHATBOT -->
+    <!-- JAVASCRIPT FOR HOVER-TO-PLAY, OBSERVER, AND CHATBOT -->
     <script>
-        // Media Hover Logic
+        // 1. Media Hover Logic (Muted added in HTML to ensure autoplay doesn't block on Chrome)
         document.querySelectorAll('.media-box').forEach(box => {
             const video = box.querySelector('video');
             if (video) {
                 box.addEventListener('mouseenter', () => {
-                    video.play().catch(error => {
-                        console.log("Browser blocked audio playback. User must click on the page first.");
-                    });
+                    video.play().catch(error => console.log("Autoplay blocked."));
                 });
                 box.addEventListener('mouseleave', () => {
                     video.pause();
@@ -179,7 +254,7 @@
             }
         });
 
-        // Chatbot Toggle Logic
+        // 2. Chatbot Toggle Logic
         const toggleBtn = document.getElementById('chatToggleBtn');
         const chatWrapper = document.getElementById('chatWrapper');
         const closeBtn = document.getElementById('closeIframeBtn');
@@ -191,6 +266,19 @@
         closeBtn.addEventListener('click', () => {
             chatWrapper.classList.remove('active');
         });
+
+        // 3. Scroll Reveal Logic (Matches Pricing Page)
+        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -30px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
