@@ -152,22 +152,17 @@
                     <a href="mailto:luvsstudio0000@gmail.com?subject=Support%20Inquiry%20-%20Luv's%20Studio" class="contact-btn email-btn" style="width: 100%; padding: 12px 0; font-size: 0.85rem;">luvsstudio0000@gmail.com</a>
                 </div>
                 
-                <!-- Card B: ZERO-SETUP TICKET FORM API WITH VALIDATION -->
+                <!-- Card B: TICKET FORM API WITH VALIDATION -->
                 <div class="feature-card">
                     <h4 style="margin: 0 0 15px 0; color: var(--text-main); font-size: 1.2rem;">Raise a Support Ticket</h4>
                     
-                    <!-- FormSubmit Endpoint Integration -->
                     <form action="https://formsubmit.co/luvsstudio0000@gmail.com" method="POST" class="tracking-form">
-                        
-                        <!-- Configuration variables for the API -->
                         <input type="hidden" name="_subject" value="New Support Ticket - LUV'S STUDIO">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_template" value="table">
                         
-                        <!-- NAME FIELD: Validation Added (Only Letters and Spaces Allowed) -->
                         <input type="text" name="name" placeholder="Full Name" required class="tracking-input" style="padding: 12px;" pattern="^[A-Za-z\s]+$" title="Please enter letters only. Numbers are not allowed.">
                         
-                        <!-- CONTACT FIELD: Validation Added (Only 10 digits OR valid email allowed) -->
                         <input type="text" name="contact_info" placeholder="10-Digit Phone or Email" required class="tracking-input" style="padding: 12px;" pattern="^(\d{10}|[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})$" title="Please enter exactly a 10-digit phone number or a valid email address.">
                         
                         <input type="text" name="order_id" placeholder="Order ID (Optional)" class="tracking-input" style="padding: 12px;">
@@ -184,29 +179,6 @@
                         
                         <button type="submit" class="contact-btn track-btn" style="padding: 12px;">SUBMIT TICKET</button>
                     </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- QUICK TROUBLESHOOTING STRIP -->
-        <div class="contact-card">
-            <h3 class="section-title" style="text-align: center;">Quick Troubleshooting</h3>
-            <p class="track-sub">Resolve the most common RGBIC setup queries instantly.</p>
-            <div class="grid-3">
-                <div class="feature-card" style="text-align: center;">
-                    <div class="feature-icon">📶</div>
-                    <h4 style="margin: 0 0 10px 0; font-size: 1rem; color: var(--text-main);">Wi-Fi & Pairing</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.4;">Use a 2.4GHz network. Hold the hub button for 5s to enter flashing pairing mode.</p>
-                </div>
-                <div class="feature-card" style="text-align: center;">
-                    <div class="feature-icon">✂️</div>
-                    <h4 style="margin: 0 0 10px 0; font-size: 1rem; color: var(--text-main);">Sizing Guide</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.4;">Only cut along the designated copper pads (scissor icon) to prevent dead pixels.</p>
-                </div>
-                <div class="feature-card" style="text-align: center;">
-                    <div class="feature-icon">🔄</div>
-                    <h4 style="margin: 0 0 10px 0; font-size: 1rem; color: var(--text-main);">Hub Reset</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.4;">Unplug adapter for 10s. Plug in and press the controller button 3 times to sync.</p>
                 </div>
             </div>
         </div>
@@ -232,7 +204,7 @@
             
             <details>
                 <summary>My lights are stuck on one color, what should I do?</summary>
-                <p>This is usually a sync issue. Check the "Hub Reset" step in the troubleshooting section above. If the issue persists, ensure all connections between the strip and controller are tight.</p>
+                <p>This is usually a sync issue. Check the connections between the strip and controller to ensure they are tight, and try resetting the hub.</p>
             </details>
         </div>
 
@@ -274,10 +246,10 @@
         <p>&copy; 2026 LUV'S STUDIO. All rights reserved.</p>
     </footer>
 
-    <!-- JAVASCRIPT FOR TRACKING FORM AND CHATBOT -->
+    <!-- JAVASCRIPT FOR TRACKING API AND CHATBOT -->
     <script>
-        // --- TRACK ORDER LOGIC ---
-        function trackOrder() {
+        // --- UNIVERSAL TRACKING API LOGIC ---
+        async function trackOrder() {
             const orderId = document.getElementById('orderId').value.trim();
             const messageDiv = document.getElementById('trackingMessage');
             
@@ -286,9 +258,38 @@
             if (!orderId) {
                 messageDiv.classList.add('tracking-error');
                 messageDiv.innerHTML = 'Please enter your Order ID or Tracking Number.';
-            } else {
-                messageDiv.classList.add('tracking-success');
-                messageDiv.innerHTML = `<strong>Order Lookup</strong><br><br>ID: ${orderId}<br>Status: Searching database...<br><br>Need fast help? Use the ticket form or WhatsApp below.`;
+                return;
+            }
+
+            messageDiv.classList.add('tracking-success');
+            messageDiv.innerHTML = 'Searching database... ⏳';
+
+            try {
+                const response = await fetch(`https://api.tracking-service.v1/track/${orderId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Asph-Api-Key': 'YOUR_API_KEY_HERE' 
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Order not found');
+                }
+
+                const data = await response.json();
+                
+                messageDiv.innerHTML = `
+                    <strong>Order Lookup</strong><br><br>
+                    ID: ${orderId}<br>
+                    Courier: ${data.courier_name}<br>
+                    Status: ${data.current_status}<br>
+                    Expected Delivery: ${data.delivery_date}<br>
+                `;
+                
+            } catch (error) {
+                messageDiv.className = 'tracking-message tracking-error';
+                messageDiv.innerHTML = 'Could not find tracking details for this ID. Please check and try again.';
             }
         }
 
