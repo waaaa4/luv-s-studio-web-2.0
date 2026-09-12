@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bring Club Vibes To Home - LUV'S STUDIO</title>
+    <style>
+        :root { --bg-dark: #09090e; --card-bg: #151520; --neon-pink: #ff007f; --neon-blue: #00f0ff; --text-main: #ffffff; --text-muted: #d0d0d0; --nav-height: 60px; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: var(--text-main); padding-top: var(--nav-height); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; box-sizing: border-box; }
+        
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .top-nav { position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); background-color: rgba(0, 0, 0, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-sizing: border-box; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .nav-brand { font-size: 1.1rem; font-weight: 900; letter-spacing: 2px; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; white-space: nowrap; }
+        .nav-links { display: flex; gap: 15px; overflow-x: auto; white-space: nowrap; }
+        .nav-links::-webkit-scrollbar { display: none; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; transition: 0.3s ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); }
+        
+        .order-btn-nav { background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue)); color: white !important; text-decoration: none; padding: 8px 16px; font-size: 0.85rem; font-weight: bold; border-radius: 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; white-space: nowrap; }
+        .order-btn-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 240, 255, 0.4); }
+        
+        header { padding: 30px 20px 10px; background-color: #000; text-align: center; }
+        .brand-title { font-size: 2.5rem; font-weight: 800; letter-spacing: 2px; margin: 0; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue), var(--neon-pink)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientFlow 6s linear infinite; }
+        
+        .hero-banner { 
+            max-width: 850px; 
+            margin: 0px auto 60px;
+            padding: 0 15px; 
+            box-sizing: border-box; 
+            position: relative; 
+            z-index: 11; 
+            animation: fadeSlideUp 1s ease-out forwards; 
+        }
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 5%; left: 5%; right: 5%; bottom: 5%;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+            filter: blur(45px);
+            opacity: 0.25;
+            z-index: 1;
+            border-radius: 20px;
+            pointer-events: none;
+        }
+        .hero-banner img { 
+            width: 100%; 
+            height: auto; 
+            border-radius: 16px; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            display: block; 
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-intro { text-align: center; padding: 40px 15px 30px; animation: fadeSlideUp 0.8s ease-out forwards; }
+        .hero-intro h2 { letter-spacing: 2px; font-size: 2rem; margin-bottom: 15px; text-transform: uppercase; }
+        .hero-intro p { font-size: 1.05rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        .hero-key-points { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 30px; animation: fadeSlideUp 1s ease-out forwards; max-width: 900px; margin-left: auto; margin-right: auto; }
+        .hero-key-points .point { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(0, 240, 255, 0.3); padding: 10px 20px; border-radius: 30px; font-size: 0.9rem; font-weight: 600; color: var(--text-main); transition: 0.3s ease; cursor: default; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 8px; }
+        .hero-key-points .point:hover { border-color: var(--neon-pink); box-shadow: 0 0 15px rgba(255, 0, 127, 0.4); transform: translateY(-3px); color: var(--text-main); }
+
+        .scroll-reveal-section { height: 250vh; position: relative; z-index: 10; background-color: var(--bg-dark); }
+        .sticky-container { position: sticky; top: var(--nav-height); height: calc(100vh - var(--nav-height)); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; overflow: hidden; }
+        .sticky-container h2 { font-size: 2.2rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; }
+        
+        .comparison-slider { position: relative; width: 100%; max-width: 1000px; aspect-ratio: 21/9; min-height: 250px; border-radius: 15px; overflow: hidden; border: 2px solid rgba(255, 255, 255, 0.1); box-shadow: 0 15px 40px rgba(0,0,0,0.8); --pos: 0%; }
+        
+        .comp-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .comp-before { z-index: 1; }
+        .comp-after { z-index: 2; clip-path: polygon(0 0, var(--pos) 0, var(--pos) 100%, 0 100%); transition: clip-path 0.1s ease-out; }
+        .scroll-glow-line { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 4px; background: #fff; z-index: 3; transform: translateX(-50%); box-shadow: 0 0 20px var(--neon-blue), 0 0 20px var(--neon-pink); pointer-events: none; transition: left 0.1s ease-out; }
+
+        .feature-container { padding: 40px 15px 60px; max-width: 1100px; margin: 0 auto; box-sizing: border-box; position: relative; z-index: 11; background-color: var(--bg-dark); }
+
+        .fused-card { position: relative; border-radius: 20px; overflow: hidden; margin-bottom: 50px; border: 1px solid rgba(0, 240, 255, 0.2); box-shadow: 0 15px 35px rgba(0,0,0,0.6); animation: fadeSlideUp 0.8s ease-out; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+        .fused-card:hover { border-color: var(--neon-pink); box-shadow: 0 15px 45px rgba(255, 0, 127, 0.25); }
+
+        .fused-bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(9, 9, 14, 0.92), rgba(21, 21, 32, 0.85)), linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4)); background-size: cover; background-position: center; z-index: 1; }
+
+        .fused-content { position: relative; z-index: 2; padding: 35px; box-sizing: border-box; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+
+        .split-layout { display: flex; gap: 30px; align-items: center; margin-bottom: 25px; }
+        .split-text { flex: 1.2; }
+        .split-image { flex: 1; text-align: center; }
+        
+        .blend-img { width: 100%; max-width: 360px; height: auto; display: block; margin: 0 auto; mix-blend-mode: lighten; filter: contrast(1.15) brightness(1.1); }
+
+        .fused-content h3 { font-size: 2rem; color: var(--neon-blue); margin-top: 0; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .fused-content .highlight { color: var(--neon-pink); }
+        .fused-content p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; margin-bottom: 20px; max-width: 700px; }
+        
+        .feature-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        .feature-list li { font-size: 0.95rem; padding-left: 25px; position: relative; color: var(--text-main); line-height: 1.5; background: rgba(0, 0, 0, 0.3); padding: 12px 15px 12px 35px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); }
+        .feature-list li::before { content: '✓'; position: absolute; left: 12px; color: var(--neon-pink); font-weight: bold; }
+
+        /* --- PREMIUM UI SHOWCASE --- */
+        .premium-showcase { padding: 80px 15px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 11; background-color: var(--bg-dark); }
+        
+        .showcase-header { text-align: center; margin-bottom: 30px; }
+        .showcase-header h2 { font-size: 2.2rem; color: #fff; margin-bottom: 10px; }
+        .showcase-header p { color: var(--text-muted); font-size: 1.1rem; }
+
+        .showcase-block { 
+            background-color: var(--card-bg); 
+            background-size: cover; 
+            background-position: center; 
+            border-radius: 20px; 
+            position: relative; 
+            overflow: hidden; 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sc-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        .sc-card-vertical { min-height: 450px; flex-direction: column; }
+
+        .sc-overlay-text { position: absolute; width: 100%; box-sizing: border-box; padding: 30px; color: #fff; z-index: 2; }
+        .sc-overlay-text h3 { font-size: 1.3rem; font-weight: 700; margin: 0; line-height: 1.4; text-shadow: 0 2px 15px rgba(0,0,0,0.9); }
+        
+        .pos-top-left { top: 0; left: 0; text-align: left; }
+        .pos-bottom-center { bottom: 0; left: 0; text-align: center; }
+        .pos-top-center { top: 0; left: 0; text-align: center; }
+
+        .sc-mockup-img { z-index: 1; border: 1px solid rgba(255,255,255,0.1); border-bottom: none; display: block; object-fit: cover; }
+
+        .integration-badges { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 25px; margin-bottom: 40px; }
+        .sc-badge { background: #151520; border: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 30px; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 10px; color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+        .faq-section { padding: 60px 15px; background-color: var(--bg-dark); text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); box-sizing: border-box; position: relative; z-index: 11; }
+        .faq-section h2 { font-size: 2rem; color: var(--text-main); margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
+        .faq-container { max-width: 800px; margin: 0 auto; text-align: left; }
+        .faq-item { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: border-color 0.3s ease; }
+        .faq-item:hover { border-color: var(--neon-pink); }
+        .faq-item summary { padding: 20px; font-size: 1.1rem; font-weight: 600; color: var(--text-main); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: '+'; color: var(--neon-pink); font-size: 1.5rem; font-weight: 400; transition: transform 0.3s ease; }
+        .faq-item[open] summary::after { transform: rotate(45deg); color: var(--neon-blue); }
+        .faq-item[open] summary { border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .faq-item p { padding: 20px; margin: 0; color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+
+        .chat-toggle { position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; border-radius: 50%; background: #000; border: 2px solid var(--neon-blue); cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; padding: 14px; color: var(--neon-blue); }
+        .chat-toggle:hover { transform: scale(1.08); box-shadow: 0 0 30px rgba(255, 0, 127, 0.6); border-color: var(--neon-pink); color: var(--neon-pink); }
+        .chat-toggle svg { width: 100%; height: 100%; display: block; }
+        
+        .chat-iframe-wrapper { position: fixed; bottom: 105px; right: 25px; width: 380px; height: 600px; max-height: 80vh; background-color: var(--card-bg); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 15px; box-shadow: 0 15px 45px rgba(0,0,0,0.9); z-index: 9998; opacity: 0; pointer-events: none; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; overflow: hidden; backdrop-filter: blur(10px); }
+        .chat-iframe-wrapper.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .chat-iframe-wrapper iframe { width: 100%; height: 100%; border: none; background: transparent; }
+        .close-iframe-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: 0.2s ease; backdrop-filter: blur(4px); }
+        .close-iframe-btn:hover { background: var(--neon-pink); border-color: var(--neon-pink); transform: scale(1.1); }
+
+        /* MOBILE FIXES INCORPORATED */
+        @media (max-width: 768px) {
+            .top-nav { flex-wrap: wrap; height: auto; padding: 12px 15px; gap: 12px; }
+            .nav-brand { order: 1; font-size: 1rem; }
+            .order-btn-nav { order: 2; margin-left: auto; font-size: 0.75rem; padding: 6px 12px; }
+            .nav-links { order: 3; width: 100%; justify-content: flex-start; padding-bottom: 5px; mask-image: linear-gradient(to right, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%); }
+            body { padding-top: 100px; }
+            header { padding: 20px 15px 10px; }
+            .brand-title { font-size: 1.8rem; }
+            .hero-intro h2 { font-size: 1.5rem; }
+            .hero-banner { margin-top: 20px; margin-bottom: 40px; }
+            
+            .split-layout { flex-direction: column; text-align: center; }
+            .fused-content { padding: 20px 15px; }
+            
+            .sticky-container h2 { font-size: 1.5rem; }
+            .sc-grid-3 { grid-template-columns: 1fr; }
+            .sc-hero { aspect-ratio: 16/9; }
+            .chat-iframe-wrapper { width: calc(100% - 40px); right: 20px; bottom: 95px; height: 70vh; }
+            .chat-toggle { width: 55px; height: 55px; right: 20px; bottom: 20px; padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">LUV'S STUDIO</div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Details</a>
+            <a href="why-us.html">Why Us</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <a href="pricing.html" class="order-btn-nav">ORDER NOW</a>
+    </nav>
+    
+    <header>
+        <h1 class="brand-title">LUV'S STUDIO</h1>
+    </header>
+    
+    <section class="hero-intro">
+        <h2>Bring Club Vibes To Home</h2>
+        <p>Smart, colorful, and limitless RGBIC controller kits designed to sync with your music and elevate your space.</p>
+        
+        <div class="hero-key-points">
+            <div class="point">🎵 AI Audio Reactivity</div>
+            <div class="point">⚙️ Onboard Processing</div>
+            <div class="point">🌐 App-Free Web Control</div>
+            <div class="point">✨ True RGBIC Technology</div>
+        </div>
+    </section>
+
+    <section class="scroll-reveal-section" id="scrollRevealSection">
+        <div class="sticky-container">
+            <h2>Experience The Transformation</h2>
+            <div class="comparison-slider" id="compContainer">
+                <img src="dark room.png" alt="Before Luv's Studio" class="comp-img comp-before">
+                <img src="main light img.png" alt="After Luv's Studio" class="comp-img comp-after">
+                <div class="scroll-glow-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <main class="feature-container" style="padding-top: 20px;">
+        <!-- Component 1: Controller Hub -->
+        <div class="fused-card">
+            <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(0, 240, 255, 0.15), transparent 50%);"></div>
+            <div class="fused-content">
+                <div class="split-layout">
+                    <div class="split-text">
+                        <h3>The <span class="highlight">Brain</span> of the Kit</h3>
+                        <p>Our self-engineered, high-performance controller hub is custom-built to turn any room into an immersive lighting experience with zero lag.</p>
+                    </div>
+                    <div class="split-image">
+                        <img src="brain.png" alt="Luv's Studio Controller Hub" class="blend-img">
+                    </div>
+                </div>
+                <ul class="feature-list">
+                    <li><strong>AI-Powered Music Sync:</strong> Utilizes an onboard microprocessor and integrated high-sensitivity mic to analyze beats for real-time audio reactivity.</li>
+                    <li><strong>App-Free Interface:</strong> Fully Wi-Fi enabled architecture allows seamless lighting control instantly from any device browser.</li>
+                    <li><strong>Interactive Dynamic Modes:</strong> Features immersive custom animations and interactive light sequences processed directly on the hub.</li>
+                    <li><strong>15+ Professional Presets:</strong> Instantly transform your environment with meticulously engineered visual effects like Northern Lights.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Component 2: WS2812B Strips -->
+        <div class="fused-card">
+            <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(255, 0, 127, 0.15), transparent 50%);"></div>
+            <div class="fused-content">
+                <div class="split-layout">
+                    <div class="split-text">
+                        <h3>Vibrant <span class="highlight">WS2812B</span> Tech</h3>
+                        <p>Powered by premium addressable WS2812B chips delivering liquid-smooth color animations and high-intensity illumination.</p>
+                    </div>
+                    <div class="split-image">
+                        <img src="rgbchip.jpg" alt="WS2812B RGBIC LED Chip" class="blend-img">
+                    </div>
+                </div>
+                <ul class="feature-list">
+                    <li><strong>60 LEDs Per Meter:</strong> High density layout for continuous, gapless brilliance.</li>
+                    <li><strong>Individually Addressable:</strong> True RGBIC tech displaying multiple colors simultaneously.</li>
+                    <li><strong>16 Million+ Colors:</strong> Granular control over precise hue blending channels.</li>
+                    <li><strong>Optimized 5V Power:</strong> Maximum brightness output without excessive heat spots.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Component 3: Power Supply -->
+        <div class="fused-card">
+            <div class="fused-bg-image" style="background-image: linear-gradient(135deg, rgba(9, 9, 14, 0.95), rgba(21, 21, 32, 0.85)), radial-gradient(circle at top right, rgba(0, 240, 255, 0.15), transparent 50%);"></div>
+            <div class="fused-content">
+                <div class="split-layout">
+                    <div class="split-text">
+                        <h3>Reliable <span class="highlight">Power</span> Delivery</h3>
+                        <p>Engineered for safety and long-term durability during extended parties, movie nights, or continuous daily usage.</p>
+                    </div>
+                    <div class="split-image">
+                        <img src="power supply.png" alt="Heavy Duty Power Delivery" class="blend-img">
+                    </div>
+                </div>
+                <ul class="feature-list">
+                    <li><strong>Stable 5V DC Output:</strong> Prevents voltage drops across long running lengths.</li>
+                    <li><strong>Heavy-Duty Regulation:</strong> Built-in thermal and surge protection architecture.</li>
+                    <li><strong>Plug & Play Setup:</strong> Tool-free quick connectors requiring zero technical skills.</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <div class="hero-banner">
+        <img src="hero image.png" alt="Instant Club Vibes with Luv's Studio Kit">
+    </div>
+
+    <section class="premium-showcase" style="padding-top: 0;">
+        <div class="showcase-header">
+            <h2>Why Choose LUV'S STUDIO</h2>
+            
+            <div class="integration-badges">
+                <span class="sc-badge">🚀 Zero-Lag Local Processing</span>
+                <span class="sc-badge">🎨 16 Million+ Color Blends</span>
+                <span class="sc-badge">🌌 15+ Dynamic FX Presets</span>
+            </div>
+        </div>
+
+        <div class="sc-grid-3">
+            <div class="showcase-block sc-card-vertical" style="background: linear-gradient(to bottom, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.7) 100%), url('room final.png') center/cover; background-color: #1a1a24;">
+                <div class="sc-overlay-text pos-top-center">
+                    <h3>One LED Strip. Any Size. Fully Customizable RGBIC Experience.</h3>
+                </div>
+            </div>
+            
+            <div class="showcase-block sc-card-vertical" style="background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 40%), url('hall.png') center/cover; background-color: #12121c;">
+                <div class="sc-overlay-text pos-bottom-center">
+                    <h3>Get on the Dance Floor With Surround Lighting</h3>
+                </div>
+            </div>
+            
+            <div class="showcase-block sc-card-vertical" style="background: radial-gradient(circle at center, rgba(0, 240, 255, 0.08), #0b0b10); padding: 20px; box-sizing: border-box;">
+                <img src="game mode.png" alt="Play and Light Up Interface" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px; display: block; border: none;">
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <details class="faq-item">
+                <summary>Do I need to download an app to control the lights?</summary>
+                <p>No! Our controller hub is fully Wi-Fi enabled. You can connect and control your lighting modes instantly from any web browser on your phone, tablet, or PC without taking up storage space.</p>
+            </details>
+            <details class="faq-item">
+                <summary>How difficult is the installation process?</summary>
+                <p>It's incredibly simple. The kit features a plug-and-play design with tool-free quick connectors. You can have your entire space lit up and synced in under 5 minutes.</p>
+            </details>
+            <details class="faq-item">
+                <summary>How does the music sync feature work?</summary>
+                <p>The controller handles AI music algorithms locally using its onboard processor and integrated microphone, meaning it reacts to your room's audio in real-time without needing to route sound through a secondary device.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Can I cut the LED strips to fit my specific setup?</summary>
+                <p>Yes. The premium WS2812B strips have designated cut lines. You can trim them to fit your exact measurements for a custom desk or monitor setup without damaging the rest of the strip.</p>
+            </details>
+        </div>
+    </section>
+
+    <button class="chat-toggle" id="chatToggleBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <path d="M7.5 9A4.5 4.5 0 0 1 16.5 9" />
+            <path d="M6 9h3v3H6z" />
+            <path d="M15 9h3v3h-3z" />
+            <path d="M18 11v2a2 2 0 0 1-2 2h-1" />
+        </svg>
+    </button>
+    
+    <div class="chat-iframe-wrapper" id="chatWrapper">
+        <button class="close-iframe-btn" id="closeIframeBtn">×</button>
+        <iframe src="https://cdn.botpress.cloud/webchat/v3.7/shareable.html?configUrl=https://files.bpcontent.cloud/2026/09/03/22/20260903221139-V04MM46I.json" frameborder="0"></iframe>
+    </div>
+
+    <!-- Firebase SDK Setup -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-analytics.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyCAApelusEJ_zoenT2cuAbxDMNGkVvxGQU",
+            authDomain: "luv-s-studio.firebaseapp.com",
+            projectId: "luv-s-studio",
+            storageBucket: "luv-s-studio.firebasestorage.app",
+            messagingSenderId: "805135707301",
+            appId: "1:805135707301:web:bdc658baf289569928f14c",
+            measurementId: "G-BTWGNHG7C8"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+
+    <script>
+        const scrollSection = document.getElementById('scrollRevealSection');
+        const compContainer = document.getElementById('compContainer');
+
+        if(scrollSection && compContainer) {
+            window.addEventListener('scroll', () => {
+                const startScroll = scrollSection.offsetTop;
+                const scrollDistance = scrollSection.offsetHeight - window.innerHeight;
+                const currentScroll = window.scrollY - startScroll;
+                let percentage = (currentScroll / scrollDistance) * 100;
+                percentage = Math.max(0, Math.min(100, percentage));
+                compContainer.style.setProperty('--pos', `${percentage}%`);
+            });
+        }
+
+        const toggleBtn = document.getElementById('chatToggleBtn');
+        const chatWrapper = document.getElementById('chatWrapper');
+        const closeBtn = document.getElementById('closeIframeBtn');
+
+        if(toggleBtn && chatWrapper && closeBtn) {
+            toggleBtn.addEventListener('click', () => { chatWrapper.classList.add('active'); });
+            closeBtn.addEventListener('click', () => { chatWrapper.classList.remove('active'); });
+        }
+    </script>
+</body>
+</html>
