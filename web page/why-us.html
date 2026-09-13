@@ -172,17 +172,20 @@
     <section class="media-section">
         <div class="media-grid">
             <div class="media-box reveal-up" style="transition-delay: 0.1s;">
-                <video src="game-demo.mp4.mp4" loop playsinline muted></video>
+                <!-- FIXED: Added autoplay attribute and corrected duplicate extension path -->
+                <video src="game-demo.mp4" autoplay loop playsinline muted></video>
                 <div class="play-indicator">▶</div>
                 <h4 class="video-title">Interactive Games</h4>
             </div>
             <div class="media-box reveal-up" style="transition-delay: 0.2s;">
-                <video src="party-mode.mp4.mp4" loop playsinline muted></video>
+                <!-- FIXED: Added autoplay attribute and corrected duplicate extension path -->
+                <video src="party-mode.mp4" autoplay loop playsinline muted></video>
                 <div class="play-indicator">▶</div>
                 <h4 class="video-title">Instant Party Vibe</h4>
             </div>
             <div class="media-box reveal-up" style="transition-delay: 0.3s;">
-                <video src="unboxing.mp4.mp4" loop playsinline muted></video>
+                <!-- FIXED: Added autoplay attribute and corrected duplicate extension path -->
+                <video src="unboxing.mp4" autoplay loop playsinline muted></video>
                 <div class="play-indicator">▶</div>
                 <h4 class="video-title">Premium Kit</h4>
             </div>
@@ -194,7 +197,6 @@
         <h2 class="reveal-up">Smart By Design</h2>
         <div class="tech-grid">
             <div class="tech-item reveal-up" style="transition-delay: 0.1s;">
-                <!-- Updated: App Control to WiFi Control and icon changed -->
                 <span class="tech-icon">📶</span> Smart WiFi Control
             </div>
             <div class="tech-item reveal-up" style="transition-delay: 0.2s;">
@@ -241,12 +243,12 @@
 
     <!-- JAVASCRIPT FOR HOVER-TO-PLAY, OBSERVER, AND CHATBOT -->
     <script>
-        // 1. Media Hover Logic (Muted added in HTML to ensure autoplay doesn't block on Chrome)
+        // 1. Media Hover Logic (Muted, playsinline, and autoplay compatibility for iOS)
         document.querySelectorAll('.media-box').forEach(box => {
             const video = box.querySelector('video');
             if (video) {
                 box.addEventListener('mouseenter', () => {
-                    video.play().catch(error => console.log("Autoplay blocked."));
+                    video.play().catch(error => console.log("Autoplay blocked:", error));
                 });
                 box.addEventListener('mouseleave', () => {
                     video.pause();
@@ -267,7 +269,7 @@
             chatWrapper.classList.remove('active');
         });
 
-        // 3. Scroll Reveal Logic (Matches Pricing Page)
+        // 3. Scroll Reveal Logic
         const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -30px 0px" };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
