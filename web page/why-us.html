@@ -80,6 +80,21 @@
         .play-indicator { position: absolute; z-index: 2; font-size: 3.5rem; color: rgba(255,255,255,0.85); pointer-events: none; transition: all 0.3s ease; animation: pulsePlay 2s infinite; }
         .media-box:hover .play-indicator { opacity: 0; transform: scale(1.5); }
 
+        /* FIX: Override sticky hover states on touch devices */
+        @media (hover: none) {
+            .media-box:hover .play-indicator {
+                opacity: 1; 
+                transform: none;
+            }
+            .media-box:hover .video-title {
+                opacity: 1;
+                transform: none;
+            }
+            .media-box video {
+                opacity: 1;
+            }
+        }
+
         /* --- SMART FEATURES SECTION --- */
         .tech-specs-section { padding: 60px 20px; background-color: var(--bg-dark); text-align: center; }
         .tech-specs-section h2 { font-size: 2.2rem; margin-bottom: 40px; color: var(--text-main); letter-spacing: 1px; }
@@ -172,20 +187,17 @@
     <section class="media-section">
         <div class="media-grid">
             <div class="media-box reveal-up" style="transition-delay: 0.1s;">
-                <!-- FIXED: Added autoplay attribute and corrected duplicate extension path -->
-                <video src="game-demo.mp4" autoplay loop playsinline muted></video>
+                <video src="game-demo.mp4" loop playsinline muted preload="metadata"></video>
                 <div class="play-indicator">▶</div>
                 <h4 class="video-title">Interactive Games</h4>
             </div>
             <div class="media-box reveal-up" style="transition-delay: 0.2s;">
-                <!-- FIXED: Added autoplay attribute and corrected duplicate extension path -->
-                <video src="party-mode.mp4" autoplay loop playsinline muted></video>
+                <video src="party-mode.mp4" loop playsinline muted preload="metadata"></video>
                 <div class="play-indicator">▶</div>
                 <h4 class="video-title">Instant Party Vibe</h4>
             </div>
             <div class="media-box reveal-up" style="transition-delay: 0.3s;">
-                <!-- FIXED: Added autoplay attribute and corrected duplicate extension path -->
-                <video src="unboxing.mp4" autoplay loop playsinline muted></video>
+                <video src="unboxing.mp4" loop playsinline muted preload="metadata"></video>
                 <div class="play-indicator">▶</div>
                 <h4 class="video-title">Premium Kit</h4>
             </div>
@@ -234,7 +246,12 @@
     
     <div class="chat-iframe-wrapper" id="chatWrapper">
         <button class="close-iframe-btn" id="closeIframeBtn">×</button>
-        <iframe src="https://cdn.botpress.cloud/webchat/v3.7/shareable.html?configUrl=https://files.bpcontent.cloud/2026/09/03/22/20260903221139-V04MM46I.json" frameborder="0"></iframe>
+        <iframe 
+            src="https://cdn.botpress.cloud/webchat/v3.7/shareable.html?configUrl=https://files.bpcontent.cloud/2026/09/03/22/20260903221139-V04MM46I.json" 
+            frameborder="0"
+            sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-top-navigation"
+            allow="clipboard-read; clipboard-write"
+        ></iframe>
     </div>
 
     <footer class="site-footer">
@@ -243,15 +260,61 @@
 
     <!-- JAVASCRIPT FOR HOVER-TO-PLAY, OBSERVER, AND CHATBOT -->
     <script>
-        // 1. Media Hover Logic (Muted, playsinline, and autoplay compatibility for iOS)
-        document.querySelectorAll('.media-box').forEach(box => {
+        // 1. Updated Media Interaction Logic (With Unique iPhone Redirects)
+        const isIPhone = /iPhone/i.test(navigator.userAgent);
+
+        // Store the Instagram links in the correct order
+        const instaLinks = [
+            "https://www.instagram.com/reel/DcRfVWwzTld/?stkn=MWtnbnVtbXp4MHpubA==", // Video 1: Interactive Games
+            "https://www.instagram.com/reel/Db6E6kVTJ26/?stkn=c2o5MDRhZXg4bzNy",       // Video 2: Instant Party Vibe
+            "https://www.instagram.com/reel/DcWcvdGTE5P/?stkn=MWdhbmViY2Rwbmszeg=="  // Video 3: Premium Kit
+        ];
+
+        // Add the 'index' parameter to match the box with its corresponding link
+        document.querySelectorAll('.media-box').forEach((box, index) => {
             const video = box.querySelector('video');
+            const indicator = box.querySelector('.play-indicator');
+            
             if (video) {
+                // Desktop: Play on hover (Ensuring it doesn't trigger on large iPhones)
                 box.addEventListener('mouseenter', () => {
-                    video.play().catch(error => console.log("Autoplay blocked:", error));
+                    if (window.innerWidth > 900 && !isIPhone) {
+                        video.play().catch(e => console.log("Autoplay blocked:", e));
+                    }
                 });
+                
+                // Desktop: Pause on hover exit
                 box.addEventListener('mouseleave', () => {
-                    video.pause();
+                    if (window.innerWidth > 900 && !isIPhone) {
+                        video.pause();
+                    }
+                });
+
+                // Click/Tap interaction
+                box.addEventListener('click', (e) => {
+                    // Check if the device is an iPhone
+                    if (isIPhone) {
+                        // Instantly redirect to the specific Instagram Reel for this video
+                        if (instaLinks[index]) {
+                            window.location.href = instaLinks[index];
+                        }
+                        return; 
+                    }
+
+                    // Normal tap-to-play behavior for Android and other mobile devices
+                    if (window.innerWidth <= 900) {
+                        if (video.paused) {
+                            // Pause other videos before playing
+                            document.querySelectorAll('.media-box video').forEach(v => v.pause());
+                            document.querySelectorAll('.play-indicator').forEach(i => i.style.opacity = '1');
+                            
+                            video.play().catch(e => console.log("Play blocked:", e));
+                            indicator.style.opacity = '0';
+                        } else {
+                            video.pause();
+                            indicator.style.opacity = '1';
+                        }
+                    }
                 });
             }
         });
