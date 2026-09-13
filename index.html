@@ -44,15 +44,45 @@
             border-radius: 20px;
             pointer-events: none;
         }
-        .hero-banner img { 
-            width: 100%; 
-            height: auto; 
-            border-radius: 16px; 
+
+        .animated-light-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            z-index: 2;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .hero-banner .animated-light-container {
             box-shadow: 0 25px 50px rgba(0,0,0,0.8); 
             border: 1px solid rgba(255, 255, 255, 0.15); 
+        }
+
+        .animated-light-container img {
+            width: 100%; 
+            height: auto; 
             display: block; 
-            position: relative;
-            z-index: 2;
+        }
+
+        .music-sync-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 60px rgba(255, 0, 127, 0.6), inset 0 0 120px rgba(0, 240, 255, 0.5);
+            background: radial-gradient(circle, transparent 30%, rgba(255, 0, 127, 0.15) 100%);
+            mix-blend-mode: color-dodge; 
+            animation: beatPulse 0.4s infinite alternate cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            pointer-events: none;
+            z-index: 3;
+            border-radius: inherit;
+        }
+
+        @keyframes beatPulse {
+            0% { opacity: 0.3; filter: brightness(1); }
+            100% { opacity: 1; filter: brightness(1.8) hue-rotate(20deg); }
         }
 
         .hero-intro { text-align: center; padding: 40px 15px 30px; animation: fadeSlideUp 0.8s ease-out forwards; }
@@ -97,7 +127,6 @@
         .feature-list li { font-size: 0.95rem; padding-left: 25px; position: relative; color: var(--text-main); line-height: 1.5; background: rgba(0, 0, 0, 0.3); padding: 12px 15px 12px 35px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); }
         .feature-list li::before { content: '✓'; position: absolute; left: 12px; color: var(--neon-pink); font-weight: bold; }
 
-        /* --- PREMIUM UI SHOWCASE --- */
         .premium-showcase { padding: 80px 15px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 11; background-color: var(--bg-dark); }
         
         .showcase-header { text-align: center; margin-bottom: 30px; }
@@ -128,8 +157,6 @@
         .pos-bottom-center { bottom: 0; left: 0; text-align: center; }
         .pos-top-center { top: 0; left: 0; text-align: center; }
 
-        .sc-mockup-img { z-index: 1; border: 1px solid rgba(255,255,255,0.1); border-bottom: none; display: block; object-fit: cover; }
-
         .integration-badges { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 25px; margin-bottom: 40px; }
         .sc-badge { background: #151520; border: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 30px; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 10px; color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
 
@@ -155,7 +182,6 @@
         .close-iframe-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: 0.2s ease; backdrop-filter: blur(4px); }
         .close-iframe-btn:hover { background: var(--neon-pink); border-color: var(--neon-pink); transform: scale(1.1); }
 
-        /* MOBILE FIXES INCORPORATED */
         @media (max-width: 768px) {
             .top-nav { flex-wrap: wrap; height: auto; padding: 12px 15px; gap: 12px; }
             .nav-brand { order: 1; font-size: 1rem; }
@@ -166,13 +192,10 @@
             .brand-title { font-size: 1.8rem; }
             .hero-intro h2 { font-size: 1.5rem; }
             .hero-banner { margin-top: 20px; margin-bottom: 40px; }
-            
             .split-layout { flex-direction: column; text-align: center; }
             .fused-content { padding: 20px 15px; }
-            
             .sticky-container h2 { font-size: 1.5rem; }
             .sc-grid-3 { grid-template-columns: 1fr; }
-            .sc-hero { aspect-ratio: 16/9; }
             .chat-iframe-wrapper { width: calc(100% - 40px); right: 20px; bottom: 95px; height: 70vh; }
             .chat-toggle { width: 55px; height: 55px; right: 20px; bottom: 20px; padding: 12px; }
         }
@@ -201,10 +224,18 @@
         <div class="hero-key-points">
             <div class="point">🎵 AI Audio Reactivity</div>
             <div class="point">⚙️ Onboard Processing</div>
-            <div class="point">🌐 App-Free Web Control</div>
+            <div class="point">🌐 Smart WiFi Control</div>
             <div class="point">✨ True RGBIC Technology</div>
         </div>
     </section>
+
+    <!-- WRAPPED HERO IMAGE -->
+    <div class="hero-banner">
+        <div class="animated-light-container">
+            <img src="hero image.png" alt="Instant Club Vibes with Luv's Studio Kit">
+            <div class="music-sync-overlay"></div>
+        </div>
+    </div>
 
     <section class="scroll-reveal-section" id="scrollRevealSection">
         <div class="sticky-container">
@@ -228,12 +259,15 @@
                         <p>Our self-engineered, high-performance controller hub is custom-built to turn any room into an immersive lighting experience with zero lag.</p>
                     </div>
                     <div class="split-image">
-                        <img src="brain.png" alt="Luv's Studio Controller Hub" class="blend-img">
+                        <div class="animated-light-container" style="border-radius: 50%; border: none;">
+                            <img src="brain.png" alt="Luv's Studio Controller Hub" class="blend-img">
+                            <div class="music-sync-overlay"></div>
+                        </div>
                     </div>
                 </div>
                 <ul class="feature-list">
                     <li><strong>AI-Powered Music Sync:</strong> Utilizes an onboard microprocessor and integrated high-sensitivity mic to analyze beats for real-time audio reactivity.</li>
-                    <li><strong>App-Free Interface:</strong> Fully Wi-Fi enabled architecture allows seamless lighting control instantly from any device browser.</li>
+                    <li><strong>WiFi Control Interface:</strong> Fully Wi-Fi enabled architecture allows seamless lighting control instantly from any device browser.</li>
                     <li><strong>Interactive Dynamic Modes:</strong> Features immersive custom animations and interactive light sequences processed directly on the hub.</li>
                     <li><strong>15+ Professional Presets:</strong> Instantly transform your environment with meticulously engineered visual effects like Northern Lights.</li>
                 </ul>
@@ -250,7 +284,10 @@
                         <p>Powered by premium addressable WS2812B chips delivering liquid-smooth color animations and high-intensity illumination.</p>
                     </div>
                     <div class="split-image">
-                        <img src="rgbchip.jpg" alt="WS2812B RGBIC LED Chip" class="blend-img">
+                        <div class="animated-light-container" style="border: none;">
+                            <img src="rgbchip.jpg" alt="WS2812B RGBIC LED Chip" class="blend-img">
+                            <div class="music-sync-overlay"></div>
+                        </div>
                     </div>
                 </div>
                 <ul class="feature-list">
@@ -272,7 +309,10 @@
                         <p>Engineered for safety and long-term durability during extended parties, movie nights, or continuous daily usage.</p>
                     </div>
                     <div class="split-image">
-                        <img src="power supply.png" alt="Heavy Duty Power Delivery" class="blend-img">
+                        <div class="animated-light-container" style="border: none;">
+                            <img src="power supply.png" alt="Heavy Duty Power Delivery" class="blend-img">
+                            <div class="music-sync-overlay"></div>
+                        </div>
                     </div>
                 </div>
                 <ul class="feature-list">
@@ -283,10 +323,6 @@
             </div>
         </div>
     </main>
-
-    <div class="hero-banner">
-        <img src="hero image.png" alt="Instant Club Vibes with Luv's Studio Kit">
-    </div>
 
     <section class="premium-showcase" style="padding-top: 0;">
         <div class="showcase-header">
@@ -313,10 +349,20 @@
             </div>
             
             <div class="showcase-block sc-card-vertical" style="background: radial-gradient(circle at center, rgba(0, 240, 255, 0.08), #0b0b10); padding: 20px; box-sizing: border-box;">
-                <img src="game mode.png" alt="Play and Light Up Interface" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px; display: block; border: none;">
+                <div class="animated-light-container" style="border: none; box-shadow: none;">
+                    <img src="game mode.png" alt="Play and Light Up Interface" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px; display: block; border: none;">
+                    <div class="music-sync-overlay" style="border-radius: 12px;"></div>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- INSTAGRAM SOCIAL LINK SECTION (PLACED JUST ABOVE FAQ) -->
+    <div style="text-align: center; margin: 40px 0; padding: 20px; position: relative; z-index: 11;">
+        <a href="https://www.instagram.com/luvs_studio_?stkn=MWtxY294d3E3ejZ3eg==" target="_blank" style="color: var(--neon-pink); text-decoration: none; font-weight: 600; font-size: 1.1rem; border: 1px solid var(--neon-pink); padding: 12px 24px; border-radius: 30px; display: inline-block; box-shadow: 0 0 15px rgba(255, 0, 127, 0.3); transition: 0.3s ease;">
+            📸 Connect with us on Instagram
+        </a>
+    </div>
 
     <section class="faq-section">
         <h2>Frequently Asked Questions</h2>
